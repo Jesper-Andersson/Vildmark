@@ -2,5 +2,10 @@
   "nordic.nordic_tab": "Nordic",
 
   "block.nordic.pine_log": "Pine Log",
-  "block.nordic.pine_planks": "Pine Planks"
+  "block.nordic.pine_planks": "Pine Planks",
+  "block.nordic.pine_sapling": "Pine Sapling",
+  "block.nordic.leave_leaves": "Pine Leaves",
+  "block.nordic.lingonberry_shrub": "Lingonberry Shrub",
+
+  "item.nordic.lingonberry": "Lingonberry"
 }

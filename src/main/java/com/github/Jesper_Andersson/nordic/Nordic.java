@@ -8,8 +8,9 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.grower.SpruceTreeGrower;
+import net.minecraft.world.level.block.grower.OakTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -33,43 +34,45 @@ import org.slf4j.Logger;
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(Nordic.MODID)
 public class Nordic {
-
-    // Define mod id in a common place for everything to reference
     public static final String MODID = "nordic";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
-    // Create a Deferred Register to hold Blocks which will all be registered under the "nordic" namespace
+
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-    // Create a Deferred Register to hold Items which will all be registered under the "nordic" namespace
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
-    //public static final DeferredRegister<SaplingBlock> SAPLING_BLOCKS = DeferredRegister.create(ForgeRegistries.SAPLING_BLOCKS, MODID);
-
-    // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "nordic" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
-    // Creates a new Block with the id "nordic:example_block", combining the namespace and path
-    public static final RegistryObject<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
-    // Creates a new BlockItem with the id "nordic:example_block", combining the namespace and path
-    public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties()));
-    // Creates a new food item with the id "nordic:example_id", nutrition 1 and saturation 2
-    public static final RegistryObject<Item> EXAMPLE_ITEM = ITEMS.register("example_item", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().alwaysEat().nutrition(1).saturationMod(2f).build())));
 
+    public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(Registries.BIOME, MODID);
 
+    //public static final RegistryObject<Biome> PINE_FOREST = BIOMES.register("nordic_forest", () -> new Biome.BiomeBuilder());
+
+    public static final RegistryObject<Block> LINGONBERRY_SHRUB = BLOCKS.register("lingonberry_shrub", () -> new LingonberryShrubBlock(BlockBehaviour.Properties.of()));
+
+    public static final RegistryObject<Block> PINE_SAPLING = BLOCKS.register("pine_sapling", () -> new SaplingBlock(new OakTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
     public static final RegistryObject<Block> PINE_LOG = BLOCKS.register("pine_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).sound(SoundType.WOOD).strength(2f,2f)));
-    public static final RegistryObject<Item> PINE_LOG_ITEM = ITEMS.register("pine_log", () -> new BlockItem(PINE_LOG.get(), new Item.Properties()));
-
     public static final RegistryObject<Block> PINE_PLANKS = BLOCKS.register("pine_planks", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).sound(SoundType.WOOD).strength(2f, 2f)));
+    public static final RegistryObject<Block> PINE_LEAVES = BLOCKS.register("pine_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
+
+    public static final RegistryObject<Item> LINGONBERRY_ITEM = ITEMS.register("lingonberry", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).build())));
+
+    public static final RegistryObject<Item> LINGONBERRY_SHRUB_ITEM = ITEMS.register("lingonberry_shrub", () -> new BlockItem(LINGONBERRY_SHRUB.get(), new Item.Properties()));
+    public static final RegistryObject<Item> PINE_SAPLING_ITEM = ITEMS.register("pine_sapling", () -> new BlockItem(PINE_SAPLING.get(), new Item.Properties()));
+    public static final RegistryObject<Item> PINE_LOG_ITEM = ITEMS.register("pine_log", () -> new BlockItem(PINE_LOG.get(), new Item.Properties()));
     public static final RegistryObject<Item> PINE_PLANKS_ITEM = ITEMS.register("pine_planks", () -> new BlockItem(PINE_PLANKS.get(), new Item.Properties()));
+    public static final RegistryObject<Item> PINE_LEAVES_ITEM = ITEMS.register("pine_leaves", () -> new BlockItem(PINE_LEAVES.get(), new Item.Properties()));
 
     //public static final RegistryObject<SaplingBlock> PINE_SAPLING = SAPLING_BLOCKS.register("pine_sapling", () -> new SaplingBlock(new SpruceTreeGrower(), BlockBehaviour.Properties.of()));
     //public static final RegistryObject<Item> PINE_SAPLING_ITEM = ITEMS.register("pine_sapling", () -> new BlockItem(PINE_SAPLING.get(), new Item.Properties()));
 
-
-    // Creates a creative tab with the id "nordic:example_tab" for the example item, that is placed after the combat tab
-    public static final RegistryObject<CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("nordic_tab", () -> CreativeModeTab.builder().withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> PINE_PLANKS_ITEM.get().getDefaultInstance()).displayItems((parameters, output) -> {
-        output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+    public static final RegistryObject<CreativeModeTab> NORDIC_TAB = CREATIVE_MODE_TABS.register("nordic_tab", () -> CreativeModeTab.builder().withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> PINE_PLANKS_ITEM.get().getDefaultInstance()).displayItems((parameters, output) -> {
         output.accept(PINE_PLANKS_ITEM.get());
         output.accept(PINE_LOG_ITEM.get());
+        output.accept(PINE_SAPLING_ITEM.get());
+        output.accept(PINE_LEAVES_ITEM.get());
+        output.accept(LINGONBERRY_ITEM.get());
+        output.accept(LINGONBERRY_SHRUB_ITEM.get());
+
     }).build());
 
     public Nordic() {
@@ -111,7 +114,7 @@ public class Nordic {
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) event.accept(EXAMPLE_BLOCK_ITEM);
+        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) event.accept(PINE_LOG_ITEM);
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
@@ -130,6 +133,7 @@ public class Nordic {
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+
         }
     }
 }
