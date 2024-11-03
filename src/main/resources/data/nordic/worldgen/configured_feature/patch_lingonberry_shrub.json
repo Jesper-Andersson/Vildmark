@@ -10,7 +10,7 @@
             "state": {
               "Name": "nordic:lingonberry_shrub",
               "Properties": {
-                "age": "3"
+                "age": "2"
               }
             }
           }
@@ -40,8 +40,8 @@
         }
       ]
     },
-    "tries": 96,
-    "xz_spread": 7,
+    "tries": 64,
+    "xz_spread": 5,
     "y_spread": 3
   }
 }

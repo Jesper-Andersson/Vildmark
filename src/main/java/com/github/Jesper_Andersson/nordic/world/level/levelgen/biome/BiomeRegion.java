@@ -1,4 +1,4 @@
-package com.github.Jesper_Andersson.nordic.world.level.levelgen;
+package com.github.Jesper_Andersson.nordic.world.level.levelgen.biome;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Registry;
@@ -25,8 +25,8 @@ public class BiomeRegion extends Region {
         // Overlap Vanilla's parameters with our own for our COLD_BLUE biome.
         // The parameters for this biome are chosen arbitrarily.
         new ParameterPointListBuilder()
-                .temperature(Temperature.span(Temperature.COOL, Temperature.FROZEN))
-                .humidity(Humidity.span(Humidity.ARID, Humidity.DRY))
+                .temperature(Temperature.span(Temperature.WARM, Temperature.COOL))
+                .humidity(Humidity.span(Humidity.NEUTRAL, Humidity.WET))
                 .continentalness(Continentalness.INLAND)
                 .erosion(Erosion.EROSION_0, Erosion.EROSION_1)
                 .depth(Depth.SURFACE, Depth.FLOOR)

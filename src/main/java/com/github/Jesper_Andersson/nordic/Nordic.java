@@ -1,23 +1,22 @@
 package com.github.Jesper_Andersson.nordic;
 
-import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.LingonberryShrubBlock;
-import com.github.Jesper_Andersson.nordic.world.level.levelgen.BiomeRegion;
-import com.github.Jesper_Andersson.nordic.world.level.levelgen.SurfaceRuleData;
+import com.github.Jesper_Andersson.nordic.world.item.NItems;
+import com.github.Jesper_Andersson.nordic.world.level.block.NBlocks;
+import com.github.Jesper_Andersson.nordic.world.level.levelgen.biome.BiomeRegion;
+import com.github.Jesper_Andersson.nordic.world.level.levelgen.biome.SurfaceRuleData;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.grower.OakTreeGrower;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -32,10 +31,13 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistry;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 import terrablender.api.Regions;
 import terrablender.api.SurfaceRuleManager;
+
+import static com.github.Jesper_Andersson.nordic.world.item.NItems.*;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(Nordic.MODID)
@@ -46,32 +48,19 @@ public class Nordic {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
+    public static final DeferredRegister<ConfiguredFeature<?, ?>> CONFIGURED_FEATURES = DeferredRegister.create(Registries.CONFIGURED_FEATURE, MODID);
+    public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registries.PLACED_FEATURE, MODID);
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_LINGONBERRY_SHRUB_CONFIGURED = ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(MODID, "patch_lingonberry_shrub"));
+    public static final ResourceKey<PlacedFeature> PATCH_LINGONBERRY_SHRUB_PLACED = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(MODID, "patch_lingonberry_shrub"));
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PINE_CONFIGURED = ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(MODID, "pine"));
+    public static final ResourceKey<PlacedFeature> PINE_PLACED = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(MODID, "pine"));
+
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(Registries.BIOME, MODID);
-
-    //public static final RegistryObject<Biome> PINE_FOREST = BIOMES.register("nordic_forest", () -> new Biome.BiomeBuilder());
-
-    public static final ResourceKey<PlacedFeature> PATCH_LINGONBERRY_SHRUB = PlacementUtils.createKey("");
-
-    public static final RegistryObject<Block> LINGONBERRY_SHRUB = BLOCKS.register("lingonberry_shrub", () -> new LingonberryShrubBlock(BlockBehaviour.Properties.of().noOcclusion().noCollission().randomTicks()));
-
-    public static final RegistryObject<Block> PINE_SAPLING = BLOCKS.register("pine_sapling", () -> new SaplingBlock(new OakTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
-    public static final RegistryObject<Block> PINE_LOG = BLOCKS.register("pine_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).sound(SoundType.WOOD).strength(2f,2f)));
-    public static final RegistryObject<Block> PINE_PLANKS = BLOCKS.register("pine_planks", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).sound(SoundType.WOOD).strength(2f, 2f)));
-    public static final RegistryObject<Block> PINE_LEAVES = BLOCKS.register("pine_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
-
-    public static final RegistryObject<Item> LINGONBERRIES_ITEM = ITEMS.register("lingonberries", () -> new ItemNameBlockItem(LINGONBERRY_SHRUB.get(), new Item.Properties().food(new FoodProperties.Builder().nutrition(1).build())));
-
-    public static final RegistryObject<Item> LINGONBERRY_SHRUB_ITEM = ITEMS.register("lingonberry_shrub", () -> new BlockItem(LINGONBERRY_SHRUB.get(), new Item.Properties()));
-    public static final RegistryObject<Item> PINE_SAPLING_ITEM = ITEMS.register("pine_sapling", () -> new BlockItem(PINE_SAPLING.get(), new Item.Properties()));
-    public static final RegistryObject<Item> PINE_LOG_ITEM = ITEMS.register("pine_log", () -> new BlockItem(PINE_LOG.get(), new Item.Properties()));
-    public static final RegistryObject<Item> PINE_PLANKS_ITEM = ITEMS.register("pine_planks", () -> new BlockItem(PINE_PLANKS.get(), new Item.Properties()));
-    public static final RegistryObject<Item> PINE_LEAVES_ITEM = ITEMS.register("pine_leaves", () -> new BlockItem(PINE_LEAVES.get(), new Item.Properties()));
-
-    //public static final RegistryObject<SaplingBlock> PINE_SAPLING = SAPLING_BLOCKS.register("pine_sapling", () -> new SaplingBlock(new SpruceTreeGrower(), BlockBehaviour.Properties.of()));
-    //public static final RegistryObject<Item> PINE_SAPLING_ITEM = ITEMS.register("pine_sapling", () -> new BlockItem(PINE_SAPLING.get(), new Item.Properties()));
 
     public static final RegistryObject<CreativeModeTab> NORDIC_TAB = CREATIVE_MODE_TABS.register("nordic_tab", () -> CreativeModeTab.builder().withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> LINGONBERRIES_ITEM.get().getDefaultInstance()).displayItems((parameters, output) -> {
         output.accept(PINE_PLANKS_ITEM.get());
@@ -90,13 +79,18 @@ public class Nordic {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
+        NBlocks.register();
+        NItems.register();
+
         // Register the Deferred Register to the mod event bus so blocks get registered
         BLOCKS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so items get registered
         ITEMS.register(modEventBus);
+
+        CONFIGURED_FEATURES.register(modEventBus);
+        PLACED_FEATURES.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
-
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 

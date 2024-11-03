@@ -1,6 +1,7 @@
 package com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation;
 
 import com.github.Jesper_Andersson.nordic.Nordic;
+import com.github.Jesper_Andersson.nordic.world.item.NItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -38,7 +39,7 @@ public class LingonberryShrubBlock extends BushBlock implements BonemealableBloc
     }
 
     public ItemStack getCloneItemStack(BlockGetter pLevel, BlockPos pPos, BlockState pState) {
-        return new ItemStack(Nordic.LINGONBERRIES_ITEM.get());
+        return new ItemStack(NItems.LINGONBERRIES_ITEM.get());
     }
 
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
@@ -76,7 +77,7 @@ public class LingonberryShrubBlock extends BushBlock implements BonemealableBloc
             return InteractionResult.PASS;
         } else if (i > 2) {
             int j = 1 + pLevel.random.nextInt(2);
-            popResource(pLevel, pPos, new ItemStack(Nordic.LINGONBERRIES_ITEM.get(), j + (flag ? 1 : 0)));
+            popResource(pLevel, pPos, new ItemStack(NItems.LINGONBERRIES_ITEM.get(), j + (flag ? 1 : 0)));
             pLevel.playSound((Player)null, pPos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + pLevel.random.nextFloat() * 0.4F);
             BlockState blockstate = pState.setValue(AGE, Integer.valueOf(1));
             pLevel.setBlock(pPos, blockstate, 2);
@@ -103,7 +104,9 @@ public class LingonberryShrubBlock extends BushBlock implements BonemealableBloc
     //TODO - Fix
     @Override
     public void performBonemeal(ServerLevel pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
-        int i = Math.min(3, pState.getValue(AGE) + 1);
-        pLevel.setBlock(pPos, pState.setValue(AGE, Integer.valueOf(i)), 2);
+        if (pState.getValue(AGE) < 4) {
+            int i = pState.getValue(AGE) + 1;
+            pLevel.setBlock(pPos, pState.setValue(AGE, Integer.valueOf(i)), 2);
+        }
     }
 }

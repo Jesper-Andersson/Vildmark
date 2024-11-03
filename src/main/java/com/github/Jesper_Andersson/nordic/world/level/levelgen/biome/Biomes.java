@@ -1,4 +1,4 @@
-package com.github.Jesper_Andersson.nordic.world.level.levelgen;
+package com.github.Jesper_Andersson.nordic.world.level.levelgen.biome;
 
 import com.github.Jesper_Andersson.nordic.Nordic;
 import net.minecraft.core.registries.Registries;

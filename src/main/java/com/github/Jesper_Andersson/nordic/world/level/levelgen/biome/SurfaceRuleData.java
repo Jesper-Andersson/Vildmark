@@ -1,4 +1,4 @@
-package com.github.Jesper_Andersson.nordic.world.level.levelgen;
+package com.github.Jesper_Andersson.nordic.world.level.levelgen.biome;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -15,7 +15,6 @@ public class SurfaceRuleData {
         SurfaceRules.RuleSource grassSurface = SurfaceRules.sequence(SurfaceRules.ifTrue(isAtOrAboveWaterLevel, GRASS_BLOCK), DIRT);
 
         return SurfaceRules.sequence(
-                SurfaceRules.ifTrue(SurfaceRules.isBiome(Biomes.PINE_FOREST), MOSS_BLOCK),
                 // Default to a grass and dirt surface
                 SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, grassSurface)
         );

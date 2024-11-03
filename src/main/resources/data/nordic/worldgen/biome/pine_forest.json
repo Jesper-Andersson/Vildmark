@@ -6,7 +6,7 @@
       "minecraft:canyon"
     ]
   },
-  "downfall": 0.9,
+  "downfall": 0.8,
   "effects": {
     "fog_color": 12638463,
     "mood_sound": {
@@ -72,15 +72,18 @@
     [
       "minecraft:glow_lichen",
       "minecraft:patch_large_fern",
-      "minecraft:trees_taiga",
       "minecraft:flower_default",
       "minecraft:patch_grass_taiga_2",
       "minecraft:brown_mushroom_taiga",
       "minecraft:red_mushroom_taiga",
+      "minecraft:forest_rock",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_pumpkin",
       "minecraft:patch_berry_common",
       "nordic:patch_lingonberry_shrub"
+    ],
+    [
+      "nordic:pine"
     ],
     [
       "minecraft:freeze_top_layer"
@@ -204,5 +207,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.45
+  "temperature": 0.60
 }
