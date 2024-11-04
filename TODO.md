@@ -20,11 +20,15 @@ Pine forest
 
 Wild Strawberry
 
-Lingonberry
+Lingonberry 
+
+Blueberry
 
 Cloudberry
 
 Chantarelles
+
+Pink Petals Chantarelles/Pine needles
 
 ## Structures
 

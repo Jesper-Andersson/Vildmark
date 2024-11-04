@@ -10,6 +10,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.*;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -54,6 +56,12 @@ public class Nordic {
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_LINGONBERRY_SHRUB_CONFIGURED = ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(MODID, "patch_lingonberry_shrub"));
     public static final ResourceKey<PlacedFeature> PATCH_LINGONBERRY_SHRUB_PLACED = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(MODID, "patch_lingonberry_shrub"));
 
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_BLUEBERRY_SHRUB_CONFIGURED = ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(MODID, "patch_blueberry_shrub"));
+    public static final ResourceKey<PlacedFeature> PATCH_BLUEBERRY_SHRUB_PLACED = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(MODID, "patch_blueberry_shrub"));
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CHANTARELLE_CONFIGURED = ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(MODID, "patch_chantarelle"));
+    public static final ResourceKey<PlacedFeature> PATCH_CHANTARELLE_PLACED = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(MODID, "patch_chantarelle"));
+
     public static final ResourceKey<ConfiguredFeature<?, ?>> PINE_CONFIGURED = ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(MODID, "pine"));
     public static final ResourceKey<PlacedFeature> PINE_PLACED = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(MODID, "pine"));
 
@@ -69,7 +77,9 @@ public class Nordic {
         output.accept(PINE_LEAVES_ITEM.get());
         output.accept(LINGONBERRIES_ITEM.get());
         output.accept(LINGONBERRY_SHRUB_ITEM.get());
-
+        output.accept(BLUEBERRIES_ITEM.get());
+        output.accept(BLUEBERRY_SHRUB_ITEM.get());
+        output.accept(CHANTARELLE_ITEM.get());
     }).build());
 
     public Nordic() {

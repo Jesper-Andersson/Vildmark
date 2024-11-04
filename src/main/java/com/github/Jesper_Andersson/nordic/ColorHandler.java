@@ -1,5 +1,6 @@
 package com.github.Jesper_Andersson.nordic;
 
+import com.github.Jesper_Andersson.nordic.world.item.NItems;
 import com.github.Jesper_Andersson.nordic.world.level.block.NBlocks;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.FoliageColor;
@@ -22,18 +23,20 @@ public class ColorHandler {
                     return blockAndTintGetter != null && blockPos != null ?
                             BiomeColors.getAverageFoliageColor(blockAndTintGetter, blockPos) :
                             FoliageColor.getDefaultColor();
-                } )
+
+                }),
+                NBlocks.PINE_LEAVES.get()
         );
+
     }
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
         event.getItemColors().register(
                 (itemStack, tintIndex) -> {
-                    BlockState blockstate = ((BlockItem)itemStack.getItem()).getBlock().defaultBlockState();
                     return FoliageColor.getDefaultColor();
                 },
-                NBlocks.PINE_LEAVES.get()
+                NItems.PINE_LEAVES_ITEM.get()
         );
     }
 }

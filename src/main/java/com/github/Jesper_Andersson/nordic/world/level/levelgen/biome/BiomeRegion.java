@@ -25,7 +25,7 @@ public class BiomeRegion extends Region {
         // Overlap Vanilla's parameters with our own for our COLD_BLUE biome.
         // The parameters for this biome are chosen arbitrarily.
         new ParameterPointListBuilder()
-                .temperature(Temperature.span(Temperature.WARM, Temperature.COOL))
+                .temperature(Temperature.span(Temperature.NEUTRAL, Temperature.COOL))
                 .humidity(Humidity.span(Humidity.NEUTRAL, Humidity.WET))
                 .continentalness(Continentalness.INLAND)
                 .erosion(Erosion.EROSION_0, Erosion.EROSION_1)
@@ -35,5 +35,7 @@ public class BiomeRegion extends Region {
 
         // Add our points to the mapper
         builder.build().forEach(mapper::accept);
+
     }
+
 }

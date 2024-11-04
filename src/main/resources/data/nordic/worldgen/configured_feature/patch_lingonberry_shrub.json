@@ -28,7 +28,11 @@
               },
               {
                 "type": "minecraft:matching_blocks",
-                "blocks": "minecraft:grass_block",
+                "blocks": ["minecraft:grass_block","minecraft:dirt",
+                  "minecraft:grass_block",
+                  "minecraft:podzol",
+                  "minecraft:coarse_dirt",
+                  "minecraft:rooted_dirt"],
                 "offset": [
                   0,
                   -1,
