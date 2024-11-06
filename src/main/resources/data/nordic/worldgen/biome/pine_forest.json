@@ -71,13 +71,10 @@
     ],
     [
       "minecraft:glow_lichen",
+      "nordic:pine",
       "minecraft:forest_flowers",
       "minecraft:birch_bees_002",
       "minecraft:patch_grass_taiga_2",
-      "minecraft:brown_mushroom_taiga",
-      "minecraft:red_mushroom_taiga",
-      "nordic:patch_chantarelle",
-      "minecraft:forest_rock",
       "minecraft:patch_waterlily",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_berry_rare",
@@ -85,7 +82,9 @@
       "nordic:patch_blueberry_shrub"
     ],
     [
-      "nordic:pine"
+      "nordic:patch_chantarelle",
+      "minecraft:brown_mushroom_taiga",
+      "minecraft:red_mushroom_taiga"
     ],
     [
       "minecraft:freeze_top_layer"
