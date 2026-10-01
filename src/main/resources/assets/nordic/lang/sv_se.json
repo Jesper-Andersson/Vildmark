@@ -1,0 +1,20 @@
+{
+  "block.nordic.reed": "Vass",
+  "block.nordic.peat": "Torv",
+  "biome.nordic.bog": "Myr",
+  "entity.nordic.pike": "Gädda",
+  "entity.nordic.roach": "Mört",
+  "item.nordic.pike": "Rå gädda",
+  "item.nordic.cooked_pike": "Tillagad gädda",
+  "item.nordic.pike_bucket": "Hink med gädda",
+  "item.nordic.pike_spawn_egg": "Gäddägg",
+  "item.nordic.roach": "Rå mört",
+  "item.nordic.cooked_roach": "Tillagad mört",
+  "item.nordic.roach_bucket": "Hink med mört",
+  "item.nordic.roach_spawn_egg": "Mörtägg",
+  "item.nordic.cloudberries": "Hjortron",
+  "block.nordic.cloudberry_shrub": "Hjortronris",
+  "block.nordic.cotton_grass": "Ängsull",
+  "block.nordic.sundew": "Sileshår",
+  "block.nordic.peat_iron_ore": "Myrmalm"
+}

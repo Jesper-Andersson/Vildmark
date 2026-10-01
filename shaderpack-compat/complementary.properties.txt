@@ -1,0 +1,12 @@
+# Complementary Reimagined r5.9.3 -- shaders/block.properties
+# Append the Nordic IDs to the END of the existing lines (do not add new lines with the same key).
+
+# Foliage (line "block.10005=grass short_grass fern ... sweet_berry_bush ...")
+#   append:
+nordic:lingonberry_shrub nordic:blueberry_shrub
+
+# Leaves (two lines, waterlogged false / true)
+#   block.10009=... append:
+nordic:pine_leaves:waterlogged=false
+#   block.10011=... append:
+nordic:pine_leaves:waterlogged=true

@@ -1,0 +1,59 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.roach.flop": {
+      "loop": true,
+      "animation_length": 0.4,
+      "bones": {
+        "body_back": {
+          "rotation": [
+            0,
+            "math.cos(query.anim_time * 20 * 45.0) * -15.22",
+            0
+          ]
+        },
+        "body_front": {
+          "rotation": [
+            0,
+            "math.cos(query.anim_time * 20 * 45.0) * 2.8",
+            0
+          ]
+        },
+        "tailfin": {
+          "rotation": [
+            0,
+            "math.cos(query.anim_time * 20 * 45.0) * -28.0",
+            0
+          ]
+        }
+      }
+    },
+    "animation.roach.swim": {
+      "loop": true,
+      "animation_length": 0.6,
+      "bones": {
+        "body_back": {
+          "rotation": [
+            0,
+            "math.cos(query.anim_time * 20 * 30.0) * -15.22",
+            0
+          ]
+        },
+        "body_front": {
+          "rotation": [
+            0,
+            "math.cos(query.anim_time * 20 * 30.0) * 2.8",
+            0
+          ]
+        },
+        "tailfin": {
+          "rotation": [
+            0,
+            "math.cos(query.anim_time * 20 * 30.0) * -28.0",
+            0
+          ]
+        }
+      }
+    }
+  }
+}
