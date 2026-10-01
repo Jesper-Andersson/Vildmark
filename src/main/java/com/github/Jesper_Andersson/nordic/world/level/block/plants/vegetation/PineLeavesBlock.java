@@ -25,9 +25,12 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import com.mojang.serialization.MapCodec;
+
 import java.util.OptionalInt;
 
-public class PineLeavesBlock extends LeavesBlock implements SimpleWaterloggedBlock, net.minecraftforge.common.IForgeShearable {
+public class PineLeavesBlock extends LeavesBlock implements SimpleWaterloggedBlock, net.neoforged.neoforge.common.IShearable {
+    public static final MapCodec<PineLeavesBlock> CODEC = simpleCodec(PineLeavesBlock::new);
     public static final int DECAY_DISTANCE = 7;
     public static final IntegerProperty DISTANCE = BlockStateProperties.DISTANCE;
     public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
@@ -37,6 +40,11 @@ public class PineLeavesBlock extends LeavesBlock implements SimpleWaterloggedBlo
    public PineLeavesBlock(BlockBehaviour.Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(DISTANCE, Integer.valueOf(7)).setValue(PERSISTENT, Boolean.valueOf(false)).setValue(WATERLOGGED, Boolean.valueOf(false)));
+    }
+
+    @Override
+    public MapCodec<? extends LeavesBlock> codec() {
+        return CODEC;
     }
 
     public VoxelShape getBlockSupportShape(BlockState pState, BlockGetter pReader, BlockPos pPos) {

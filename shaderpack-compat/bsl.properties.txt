@@ -1,0 +1,7 @@
+# BSL (and other BSL-derived packs) -- shaders/block.properties
+# Not verified against an installed copy: entry numbers differ between versions.
+# Find the line containing minecraft:oak_leaves (leaves, usually block.10018 or similar)
+# and append:        nordic:pine_leaves
+# Find the line containing sweet_berry_bush (single-tall/cross foliage, usually block.10031 or similar)
+# and append:        nordic:lingonberry_shrub nordic:blueberry_shrub
+# If a pack's lines use bare names (no namespace) for vanilla, the "nordic:" prefix is still required.
