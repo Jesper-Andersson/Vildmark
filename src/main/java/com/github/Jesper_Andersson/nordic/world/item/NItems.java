@@ -35,6 +35,7 @@ public class NItems {
     public static final DeferredItem<Item> CLOUDBERRY_SHRUB_ITEM = ITEMS.register("cloudberry_shrub", () -> new BlockItem(CLOUDBERRY_SHRUB.get(), new Item.Properties()));
 
     public static final DeferredItem<Item> REED_ITEM = ITEMS.register("reed", () -> new BlockItem(REED.get(), new Item.Properties()));
+    public static final DeferredItem<Item> CATTAIL_ITEM = ITEMS.register("cattail", () -> new BlockItem(CATTAIL.get(), new Item.Properties()));
 
     public static final DeferredItem<Item> PINE_SAPLING_ITEM = ITEMS.register("pine_sapling", () -> new BlockItem(PINE_SAPLING.get(), new Item.Properties()));
     public static final DeferredItem<Item> PINE_LOG_ITEM = ITEMS.register("pine_log", () -> new BlockItem(PINE_LOG.get(), new Item.Properties()));
@@ -45,6 +46,10 @@ public class NItems {
     public static final DeferredItem<Item> PEAT_IRON_ORE_ITEM = ITEMS.register("peat_iron_ore", () -> new BlockItem(PEAT_IRON_ORE.get(), new Item.Properties()));
     public static final DeferredItem<Item> COTTON_GRASS_ITEM = ITEMS.register("cotton_grass", () -> new BlockItem(COTTON_GRASS.get(), new Item.Properties()));
     public static final DeferredItem<Item> SUNDEW_ITEM = ITEMS.register("sundew", () -> new BlockItem(SUNDEW.get(), new Item.Properties()));
+    public static final DeferredItem<Item> BEARD_LICHEN_ITEM = ITEMS.register("beard_lichen", () -> new BlockItem(BEARD_LICHEN.get(), new Item.Properties()));
+    public static final DeferredItem<Item> STINGING_NETTLE_ITEM = ITEMS.register("stinging_nettle", () -> new BlockItem(STINGING_NETTLE.get(), new Item.Properties()));
+    public static final DeferredItem<Item> SNAKE_FERN_ITEM = ITEMS.register("snakefern", () -> new BlockItem(SNAKE_FERN.get(), new Item.Properties()));
+    public static final DeferredItem<Item> HEATHER_ITEM = ITEMS.register("heather", () -> new BlockItem(HEATHER.get(), new Item.Properties()));
 
     // White colors so the custom egg texture isn't tinted
     public static final DeferredItem<Item> BARROW_WIGHT_SPAWN_EGG = ITEMS.register("barrow_wight_spawn_egg", () -> new DeferredSpawnEggItem(NEntities.BARROW_WIGHT, 0xFFFFFF, 0xFFFFFF, new Item.Properties()));
@@ -60,6 +65,8 @@ public class NItems {
 
     public static final DeferredItem<Item> PIKE_SPAWN_EGG = ITEMS.register("pike_spawn_egg", () -> new DeferredSpawnEggItem(NEntities.PIKE, 0x4F5F32, 0xC8C27A, new Item.Properties()));
     public static final DeferredItem<Item> ROACH_SPAWN_EGG = ITEMS.register("roach_spawn_egg", () -> new DeferredSpawnEggItem(NEntities.ROACH, 0xB9C0C6, 0xC2402E, new Item.Properties()));
+    public static final DeferredItem<Item> MOOSE_SPAWN_EGG = ITEMS.register("moose_spawn_egg", () -> new DeferredSpawnEggItem(NEntities.MOOSE, 0x4A3526, 0xA08B6E, new Item.Properties()));
+    public static final DeferredItem<Item> TOMTE_SPAWN_EGG = ITEMS.register("tomte_spawn_egg", () -> new DeferredSpawnEggItem(NEntities.TOMTE, 0xB02A2A, 0x7A7A7A, new Item.Properties()));
 
     public static void register() {}
 }

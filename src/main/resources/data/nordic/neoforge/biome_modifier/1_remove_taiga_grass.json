@@ -1,0 +1,9 @@
+{
+  "type": "neoforge:remove_features",
+  "biomes": "#minecraft:is_taiga",
+  "features": [
+    "minecraft:patch_grass_taiga",
+    "minecraft:patch_grass_taiga_2"
+  ],
+  "steps": "vegetal_decoration"
+}

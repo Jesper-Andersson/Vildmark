@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "ChunkMapMixin",
+    "NoiseBasedChunkGeneratorMixin",
     "RandomStateAccessor"
   ],
   "client": [

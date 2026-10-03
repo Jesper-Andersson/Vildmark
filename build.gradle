@@ -26,6 +26,12 @@ sourceSets.main.resources {
     exclude("src/generated/**/.cache") // datagen cache files
 }
 
+// Dev-only: classpath for the "compatClient" run (main + worldgen overhaul mods)
+sourceSets { compat {} }
+configurations {
+    compatRuntimeClasspath.extendsFrom runtimeClasspath
+}
+
 repositories {
     // Add here additional repositories if required by some of the dependencies below.
     maven { url = 'https://maven.minecraftforge.net/' }
@@ -33,6 +39,15 @@ repositories {
     exclusiveContent {
         forRepository { maven { name = 'Modrinth'; url = 'https://api.modrinth.com/maven' } }
         filter { includeGroup 'maven.modrinth' }
+    }
+    exclusiveContent {
+        forRepository { maven { name = 'SmartBrainLib'; url = 'https://dl.cloudsmith.io/public/tslat/sbl/maven/' } }
+        filter { includeGroup 'net.tslat.smartbrainlib' }
+    }
+    // Biome Pick'n'Choose, run publishToMavenLocal in its repo first
+    exclusiveContent {
+        forRepository { mavenLocal() }
+        filter { includeModule 'com.github.Jesper_Andersson', 'biomepicknchoose' }
     }
 }
 
@@ -61,6 +76,14 @@ neoForge {
         client {
             client()
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        // Client with Sodium/Iris + Terralith, Tectonic and C2ME for compatibility testing
+        compatClient {
+            client()
+            sourceSet = sourceSets.compat
+            gameDirectory = project.file('run-compat')
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
@@ -146,10 +169,24 @@ dependencies {
 
     implementation "com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}"
     implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
+    implementation "maven.modrinth:lithostitched:${lithostitched_version}"
+    implementation "maven.modrinth:apollib:${apollib_version}"
+    implementation "net.tslat.smartbrainlib:SmartBrainLib-neoforge-${minecraft_version}:${smartbrainlib_version}"
+
+    // Optional: lists Nordic's biomes and lets lakes respect disabled biomes, see compat/BiomePickCompat
+    // Remove the localRuntime line to test Nordic without it
+    compileOnly "com.github.Jesper_Andersson:biomepicknchoose:${biomepicknchoose_version}"
+    localRuntime "com.github.Jesper_Andersson:biomepicknchoose:${biomepicknchoose_version}"
 
     // Dev-only: shader testing (Iris requires this exact Sodium version)
     localRuntime "maven.modrinth:sodium:mc1.21.1-0.6.13-neoforge"
     localRuntime "maven.modrinth:iris:1.8.12+1.21.1-neoforge"
+
+    // Dev-only: worldgen compat testing, only on the compatClient run
+    compatRuntimeOnly sourceSets.main.output
+    compatRuntimeOnly "maven.modrinth:terralith:${terralith_version}"
+    compatRuntimeOnly "maven.modrinth:tectonic:${tectonic_version}"
+    compatRuntimeOnly "maven.modrinth:c2me-neoforge:${c2me_version}"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -168,6 +205,10 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_description        : mod_description,
             terrablender_version_range : terrablender_version_range,
             geckolib_version_range : geckolib_version_range,
+            lithostitched_version_range : lithostitched_version_range,
+            apollib_version_range : apollib_version_range,
+            smartbrainlib_version_range : smartbrainlib_version_range,
+            biomepicknchoose_version_range : biomepicknchoose_version_range,
             neo_version_range : neo_version_range
     ]
     inputs.properties replaceProperties

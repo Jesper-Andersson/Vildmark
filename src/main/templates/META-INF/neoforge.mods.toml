@@ -73,3 +73,31 @@ versionRange = "${geckolib_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
+[[dependencies."${mod_id}"]]
+modId = "lithostitched"
+type = "required"
+versionRange = "${lithostitched_version_range}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies."${mod_id}"]]
+modId = "apollib"
+type = "required"
+versionRange = "${apollib_version_range}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies."${mod_id}"]]
+modId = "smartbrainlib"
+type = "required"
+versionRange = "${smartbrainlib_version_range}"
+ordering = "NONE"
+side = "BOTH"
+
+# Optional: lists Nordic's biomes in its menu, lakes respect biomes turned off in it
+[[dependencies."${mod_id}"]]
+modId = "biomepicknchoose"
+type = "optional"
+versionRange = "${biomepicknchoose_version_range}"
+ordering = "NONE"
+side = "BOTH"

@@ -12,6 +12,9 @@ public class Biomes {
     public static final ResourceKey<Biome> LAKE = register("lake");
     public static final ResourceKey<Biome> RIVER = register("river");
     public static final ResourceKey<Biome> BOG = register("bog");
+    public static final ResourceKey<Biome> BIRCH_PINE_FOREST = register("birch_pine_forest");
+    public static final ResourceKey<Biome> PLAINS = register("plains");
+    public static final ResourceKey<Biome> TUNDRA = register("tundra");
 
     private static ResourceKey<Biome> register(String name)
     {

@@ -19,7 +19,7 @@ public class BiomeRegion extends Region {
     // Forests are given a small offset so the lake wins wherever the boxes overlap
     private static final float FOREST_OFFSET = 0.01F;
 
-    // Outer forest box, split by humidity between the two forests
+    // Outer forest box, split by humidity into plains, birch pine, pine and spruce pine forest
     private static final Climate.Parameter FOREST_TEMPERATURE = Temperature.span(Temperature.COOL, Temperature.NEUTRAL);
     private static final Climate.Parameter FOREST_CONTINENTALNESS = Continentalness.span(Continentalness.NEAR_INLAND, Continentalness.FAR_INLAND);
     private static final Climate.Parameter FOREST_EROSION = Erosion.span(Erosion.EROSION_2, Erosion.EROSION_5);
@@ -36,6 +36,8 @@ public class BiomeRegion extends Region {
     private static final List<Climate.Parameter> LAKE_WEIRDNESS = List.of(
             Climate.Parameter.span(-0.48F, -0.14F),
             Climate.Parameter.span(0.14F, 0.48F));
+
+    private static final Climate.Parameter TUNDRA_HUMIDITY = Humidity.span(Humidity.ARID, Humidity.NEUTRAL);
 
     private static final Climate.Parameter RIVER_HUMIDITY = Humidity.span(Humidity.NEUTRAL, Humidity.WET);
     // Rivers stay out of high (low-erosion) mountain terrain
@@ -60,6 +62,14 @@ public class BiomeRegion extends Region {
                         FOREST_EROSION, depth, weirdness, FOREST_OFFSET), Biomes.PINE_FOREST);
                 builder.add(Climate.parameters(FOREST_TEMPERATURE, Humidity.WET.parameter(), FOREST_CONTINENTALNESS,
                         FOREST_EROSION, depth, weirdness, FOREST_OFFSET), Biomes.SPRUCE_PINE_FOREST);
+                builder.add(Climate.parameters(FOREST_TEMPERATURE, Humidity.DRY.parameter(), FOREST_CONTINENTALNESS,
+                        FOREST_EROSION, depth, weirdness, FOREST_OFFSET), Biomes.BIRCH_PINE_FOREST);
+                builder.add(Climate.parameters(FOREST_TEMPERATURE, Humidity.ARID.parameter(), FOREST_CONTINENTALNESS,
+                        FOREST_EROSION, depth, weirdness, FOREST_OFFSET), Biomes.PLAINS);
+                // Tundra takes the cold, drier part beyond the forests. Vanilla (frozen) rivers may still cross it,
+                // as the Nordic river box only covers the forest temperature
+                builder.add(Climate.parameters(Temperature.ICY.parameter(), TUNDRA_HUMIDITY, FOREST_CONTINENTALNESS,
+                        FOREST_EROSION, depth, weirdness, FOREST_OFFSET), Biomes.TUNDRA);
             }
             // Bog replaces vanilla swamps in the forest's temperature range, using the swamp's footprint
             builder.add(Climate.parameters(FOREST_TEMPERATURE, Humidity.FULL_RANGE.parameter(), FOREST_CONTINENTALNESS,

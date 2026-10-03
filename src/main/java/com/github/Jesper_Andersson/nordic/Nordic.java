@@ -1,11 +1,13 @@
 package com.github.Jesper_Andersson.nordic;
 
+import com.github.Jesper_Andersson.nordic.compat.BiomePickCompat;
 import com.github.Jesper_Andersson.nordic.world.entity.NEntities;
 import com.github.Jesper_Andersson.nordic.world.item.NItems;
 import com.github.Jesper_Andersson.nordic.world.level.block.NBlocks;
 import com.github.Jesper_Andersson.nordic.world.level.levelgen.biome.BiomeRegion;
-import com.github.Jesper_Andersson.nordic.world.level.levelgen.biome.SurfaceRuleData;
-import com.github.Jesper_Andersson.nordic.world.level.levelgen.feature.treedecorators.PlaceOnGroundDecorator;
+import com.github.Jesper_Andersson.nordic.world.level.levelgen.biome.Biomes;
+import com.github.Jesper_Andersson.nordic.world.level.levelgen.feature.NFeatures;
+import com.github.Jesper_Andersson.nordic.world.level.levelgen.feature.treedecorators.NTreeDecorators;
 import com.github.Jesper_Andersson.nordic.world.level.levelgen.lake.LakeBasin;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
@@ -30,9 +32,10 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.InterModComms;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.event.lifecycle.InterModEnqueueEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
@@ -40,7 +43,8 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.slf4j.Logger;
 import terrablender.api.Regions;
-import terrablender.api.SurfaceRuleManager;
+
+import java.util.List;
 
 import static com.github.Jesper_Andersson.nordic.world.item.NItems.*;
 
@@ -80,6 +84,7 @@ public class Nordic {
         output.accept(PINE_SAPLING_ITEM.get());
         output.accept(PINE_LEAVES_ITEM.get());
         output.accept(PINE_NEEDLES_ITEM.get());
+        output.accept(BEARD_LICHEN_ITEM.get());
         output.accept(PEAT_ITEM.get());
         output.accept(PEAT_IRON_ORE_ITEM.get());
         output.accept(LINGONBERRIES_ITEM.get());
@@ -90,8 +95,12 @@ public class Nordic {
         output.accept(CLOUDBERRY_SHRUB_ITEM.get());
         output.accept(CHANTARELLE_ITEM.get());
         output.accept(REED_ITEM.get());
+        output.accept(CATTAIL_ITEM.get());
         output.accept(COTTON_GRASS_ITEM.get());
         output.accept(SUNDEW_ITEM.get());
+        output.accept(STINGING_NETTLE_ITEM.get());
+        output.accept(SNAKE_FERN_ITEM.get());
+        output.accept(HEATHER_ITEM.get());
         output.accept(BARROW_WIGHT_SPAWN_EGG.get());
         output.accept(PIKE.get());
         output.accept(COOKED_PIKE.get());
@@ -101,11 +110,14 @@ public class Nordic {
         output.accept(COOKED_ROACH.get());
         output.accept(ROACH_BUCKET.get());
         output.accept(ROACH_SPAWN_EGG.get());
+        output.accept(MOOSE_SPAWN_EGG.get());
+        output.accept(TOMTE_SPAWN_EGG.get());
     }).build());
 
     public Nordic(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::enqueueIMC);
 
         NBlocks.register();
         NEntities.register();
@@ -120,7 +132,8 @@ public class Nordic {
         CONFIGURED_FEATURES.register(modEventBus);
         PLACED_FEATURES.register(modEventBus);
         LakeBasin.register(modEventBus);
-        PlaceOnGroundDecorator.register(modEventBus);
+        NTreeDecorators.register(modEventBus);
+        NFeatures.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
         // Register ourselves for server and other game events we are interested in
@@ -128,27 +141,24 @@ public class Nordic {
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
-
-        // Register our mod's ModConfigSpec so that NeoForge can create and load the config file for us
-        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() ->
                 {
                     Regions.register(new BiomeRegion(ResourceLocation.fromNamespaceAndPath(MODID, "overworld_1"), 2));
-
-                    SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MODID, SurfaceRuleData.makeRules());
                 });
 
         // Some common setup code
         LOGGER.info("HELLO FROM COMMON SETUP");
         LOGGER.info("DIRT BLOCK >> {}", BuiltInRegistries.BLOCK.getKey(Blocks.DIRT));
-        if (Config.logDirtBlock) LOGGER.info("DIRT BLOCK >> {}", BuiltInRegistries.BLOCK.getKey(Blocks.DIRT));
+    }
 
-        LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber);
-
-        Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
+    // Lists Nordic's biomes in Biome Pick'n'Choose before a world is loaded. Does nothing when it isn't installed
+    private void enqueueIMC(final InterModEnqueueEvent event) {
+        InterModComms.sendTo(BiomePickCompat.MODID, "register_biomes", () -> List.of(
+                Biomes.PINE_FOREST, Biomes.SPRUCE_PINE_FOREST, Biomes.LAKE, Biomes.RIVER, Biomes.BOG,
+                Biomes.BIRCH_PINE_FOREST, Biomes.PLAINS, Biomes.TUNDRA));
     }
 
     // Add the example block item to the building blocks tab

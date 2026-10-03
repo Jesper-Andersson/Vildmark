@@ -28,7 +28,22 @@ public class Config {
     // a list of strings that are treated as resource locations for items
     private static final ModConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER.comment("A list of items to log on common setup.").defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), () -> "", Config::validateItemName);
 
-    static final ModConfigSpec SPEC = BUILDER.build();
+    static {
+        BUILDER.push("worldgen");
+    }
+
+    // Biomes listed here are replaced by the nearest enabled biome by climate in newly generated overworld chunks.
+    // Read when a world starts, see BiomeToggles
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> DISABLED_BIOMES = BUILDER
+            .comment("Overworld biomes that won't generate, e.g. [\"nordic:bog\", \"minecraft:plains\"].",
+                    "Each is replaced by the nearest enabled biome by climate. Applies to newly generated chunks on the next world load.")
+            .defineListAllowEmpty("disabledBiomes", List.of(), () -> "", o -> o instanceof String s && ResourceLocation.tryParse(s) != null);
+
+    static {
+        BUILDER.pop();
+    }
+
+    public static final ModConfigSpec SPEC = BUILDER.build();
 
     public static boolean logDirtBlock;
     public static int magicNumber;

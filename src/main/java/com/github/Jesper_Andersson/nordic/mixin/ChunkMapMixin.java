@@ -22,9 +22,11 @@ public abstract class ChunkMapMixin {
     @Shadow protected abstract ChunkGenerator generator();
 
     // Carve lake basins into the overworld terrain once the dimension's RandomState exists
+    // Runs after Lithostitched wraps the router, since it reads the wired randomState.router()
     @Inject(method = "<init>", at = @At("TAIL"))
     private void nordic$addLakeBasins(CallbackInfo ci) {
-        if (level.dimension() == Level.OVERWORLD && generator() instanceof NoiseBasedChunkGenerator noiseGenerator) {
+        if (level.dimension() != Level.OVERWORLD) return;
+        if (generator() instanceof NoiseBasedChunkGenerator noiseGenerator) {
             ((RandomStateAccessor) (Object) randomState).nordic$setRouter(LakeBasin.wrapRouter(
                     randomState, noiseGenerator.getBiomeSource(), noiseGenerator.generatorSettings().value().noiseSettings(),
                     noiseGenerator.generatorSettings().value().seaLevel()));

@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "facing=up,tip=true": {
+      "model": "nordic:block/beard_lichen_tip"
+    },
+    "facing=north,tip=true": {
+      "model": "nordic:block/beard_lichen_wall_tip"
+    },
+    "facing=east,tip=true": {
+      "model": "nordic:block/beard_lichen_wall_tip",
+      "y": 90
+    },
+    "facing=south,tip=true": {
+      "model": "nordic:block/beard_lichen_wall_tip",
+      "y": 180
+    },
+    "facing=west,tip=true": {
+      "model": "nordic:block/beard_lichen_wall_tip",
+      "y": 270
+    },
+    "facing=up,tip=false": {
+      "model": "nordic:block/beard_lichen"
+    },
+    "facing=north,tip=false": {
+      "model": "nordic:block/beard_lichen_wall"
+    },
+    "facing=east,tip=false": {
+      "model": "nordic:block/beard_lichen_wall",
+      "y": 90
+    },
+    "facing=south,tip=false": {
+      "model": "nordic:block/beard_lichen_wall",
+      "y": 180
+    },
+    "facing=west,tip=false": {
+      "model": "nordic:block/beard_lichen_wall",
+      "y": 270
+    }
+  }
+}

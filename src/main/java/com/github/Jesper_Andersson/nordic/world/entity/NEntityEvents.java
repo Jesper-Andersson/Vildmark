@@ -1,10 +1,13 @@
 package com.github.Jesper_Andersson.nordic.world.entity;
 
 import com.github.Jesper_Andersson.nordic.Nordic;
+import com.github.Jesper_Andersson.nordic.world.entity.animal.Moose;
 import com.github.Jesper_Andersson.nordic.world.entity.animal.Pike;
 import com.github.Jesper_Andersson.nordic.world.entity.monster.BarrowWight;
+import com.github.Jesper_Andersson.nordic.world.entity.npc.Tomte;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -20,6 +23,8 @@ public class NEntityEvents {
         event.put(NEntities.BARROW_WIGHT.get(), BarrowWight.createAttributes().build());
         event.put(NEntities.PIKE.get(), Pike.createAttributes().build());
         event.put(NEntities.ROACH.get(), AbstractFish.createAttributes().build());
+        event.put(NEntities.MOOSE.get(), Moose.createAttributes().build());
+        event.put(NEntities.TOMTE.get(), Tomte.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -27,5 +32,6 @@ public class NEntityEvents {
         event.register(NEntities.BARROW_WIGHT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         event.register(NEntities.PIKE.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         event.register(NEntities.ROACH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(NEntities.MOOSE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
     }
 }

@@ -26,6 +26,35 @@
             }
           }
         }
+      },
+      {
+        "type": "nordic:pine_bark",
+        "transition_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "nordic:peeling_pine_log",
+            "Properties": {
+              "axis": "y"
+            }
+          }
+        },
+        "peeled_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "nordic:peeled_pine_log",
+            "Properties": {
+              "axis": "y"
+            }
+          }
+        },
+        "bark_fraction": 0.4,
+        "variation": 1
+      },
+      {
+        "type": "nordic:beard_lichen",
+        "leaves_probability": 0.03,
+        "logs_probability": 0.04,
+        "max_length": 3
       }
     ],
     "dirt_provider": {

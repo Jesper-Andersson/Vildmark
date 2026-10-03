@@ -58,7 +58,6 @@
       "minecraft:ore_lapis",
       "minecraft:ore_lapis_buried",
       "minecraft:ore_copper",
-      "minecraft:underwater_magma",
       "nordic:ore_peat_iron"
     ],
     [],
@@ -68,21 +67,22 @@
     ],
     [
       "minecraft:glow_lichen",
-      "minecraft:patch_grass_taiga_2",
+      "nordic:small_pine_bog",
+      "nordic:fallen_pine_rare",
       "minecraft:patch_sugar_cane_swamp",
       "nordic:patch_reed",
+      "nordic:patch_cattail",
       "nordic:patch_cotton_grass",
       "nordic:patch_sundew",
       "nordic:patch_cloudberry_shrub",
       "nordic:patch_moss_carpet",
+      "minecraft:seagrass_swamp",
+      "nordic:patch_heather",
+      "nordic:patch_lingonberry_shrub",
       "nordic:patch_blueberry_shrub",
-      "minecraft:seagrass_swamp"
+      "nordic:patch_snakefern"
     ],
-    [
-      "nordic:patch_chantarelle",
-      "minecraft:brown_mushroom_taiga",
-      "minecraft:red_mushroom_taiga"
-    ],
+    [],
     [
       "minecraft:freeze_top_layer"
     ]

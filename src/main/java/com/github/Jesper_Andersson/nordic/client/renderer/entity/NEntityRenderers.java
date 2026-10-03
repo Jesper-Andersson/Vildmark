@@ -14,5 +14,7 @@ public class NEntityRenderers {
         event.registerEntityRenderer(NEntities.BARROW_WIGHT.get(), BarrowWightRenderer::new);
         event.registerEntityRenderer(NEntities.PIKE.get(), ctx -> new FishRenderer<>(ctx, "pike"));
         event.registerEntityRenderer(NEntities.ROACH.get(), ctx -> new FishRenderer<>(ctx, "roach"));
+        event.registerEntityRenderer(NEntities.MOOSE.get(), MooseRenderer::new);
+        event.registerEntityRenderer(NEntities.TOMTE.get(), TomteRenderer::new);
     }
 }

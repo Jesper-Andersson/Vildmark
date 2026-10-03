@@ -1,6 +1,8 @@
 {
   "nordic.nordic_tab": "Nordic",
   "block.nordic.pine_log": "Pine Log",
+  "block.nordic.peeling_pine_log": "Peeling Pine Log",
+  "block.nordic.peeled_pine_log": "Peeled Pine Log",
   "block.nordic.pine_planks": "Pine Planks",
   "block.nordic.pine_sapling": "Pine Sapling",
   "block.nordic.leave_leaves": "Pine Leaves",
@@ -33,5 +35,18 @@
   "block.nordic.cloudberry_shrub": "Cloudberry Shrub",
   "block.nordic.cotton_grass": "Cotton Grass",
   "block.nordic.sundew": "Sundew",
-  "block.nordic.peat_iron_ore": "Peat Iron Ore"
+  "block.nordic.beard_lichen": "Beard Lichen",
+  "block.nordic.peat_iron_ore": "Peat Iron Ore",
+  "block.nordic.stinging_nettle": "Stinging Nettle",
+  "block.nordic.tall_stinging_nettle": "Tall Stinging Nettle",
+  "block.nordic.snakefern": "Snake Fern",
+  "entity.nordic.moose": "Moose",
+  "item.nordic.moose_spawn_egg": "Moose Spawn Egg",
+  "entity.nordic.tomte": "Tomte",
+  "item.nordic.tomte_spawn_egg": "Tomte Spawn Egg",
+  "biome.nordic.birch_pine_forest": "Birch Pine Forest",
+  "biome.nordic.plains": "Nordic Plains",
+  "biome.nordic.tundra": "Tundra",
+  "block.nordic.heather": "Heather",
+  "block.nordic.cattail": "Cattail"
 }

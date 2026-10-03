@@ -1,4 +1,6 @@
 {
+  "block.nordic.peeling_pine_log": "Сосновий стовбур, що лущиться",
+  "block.nordic.peeled_pine_log": "Облущений сосновий стовбур",
   "block.nordic.reed": "Комиш",
   "block.nordic.peat": "Торф",
   "biome.nordic.bog": "Болото",
@@ -6,5 +8,18 @@
   "block.nordic.cloudberry_shrub": "Кущ морошки",
   "block.nordic.cotton_grass": "Пухівка",
   "block.nordic.sundew": "Росичка",
-  "block.nordic.peat_iron_ore": "Торф'яна залізна руда"
+  "block.nordic.beard_lichen": "Уснея",
+  "block.nordic.peat_iron_ore": "Торф'яна залізна руда",
+  "block.nordic.stinging_nettle": "Кропива",
+  "block.nordic.tall_stinging_nettle": "Висока кропива",
+  "block.nordic.snakefern": "Папороть",
+  "entity.nordic.moose": "Лось",
+  "item.nordic.moose_spawn_egg": "Яйце виклику лося",
+  "entity.nordic.tomte": "Томте",
+  "item.nordic.tomte_spawn_egg": "Яйце виклику томте",
+  "biome.nordic.birch_pine_forest": "Березово-сосновий ліс",
+  "biome.nordic.plains": "Північна рівнина",
+  "biome.nordic.tundra": "Тундра",
+  "block.nordic.heather": "Верес",
+  "block.nordic.cattail": "Рогіз"
 }

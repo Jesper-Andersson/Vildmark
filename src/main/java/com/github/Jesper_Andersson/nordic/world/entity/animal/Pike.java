@@ -40,8 +40,8 @@ public class Pike extends AbstractFish implements GeoEntity {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2D, true));
-        // randomInterval 40 so it doesn't wipe out shoals instantly
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Roach.class, 40, true, false, null));
+        // randomInterval 85 so it doesn't wipe out shoals instantly
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Roach.class, 85, true, false, null));
     }
 
     @Override

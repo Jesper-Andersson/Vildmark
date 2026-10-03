@@ -10,7 +10,7 @@
             "state": {
               "Name": "nordic:blueberry_shrub",
               "Properties": {
-                "age": "2"
+                "age": "1"
               }
             }
           }
@@ -45,8 +45,8 @@
         }
       ]
     },
-    "tries": 64,
-    "xz_spread": 5,
-    "y_spread": 3
+    "tries": 248,
+    "xz_spread": 15,
+    "y_spread": 4
   }
 }

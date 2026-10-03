@@ -70,10 +70,11 @@
     ],
     [
       "minecraft:glow_lichen",
-      "minecraft:patch_grass_taiga_2",
       "minecraft:patch_waterlily",
       "minecraft:patch_sugar_cane",
+      "nordic:patch_grass_taiga_2",
       "nordic:patch_reed",
+      "nordic:patch_cattail",
       "minecraft:seagrass_river"
     ],
     [

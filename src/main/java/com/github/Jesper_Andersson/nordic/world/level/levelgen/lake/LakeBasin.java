@@ -1,6 +1,7 @@
 package com.github.Jesper_Andersson.nordic.world.level.levelgen.lake;
 
 import com.github.Jesper_Andersson.nordic.Nordic;
+import com.github.Jesper_Andersson.nordic.compat.BiomePickCompat;
 import com.github.Jesper_Andersson.nordic.world.level.levelgen.biome.Biomes;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -8,10 +9,12 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;
 import net.minecraft.core.QuartPos;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeResolver;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.levelgen.DensityFunction;
@@ -26,11 +29,17 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 /**
  * Reshapes the overworld terrain wherever the biome source places {@link Biomes#LAKE} or {@link Biomes#RIVER},
  * so the aquifer fills it with water, and flattens {@link Biomes#BOG} into mud ground flush with the water
  * mixed with small pools, about half of it water, and a few one block peaks. Biomes don't shape terrain on their own, hence the router wrapping.
+ * Once the terrain is final the chunk biomes are fixed up: bog quarts whose final surface rises more than 2 blocks
+ * above the water anywhere the quart's biome reaches (hills, cliffs, slopes) and lake or river quarts left without any
+ * water get a forest biome, and Nordic land biomes that ended up in open water get a cold vanilla ocean.
  * <p>
  * Every quart column gets a target surface height. Inside the water it sits below sea level and gets deeper
  * further from the shore. In a bog it is flat ground level with the water surface.
@@ -55,6 +64,12 @@ public final class LakeBasin {
     // Threshold NoiseChunk uses when searching for the preliminary surface level
     private static final double SURFACE_THRESHOLD = 0.390625;
 
+    // Humidity where Humidity.WET starts, the forest fallback is spruce pine forest from here on
+    private static final double WET_HUMIDITY = 0.1;
+
+    // Shore field of each wrapped RandomState, so chunk biome filling can see the final terrain
+    private static final Map<RandomState, ShoreField> FIELDS = Collections.synchronizedMap(new WeakHashMap<>());
+
     private LakeBasin() {}
 
     public static void register(IEventBus modEventBus) {
@@ -67,6 +82,7 @@ public final class LakeBasin {
         int maxY = minY + noiseSettings.height();
         ShoreField field = new ShoreField(biomeSource, randomState.sampler(), randomState.getOrCreateNoise(Noises.SURFACE),
                 router.finalDensity(), router.initialDensityWithoutJaggedness(), minY, maxY, seaLevel);
+        FIELDS.put(randomState, field);
         DensityFunction height = new ShoreView(field, ShoreView.Mode.FLOOR);
         DensityFunction surface = new ShoreView(field, ShoreView.Mode.SURFACE);
         DensityFunction weight = new ShoreView(field, ShoreView.Mode.WEIGHT);
@@ -110,6 +126,68 @@ public final class LakeBasin {
                 router.veinRidged(),
                 router.veinGap()
         );
+    }
+
+    /**
+     * Fixes the chunk biomes once the final terrain is known, per quart and in this order:
+     * <ul>
+     * <li>A Nordic land biome whose final surface is more than 3 blocks below sea level everywhere the quart's biome
+     * reaches sits in open water, so it becomes frozen ocean (tundra) or cold ocean (the rest).</li>
+     * <li>A lake or river whose final surface is at or above sea level everywhere the quart's biome reaches has no
+     * water (high ground the basin isn't dug into, or edges the weight limit leaves standing), so it becomes forest.</li>
+     * <li>A bog whose final surface is more than 2 blocks above the water anywhere the quart's biome reaches (hills,
+     * cliffs and slopes the basin leaves standing) becomes forest, so it doesn't get bog ground and vegetation.</li>
+     * </ul>
+     * The forest is pine forest, or spruce pine forest where wet. Lake and river humidity only covers those two bands.
+     * The biome source itself stays unchanged, as the shore field reads it.
+     */
+    public static BiomeResolver wrapBiomes(RandomState randomState, BiomeResolver resolver) {
+        ShoreField field = FIELDS.get(randomState);
+        if (field == null) return resolver;
+        Holder<Biome> pineForest = findBiome(field.biomeSource, Biomes.PINE_FOREST);
+        Holder<Biome> sprucePineForest = findBiome(field.biomeSource, Biomes.SPRUCE_PINE_FOREST);
+        Holder<Biome> coldOcean = findBiome(field.biomeSource, net.minecraft.world.level.biome.Biomes.COLD_OCEAN);
+        Holder<Biome> frozenOcean = findBiome(field.biomeSource, net.minecraft.world.level.biome.Biomes.FROZEN_OCEAN);
+        boolean hasForests = pineForest != null && sprucePineForest != null;
+        if (!hasForests && coldOcean == null && frozenOcean == null) return resolver;
+        double maxOceanHeight = field.seaLevel - ShoreField.OCEAN_DEPTH;
+        double maxBogHeight = field.seaLevel + ShoreField.MAX_BOG_HEIGHT;
+        return (x, y, z, sampler) -> {
+            Holder<Biome> biome = resolver.getNoiseBiome(x, y, z, sampler);
+            boolean water = biome.is(Biomes.LAKE) || biome.is(Biomes.RIVER);
+            boolean bog = biome.is(Biomes.BOG);
+            boolean tundra = biome.is(Biomes.TUNDRA);
+            boolean land = bog || tundra || biome.is(Biomes.PINE_FOREST) || biome.is(Biomes.SPRUCE_PINE_FOREST)
+                    || biome.is(Biomes.BIRCH_PINE_FOREST) || biome.is(Biomes.PLAINS);
+            if (!water && !land) return biome;
+            ShoreField.BiomeHeights heights = field.biomeHeights(x, z);
+            // Open water
+            if (land && heights.max() < maxOceanHeight) {
+                Holder<Biome> ocean = tundra ? frozenOcean : coldOcean;
+                if (ocean != null) return ocean;
+            }
+            if (!hasForests) return biome;
+            boolean dry = water && heights.min() >= field.seaLevel;
+            boolean raised = bog && heights.max() > maxBogHeight;
+            if (!dry && !raised) return biome;
+            double humidity = Climate.unquantizeCoord(sampler.sample(x, y, z).humidity());
+            return forestFor(humidity, pineForest, sprucePineForest, biome);
+        };
+    }
+
+    // Pine forest, spruce pine forest where wet. Doesn't bring back a disabled forest, uses the other one, or keeps
+    // the original biome if both are disabled
+    private static Holder<Biome> forestFor(double humidity, Holder<Biome> pineForest, Holder<Biome> sprucePineForest, Holder<Biome> original) {
+        Holder<Biome> forest = humidity >= WET_HUMIDITY ? sprucePineForest : pineForest;
+        if (BiomePickCompat.isDisabled(forest)) forest = forest == pineForest ? sprucePineForest : pineForest;
+        return BiomePickCompat.isDisabled(forest) ? original : forest;
+    }
+
+    private static Holder<Biome> findBiome(BiomeSource biomeSource, ResourceKey<Biome> key) {
+        for (Holder<Biome> biome : biomeSource.possibleBiomes()) {
+            if (biome.is(key)) return biome;
+        }
+        return null;
     }
 
     private static DensityFunction fade(DensityFunction target) {
@@ -165,6 +243,15 @@ public final class LakeBasin {
         // The blend weight may change by at most 1 / (WEIGHT_RADIUS + 1) per quart, so quarts that keep their original
         // shape (cliffs, high ground) slope into the blended terrain around them instead of standing up as pillars
         private static final int WEIGHT_RADIUS = 3;
+        // Bog quarts whose final surface is more than this above sea level anywhere their biome reaches get a forest
+        // biome instead. The one block peaks of the bog relief stay below it
+        static final double MAX_BOG_HEIGHT = 2.0;
+        // Land biome quarts whose final surface is more than this below sea level everywhere their biome reaches get
+        // a vanilla ocean instead. Shallow puddles and flooded forest valleys keep their biome
+        static final double OCEAN_DEPTH = 3.0;
+        // Block offsets from a quart's corner to sample its biome reach at. BiomeManager's fuzzy zoom lets blocks
+        // 4q-2 to 4q+5 read quart q, and the bilinear surface peaks at those ends or on the quart lines 4q and 4q+4
+        private static final int[] BIOME_REACH = {-2, 0, 4, 5};
 
         // Ordered by priority, the higher kind wins where the two sample heights disagree
         private static final byte LAND = 0;
@@ -189,6 +276,7 @@ public final class LakeBasin {
         private final Cache<Long, Shore> shoreCache = CacheBuilder.newBuilder().maximumSize(1 << 16).build();
         // Shores before the weight limit
         private final Cache<Long, Shore> rawCache = CacheBuilder.newBuilder().maximumSize(1 << 16).build();
+        private final Cache<Long, BiomeHeights> biomeHeightCache = CacheBuilder.newBuilder().maximumSize(1 << 16).build();
 
         ShoreField(BiomeSource biomeSource, Climate.Sampler sampler, NormalNoise floorNoise, DensityFunction originalDensity,
                    DensityFunction preliminaryDensity, int minY, int maxY, int seaLevel) {
@@ -254,6 +342,51 @@ public final class LakeBasin {
             double aquifer = floorY < seaLevel ? 1.0 : 0.0;
             return new Shore(floorY, raw.surfaceY(), weight, bog, aquifer);
         }
+
+        /**
+         * Final surface height before the per-block bog relief. Unweighted land keeps its original height, its raw
+         * shore only holds a placeholder.
+         */
+        double finalHeight(int qx, int qz) {
+            Shore shore = shoreAt(qx, qz);
+            return shore.weight() > 0 ? shore.floorY() : originalHeight(qx, qz);
+        }
+
+        /**
+         * Lowest and highest final surface over the blocks that can read quart (qx, qz)'s biome, with the surface
+         * bilinear between the quart corners like the interpolated density.
+         */
+        BiomeHeights biomeHeights(int qx, int qz) {
+            long key = ChunkPos.asLong(qx, qz);
+            BiomeHeights cached = biomeHeightCache.getIfPresent(key);
+            if (cached != null) return cached;
+            // Corner heights of quarts qx-1 to qx+2, qz-1 to qz+2
+            double[][] corners = new double[4][4];
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    corners[i][j] = finalHeight(qx - 1 + i, qz - 1 + j);
+                }
+            }
+            double min = Double.POSITIVE_INFINITY;
+            double max = Double.NEGATIVE_INFINITY;
+            for (int ox : BIOME_REACH) {
+                int cx = Math.floorDiv(ox, 4);
+                double fx = (ox - cx * 4) / 4.0;
+                for (int oz : BIOME_REACH) {
+                    int cz = Math.floorDiv(oz, 4);
+                    double fz = (oz - cz * 4) / 4.0;
+                    double height = Mth.lerp2(fx, fz, corners[cx + 1][cz + 1], corners[cx + 2][cz + 1],
+                            corners[cx + 1][cz + 2], corners[cx + 2][cz + 2]);
+                    min = Math.min(min, height);
+                    max = Math.max(max, height);
+                }
+            }
+            BiomeHeights heights = new BiomeHeights(min, max);
+            biomeHeightCache.put(key, heights);
+            return heights;
+        }
+
+        record BiomeHeights(double min, double max) {}
 
         private boolean hasWeightedNeighbour(int qx, int qz) {
             for (int dx = -1; dx <= 1; dx++) {
@@ -485,9 +618,9 @@ public final class LakeBasin {
      * and raises one block peaks where it is lowest, in the middle of the dry patches away from the pools.
      */
     private static final class BogRelief implements DensityFunction.SimpleFunction {
-        // Noise frequency multiplier (sets patch size), share of the bog interior that is water, noise range over
-        // which pools deepen, and full depth below the 1 block edge depth
-        private static final double POOL_SCALE = 0.5;
+        // Noise frequency multiplier (sets patch size; higher gives smaller pools and dry patches), share of the bog
+        // interior that is water, noise range over which pools deepen, and full depth below the 1 block edge depth
+        private static final double POOL_SCALE = 1.0;
         private static final double POOL_COVERAGE = 0.5;
         private static final double POOL_RAMP = 0.25;
         private static final double POOL_DEPTH = 2.0;

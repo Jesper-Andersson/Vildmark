@@ -16,15 +16,21 @@ import java.util.function.Supplier;
  */
 public final class ShaderBlockAliases {
     // Nordic block -> vanilla block whose shader ID it borrows
-    private static final Map<Supplier<? extends Block>, Block> ALIASES = Map.of(
-            NBlocks.PINE_LEAVES, Blocks.OAK_LEAVES,
-            NBlocks.PINE_SAPLING, Blocks.OAK_SAPLING,
-            NBlocks.REED, Blocks.TALL_GRASS,
-            NBlocks.LINGONBERRY_SHRUB, Blocks.SWEET_BERRY_BUSH,
-            NBlocks.BLUEBERRY_SHRUB, Blocks.SWEET_BERRY_BUSH,
-            NBlocks.CLOUDBERRY_SHRUB, Blocks.SWEET_BERRY_BUSH,
-            NBlocks.COTTON_GRASS, Blocks.SHORT_GRASS,
-            NBlocks.SUNDEW, Blocks.SHORT_GRASS
+    private static final Map<Supplier<? extends Block>, Block> ALIASES = Map.ofEntries(
+            Map.entry(NBlocks.PINE_LEAVES, Blocks.OAK_LEAVES),
+            Map.entry(NBlocks.PINE_SAPLING, Blocks.OAK_SAPLING),
+            Map.entry(NBlocks.REED, Blocks.TALL_GRASS),
+            Map.entry(NBlocks.CATTAIL, Blocks.TALL_GRASS),
+            Map.entry(NBlocks.LINGONBERRY_SHRUB, Blocks.SWEET_BERRY_BUSH),
+            Map.entry(NBlocks.BLUEBERRY_SHRUB, Blocks.SWEET_BERRY_BUSH),
+            Map.entry(NBlocks.CLOUDBERRY_SHRUB, Blocks.SWEET_BERRY_BUSH),
+            Map.entry(NBlocks.COTTON_GRASS, Blocks.SHORT_GRASS),
+            Map.entry(NBlocks.SUNDEW, Blocks.SHORT_GRASS),
+            Map.entry(NBlocks.STINGING_NETTLE, Blocks.SHORT_GRASS),
+            Map.entry(NBlocks.TALL_STINGING_NETTLE, Blocks.TALL_GRASS),
+            Map.entry(NBlocks.SNAKE_FERN, Blocks.FERN),
+            Map.entry(NBlocks.HEATHER, Blocks.SHORT_GRASS),
+            Map.entry(NBlocks.BEARD_LICHEN, Blocks.HANGING_ROOTS)
     );
 
     private ShaderBlockAliases() {}

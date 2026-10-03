@@ -1,15 +1,21 @@
 package com.github.Jesper_Andersson.nordic.world.level.block;
 
 import com.github.Jesper_Andersson.nordic.world.level.block.plants.tree.grower.PineTreeGrower;
+import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.BeardLichenBlock;
 import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.BlueberryShrubBlock;
 import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.BogPlantBlock;
+import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.CattailBlock;
 import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.ChantarelleBlock;
 import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.CloudberryShrubBlock;
+import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.HeatherBlock;
 import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.LingonberryShrubBlock;
 import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.PineLeavesBlock;
 import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.PineNeedlesBlock;
 import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.ReedBlock;
+import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.SnakeFernBlock;
+import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.StingingNettleBlock;
 import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.SundewBlock;
+import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.TallStingingNettleBlock;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
@@ -26,12 +32,17 @@ public class NBlocks {
     public static final DeferredBlock<Block> CHANTARELLE = BLOCKS.register("chantarelle", () -> new ChantarelleBlock(BlockBehaviour.Properties.of().noOcclusion().noCollission().randomTicks().sound(SoundType.GRASS), PATCH_CHANTARELLE_CONFIGURED));
 
     public static final DeferredBlock<Block> REED = BLOCKS.register("reed", () -> new ReedBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
+    public static final DeferredBlock<Block> CATTAIL = BLOCKS.register("cattail", () -> new CattailBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
 
     public static final DeferredBlock<Block> PINE_SAPLING = BLOCKS.register("pine_sapling", () -> new SaplingBlock(PineTreeGrower.PINE, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
     public static final DeferredBlock<Block> PINE_LOG = BLOCKS.register("pine_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).sound(SoundType.WOOD).strength(2f,2f)));
+    // Worldgen-only bark stages up a pine trunk; no items, they drop a normal pine log
+    public static final DeferredBlock<Block> PEELING_PINE_LOG = BLOCKS.register("peeling_pine_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).sound(SoundType.WOOD).strength(2f,2f)));
+    public static final DeferredBlock<Block> PEELED_PINE_LOG = BLOCKS.register("peeled_pine_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).sound(SoundType.WOOD).strength(2f,2f)));
     public static final DeferredBlock<Block> PINE_PLANKS = BLOCKS.register("pine_planks", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).sound(SoundType.WOOD).strength(2f, 2f)));
     public static final DeferredBlock<Block> PINE_LEAVES = BLOCKS.register("pine_leaves", () -> new PineLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).randomTicks().mapColor(MapColor.COLOR_GREEN).noOcclusion().sound(SoundType.GRASS).isViewBlocking((((state, level, pos) -> false))).isSuffocating((state, level, pos) -> false)));
 
+    public static final DeferredBlock<Block> BEARD_LICHEN = BLOCKS.register("beard_lichen", () -> new BeardLichenBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).noCollission().instabreak().replaceable().sound(SoundType.HANGING_ROOTS).pushReaction(PushReaction.DESTROY)));
     public static final DeferredBlock<Block> PINE_NEEDLES = BLOCKS.register("pine_needles", () -> new PineNeedlesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).noCollission().instabreak().replaceable().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
 
     public static final DeferredBlock<Block> PEAT = BLOCKS.register("peat", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).strength(0.5f).sound(SoundType.MUD)));
@@ -39,6 +50,11 @@ public class NBlocks {
 
     public static final DeferredBlock<Block> COTTON_GRASS = BLOCKS.register("cotton_grass", () -> new BogPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().replaceable().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
     public static final DeferredBlock<Block> SUNDEW = BLOCKS.register("sundew", () -> new SundewBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
+
+    public static final DeferredBlock<Block> STINGING_NETTLE = BLOCKS.register("stinging_nettle", () -> new StingingNettleBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().randomTicks().replaceable().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
+    public static final DeferredBlock<Block> TALL_STINGING_NETTLE = BLOCKS.register("tall_stinging_nettle", () -> new TallStingingNettleBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().replaceable().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
+    public static final DeferredBlock<Block> SNAKE_FERN = BLOCKS.register("snakefern", () -> new SnakeFernBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().replaceable().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
+    public static final DeferredBlock<Block> HEATHER = BLOCKS.register("heather", () -> new HeatherBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().replaceable().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
 
     public static void register(){}
 }

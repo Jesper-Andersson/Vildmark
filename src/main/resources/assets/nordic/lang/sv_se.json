@@ -1,4 +1,6 @@
 {
+  "block.nordic.peeling_pine_log": "Flagnande tallstock",
+  "block.nordic.peeled_pine_log": "Skalad tallstock",
   "block.nordic.reed": "Vass",
   "block.nordic.peat": "Torv",
   "biome.nordic.bog": "Myr",
@@ -16,5 +18,18 @@
   "block.nordic.cloudberry_shrub": "Hjortronris",
   "block.nordic.cotton_grass": "Ängsull",
   "block.nordic.sundew": "Sileshår",
-  "block.nordic.peat_iron_ore": "Myrmalm"
+  "block.nordic.beard_lichen": "Skägglav",
+  "block.nordic.peat_iron_ore": "Myrmalm",
+  "block.nordic.stinging_nettle": "Brännässla",
+  "block.nordic.tall_stinging_nettle": "Hög brännässla",
+  "block.nordic.snakefern": "Ormbunke",
+  "entity.nordic.moose": "Älg",
+  "item.nordic.moose_spawn_egg": "Älgägg",
+  "entity.nordic.tomte": "Tomte",
+  "item.nordic.tomte_spawn_egg": "Tomteägg",
+  "biome.nordic.birch_pine_forest": "Björk- och tallskog",
+  "biome.nordic.plains": "Nordisk slätt",
+  "biome.nordic.tundra": "Tundra",
+  "block.nordic.heather": "Ljung",
+  "block.nordic.cattail": "Kaveldun"
 }

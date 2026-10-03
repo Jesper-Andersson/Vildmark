@@ -1,11 +1,9 @@
 package com.github.Jesper_Andersson.nordic.world.level.levelgen.feature.treedecorators;
 
-import com.github.Jesper_Andersson.nordic.Nordic;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.EmptyBlockGetter;
@@ -17,9 +15,6 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
 
@@ -34,9 +29,6 @@ public class PlaceOnGroundDecorator extends TreeDecorator {
             BlockStateProvider.CODEC.fieldOf("block_state_provider").forGetter(decorator -> decorator.blockStateProvider)
     ).apply(instance, PlaceOnGroundDecorator::new));
 
-    public static final DeferredRegister<TreeDecoratorType<?>> TREE_DECORATOR_TYPES = DeferredRegister.create(Registries.TREE_DECORATOR_TYPE, Nordic.MODID);
-    public static final DeferredHolder<TreeDecoratorType<?>, TreeDecoratorType<PlaceOnGroundDecorator>> PLACE_ON_GROUND = TREE_DECORATOR_TYPES.register("place_on_ground", () -> new TreeDecoratorType<>(CODEC));
-
     private final int tries;
     private final int radius;
     private final int height;
@@ -49,13 +41,9 @@ public class PlaceOnGroundDecorator extends TreeDecorator {
         this.blockStateProvider = blockStateProvider;
     }
 
-    public static void register(IEventBus modEventBus) {
-        TREE_DECORATOR_TYPES.register(modEventBus);
-    }
-
     @Override
     protected TreeDecoratorType<?> type() {
-        return PLACE_ON_GROUND.get();
+        return NTreeDecorators.PLACE_ON_GROUND.get();
     }
 
     @Override
