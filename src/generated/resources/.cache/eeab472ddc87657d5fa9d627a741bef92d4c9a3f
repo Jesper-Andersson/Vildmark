@@ -1,0 +1,10 @@
+// 1.21.1	2026-10-12T01:22:45.3702608	Block States: nordic
+55694530a1c287377c9e1a26aeaa43a183bf9ed9 assets/nordic/blockstates/pine_slab.json
+fc23f59157e79e1c4a267381864a2ef7258ad3d7 assets/nordic/blockstates/pine_stairs.json
+8244d142c2461d933cb2e3b1a6729ee95f22a01a assets/nordic/models/block/pine_slab.json
+3bf767c67a3fa35d795fd53ed28c865cee6720d0 assets/nordic/models/block/pine_slab_top.json
+2c1ce52ba14f9ac585aa87ca592e4ca179d0238b assets/nordic/models/block/pine_stairs.json
+3c68aa2c7410605a0c36d199631036e809e547a5 assets/nordic/models/block/pine_stairs_inner.json
+1894699e94ef21f4e213c34ee6144e59c0873e2f assets/nordic/models/block/pine_stairs_outer.json
+d40210867c42737a6a3efb15e71a80336b911d30 assets/nordic/models/item/pine_slab.json
+260700ec1b51ec3cbe7aa9dca8bd12bb35a3c10c assets/nordic/models/item/pine_stairs.json

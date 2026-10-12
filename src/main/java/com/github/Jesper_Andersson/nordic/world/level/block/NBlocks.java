@@ -18,6 +18,7 @@ import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.Su
 import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.TallStingingNettleBlock;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -39,7 +40,11 @@ public class NBlocks {
     // Worldgen-only bark stages up a pine trunk; no items, they drop a normal pine log
     public static final DeferredBlock<Block> PEELING_PINE_LOG = BLOCKS.register("peeling_pine_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).sound(SoundType.WOOD).strength(2f,2f)));
     public static final DeferredBlock<Block> PEELED_PINE_LOG = BLOCKS.register("peeled_pine_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).sound(SoundType.WOOD).strength(2f,2f)));
+
     public static final DeferredBlock<Block> PINE_PLANKS = BLOCKS.register("pine_planks", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).sound(SoundType.WOOD).strength(2f, 2f)));
+    public static final DeferredBlock<StairBlock> PINE_STAIRS = BLOCKS.register("pine_stairs", () -> new StairBlock(PINE_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(PINE_PLANKS.get())));
+    public static final DeferredBlock<SlabBlock> PINE_SLAB = BLOCKS.register("pine_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(PINE_PLANKS.get())));
+
     public static final DeferredBlock<Block> PINE_LEAVES = BLOCKS.register("pine_leaves", () -> new PineLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).randomTicks().mapColor(MapColor.COLOR_GREEN).noOcclusion().sound(SoundType.GRASS).isViewBlocking((((state, level, pos) -> false))).isSuffocating((state, level, pos) -> false)));
 
     public static final DeferredBlock<Block> BEARD_LICHEN = BLOCKS.register("beard_lichen", () -> new BeardLichenBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).noCollission().instabreak().replaceable().sound(SoundType.HANGING_ROOTS).pushReaction(PushReaction.DESTROY)));

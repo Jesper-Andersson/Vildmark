@@ -80,6 +80,8 @@ public class Nordic {
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> NORDIC_TAB = CREATIVE_MODE_TABS.register("nordic_tab", () -> CreativeModeTab.builder().withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> LINGONBERRIES_ITEM.get().getDefaultInstance()).displayItems((parameters, output) -> {
         output.accept(PINE_PLANKS_ITEM.get());
+        output.accept(PINE_STAIRS_ITEM.get());
+        output.accept(PINE_SLAB_ITEM.get());
         output.accept(PINE_LOG_ITEM.get());
         output.accept(PINE_SAPLING_ITEM.get());
         output.accept(PINE_LEAVES_ITEM.get());

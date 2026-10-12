@@ -12,6 +12,7 @@ import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 import static com.github.Jesper_Andersson.nordic.world.level.block.NBlocks.*;
@@ -40,6 +41,9 @@ public class NItems {
     public static final DeferredItem<Item> PINE_SAPLING_ITEM = ITEMS.register("pine_sapling", () -> new BlockItem(PINE_SAPLING.get(), new Item.Properties()));
     public static final DeferredItem<Item> PINE_LOG_ITEM = ITEMS.register("pine_log", () -> new BlockItem(PINE_LOG.get(), new Item.Properties()));
     public static final DeferredItem<Item> PINE_PLANKS_ITEM = ITEMS.register("pine_planks", () -> new BlockItem(PINE_PLANKS.get(), new Item.Properties()));
+    public static final DeferredItem<Item> PINE_STAIRS_ITEM = ITEMS.register("pine_stairs", () -> new BlockItem(PINE_STAIRS.get(), new Item.Properties()));
+    public static final DeferredItem<Item> PINE_SLAB_ITEM = ITEMS.register("pine_slab", () -> new BlockItem(PINE_SLAB.get(), new Item.Properties()));
+
     public static final DeferredItem<Item> PINE_LEAVES_ITEM = ITEMS.register("pine_leaves", () -> new BlockItem(PINE_LEAVES.get(), new Item.Properties()));
     public static final DeferredItem<Item> PEAT_ITEM = ITEMS.register("peat", () -> new BlockItem(PEAT.get(), new Item.Properties()));
     public static final DeferredItem<Item> PINE_NEEDLES_ITEM = ITEMS.register("pine_needles", () -> new BlockItem(PINE_NEEDLES.get(), new Item.Properties()));

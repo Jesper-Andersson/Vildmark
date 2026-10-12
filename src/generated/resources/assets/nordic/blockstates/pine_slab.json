@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "nordic:block/pine_slab"
+    },
+    "type=double": {
+      "model": "nordic:block/pine_planks"
+    },
+    "type=top": {
+      "model": "nordic:block/pine_slab_top"
+    }
+  }
+}
