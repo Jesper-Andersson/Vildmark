@@ -61,60 +61,73 @@ public class Nordic {
     public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registries.PLACED_FEATURE, MODID);
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, MODID);
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_LINGONBERRY_SHRUB_CONFIGURED = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(MODID, "patch_lingonberry_shrub"));
-    public static final ResourceKey<PlacedFeature> PATCH_LINGONBERRY_SHRUB_PLACED = ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(MODID, "patch_lingonberry_shrub"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_LINGONBERRY_SHRUB_CONFIGURED = configuredFeatureKey("patch_lingonberry_shrub");
+    public static final ResourceKey<PlacedFeature> PATCH_LINGONBERRY_SHRUB_PLACED = placedFeatureKey("patch_lingonberry_shrub");
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_BLUEBERRY_SHRUB_CONFIGURED = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(MODID, "patch_blueberry_shrub"));
-    public static final ResourceKey<PlacedFeature> PATCH_BLUEBERRY_SHRUB_PLACED = ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(MODID, "patch_blueberry_shrub"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_BLUEBERRY_SHRUB_CONFIGURED = configuredFeatureKey("patch_blueberry_shrub");
+    public static final ResourceKey<PlacedFeature> PATCH_BLUEBERRY_SHRUB_PLACED = placedFeatureKey("patch_blueberry_shrub");
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CHANTARELLE_CONFIGURED = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(MODID, "patch_chantarelle"));
-    public static final ResourceKey<PlacedFeature> PATCH_CHANTARELLE_PLACED = ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(MODID, "patch_chantarelle"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CHANTARELLE_CONFIGURED = configuredFeatureKey("patch_chantarelle");
+    public static final ResourceKey<PlacedFeature> PATCH_CHANTARELLE_PLACED = placedFeatureKey("patch_chantarelle");
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PINE_CONFIGURED = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(MODID, "pine"));
-    public static final ResourceKey<PlacedFeature> PINE_PLACED = ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(MODID, "pine"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PINE_CONFIGURED = configuredFeatureKey("pine");
+    public static final ResourceKey<PlacedFeature> PINE_PLACED = placedFeatureKey("pine");
 
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(Registries.BIOME, MODID);
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> NORDIC_TAB = CREATIVE_MODE_TABS.register("nordic_tab", () -> CreativeModeTab.builder().withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> LINGONBERRIES_ITEM.get().getDefaultInstance()).displayItems((parameters, output) -> {
-        output.accept(PINE_PLANKS_ITEM.get());
-        output.accept(PINE_STAIRS_ITEM.get());
-        output.accept(PINE_SLAB_ITEM.get());
-        output.accept(PINE_LOG_ITEM.get());
-        output.accept(PINE_SAPLING_ITEM.get());
-        output.accept(PINE_LEAVES_ITEM.get());
-        output.accept(PINE_NEEDLES_ITEM.get());
-        output.accept(BEARD_LICHEN_ITEM.get());
-        output.accept(PEAT_ITEM.get());
-        output.accept(PEAT_IRON_ORE_ITEM.get());
-        output.accept(LINGONBERRIES_ITEM.get());
-        output.accept(LINGONBERRY_SHRUB_ITEM.get());
-        output.accept(BLUEBERRIES_ITEM.get());
-        output.accept(BLUEBERRY_SHRUB_ITEM.get());
-        output.accept(CLOUDBERRIES_ITEM.get());
-        output.accept(CLOUDBERRY_SHRUB_ITEM.get());
-        output.accept(CHANTARELLE_ITEM.get());
-        output.accept(REED_ITEM.get());
-        output.accept(CATTAIL_ITEM.get());
-        output.accept(COTTON_GRASS_ITEM.get());
-        output.accept(SUNDEW_ITEM.get());
-        output.accept(STINGING_NETTLE_ITEM.get());
-        output.accept(SNAKE_FERN_ITEM.get());
-        output.accept(HEATHER_ITEM.get());
-        output.accept(BARROW_WIGHT_SPAWN_EGG.get());
-        output.accept(PIKE.get());
-        output.accept(COOKED_PIKE.get());
-        output.accept(PIKE_BUCKET.get());
-        output.accept(PIKE_SPAWN_EGG.get());
-        output.accept(ROACH.get());
-        output.accept(COOKED_ROACH.get());
-        output.accept(ROACH_BUCKET.get());
-        output.accept(ROACH_SPAWN_EGG.get());
-        output.accept(MOOSE_SPAWN_EGG.get());
-        output.accept(TOMTE_SPAWN_EGG.get());
-    }).build());
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> NORDIC_TAB = CREATIVE_MODE_TABS.register("nordic_tab",
+            () -> CreativeModeTab.builder()
+                    .withTabsBefore(CreativeModeTabs.COMBAT)
+                    .icon(() -> LINGONBERRIES_ITEM.get().getDefaultInstance())
+                    .displayItems((parameters, output) -> {
+                        output.accept(PINE_PLANKS_ITEM.get());
+                        output.accept(PINE_STAIRS_ITEM.get());
+                        output.accept(PINE_SLAB_ITEM.get());
+                        output.accept(PINE_LOG_ITEM.get());
+                        output.accept(PINE_SAPLING_ITEM.get());
+                        output.accept(PINE_LEAVES_ITEM.get());
+                        output.accept(PINE_NEEDLES_ITEM.get());
+                        output.accept(BEARD_LICHEN_ITEM.get());
+                        output.accept(PEAT_ITEM.get());
+                        output.accept(PEAT_IRON_ORE_ITEM.get());
+                        output.accept(LINGONBERRIES_ITEM.get());
+                        output.accept(LINGONBERRY_SHRUB_ITEM.get());
+                        output.accept(BLUEBERRIES_ITEM.get());
+                        output.accept(BLUEBERRY_SHRUB_ITEM.get());
+                        output.accept(CLOUDBERRIES_ITEM.get());
+                        output.accept(CLOUDBERRY_SHRUB_ITEM.get());
+                        output.accept(CHANTARELLE_ITEM.get());
+                        output.accept(REED_ITEM.get());
+                        output.accept(CATTAIL_ITEM.get());
+                        output.accept(COTTON_GRASS_ITEM.get());
+                        output.accept(SUNDEW_ITEM.get());
+                        output.accept(STINGING_NETTLE_ITEM.get());
+                        output.accept(SNAKE_FERN_ITEM.get());
+                        output.accept(HEATHER_ITEM.get());
+                        output.accept(BARROW_WIGHT_SPAWN_EGG.get());
+                        output.accept(PIKE.get());
+                        output.accept(COOKED_PIKE.get());
+                        output.accept(PIKE_BUCKET.get());
+                        output.accept(PIKE_SPAWN_EGG.get());
+                        output.accept(ROACH.get());
+                        output.accept(COOKED_ROACH.get());
+                        output.accept(ROACH_BUCKET.get());
+                        output.accept(ROACH_SPAWN_EGG.get());
+                        output.accept(MOOSE_SPAWN_EGG.get());
+                        output.accept(TOMTE_SPAWN_EGG.get());
+                    })
+                    .build());
+
+    private static ResourceKey<ConfiguredFeature<?, ?>> configuredFeatureKey(String name) {
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(MODID, name));
+    }
+
+    private static ResourceKey<PlacedFeature> placedFeatureKey(String name) {
+        return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(MODID, name));
+    }
 
     public Nordic(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
@@ -147,9 +160,7 @@ public class Nordic {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() ->
-                {
-                    Regions.register(new BiomeRegion(ResourceLocation.fromNamespaceAndPath(MODID, "overworld_1"), 2));
-                });
+                Regions.register(new BiomeRegion(ResourceLocation.fromNamespaceAndPath(MODID, "overworld_1"), 2)));
 
         // Some common setup code
         LOGGER.info("HELLO FROM COMMON SETUP");

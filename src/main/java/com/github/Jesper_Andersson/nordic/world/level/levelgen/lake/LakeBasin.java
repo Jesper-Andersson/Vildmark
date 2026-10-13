@@ -36,7 +36,8 @@ import java.util.WeakHashMap;
 /**
  * Reshapes the overworld terrain wherever the biome source places {@link Biomes#LAKE} or {@link Biomes#RIVER},
  * so the aquifer fills it with water, and flattens {@link Biomes#BOG} into mud ground flush with the water
- * mixed with small pools, about half of it water, and a few one block peaks. Biomes don't shape terrain on their own, hence the router wrapping.
+ * mixed with small pools, about half of it water, and a few one block peaks. Biomes don't shape terrain on their own,
+ * hence the router wrapping.
  * Once the terrain is final the chunk biomes are fixed up: bog quarts whose final surface rises more than 2 blocks
  * above the water anywhere the quart's biome reaches (hills, cliffs, slopes) and lake or river quarts left without any
  * water get a forest biome, and Nordic land biomes that ended up in open water get a cold vanilla ocean.
@@ -44,22 +45,26 @@ import java.util.WeakHashMap;
  * Every quart column gets a target surface height. Inside the water it sits below sea level and gets deeper
  * further from the shore. In a bog it is flat ground level with the water surface.
  * Outside both it is a beach rim just above sea level that blends back into the original surface height.
- * The terrain density is then pulled towards a surface between the original height and that height, by the blend weight. In the bog interior {@link BogRelief}
- * then digs pools a few blocks wide into it per block and raises the middle of the dry patches by one block. Water and bog report a preliminary surface well below sea level,
- * so the aquifer fills the basins and pools with sea level water.
+ * The terrain density is then pulled towards a surface between the original height and that height, by the blend weight.
+ * In the bog interior {@link BogRelief} then digs pools a few blocks wide into it per block and raises the middle of the
+ * dry patches by one block. Water and bog report a preliminary surface well below sea level, so the aquifer fills the
+ * basins and pools with sea level water.
  */
 public final class LakeBasin {
-    public static final DeferredRegister<MapCodec<? extends DensityFunction>> DENSITY_FUNCTION_TYPES = DeferredRegister.create(Registries.DENSITY_FUNCTION_TYPE, Nordic.MODID);
+    public static final DeferredRegister<MapCodec<? extends DensityFunction>> DENSITY_FUNCTION_TYPES =
+            DeferredRegister.create(Registries.DENSITY_FUNCTION_TYPE, Nordic.MODID);
 
     // Only ever created in code, but density function types need a registered codec
     private static final MapCodec<ShoreView> LAKE_FLOOR_CODEC = MapCodec.unit(() -> {
         throw new UnsupportedOperationException("nordic:lake_floor can't be created from data");
     });
-    private static final DeferredHolder<MapCodec<? extends DensityFunction>, MapCodec<ShoreView>> LAKE_FLOOR = DENSITY_FUNCTION_TYPES.register("lake_floor", () -> LAKE_FLOOR_CODEC);
+    private static final DeferredHolder<MapCodec<? extends DensityFunction>, MapCodec<ShoreView>> LAKE_FLOOR =
+            DENSITY_FUNCTION_TYPES.register("lake_floor", () -> LAKE_FLOOR_CODEC);
     private static final MapCodec<BogRelief> BOG_RELIEF_CODEC = MapCodec.unit(() -> {
         throw new UnsupportedOperationException("nordic:bog_relief can't be created from data");
     });
-    private static final DeferredHolder<MapCodec<? extends DensityFunction>, MapCodec<BogRelief>> BOG_RELIEF = DENSITY_FUNCTION_TYPES.register("bog_relief", () -> BOG_RELIEF_CODEC);
+    private static final DeferredHolder<MapCodec<? extends DensityFunction>, MapCodec<BogRelief>> BOG_RELIEF =
+            DENSITY_FUNCTION_TYPES.register("bog_relief", () -> BOG_RELIEF_CODEC);
 
     // Threshold NoiseChunk uses when searching for the preliminary surface level
     private static final double SURFACE_THRESHOLD = 0.390625;
@@ -99,7 +104,8 @@ public final class LakeBasin {
         // Fade the blend out below the target so caves stay: 1 down to 8 blocks below, 0 from 24 below.
         // The final blend fades on the interpolated target, otherwise the per-quart flat cache cuts it into 4x4 columns
         DensityFunction flatWeight = DensityFunctions.flatCache(weight);
-        DensityFunction surfaceWeight = DensityFunctions.mul(DensityFunctions.flatCache(new ShoreView(field, ShoreView.Mode.AQUIFER)), fade(surfaceTarget));
+        DensityFunction surfaceWeight = DensityFunctions.mul(
+                DensityFunctions.flatCache(new ShoreView(field, ShoreView.Mode.AQUIFER)), fade(surfaceTarget));
         DensityFunction finalWeight = DensityFunctions.mul(DensityFunctions.interpolated(flatWeight), fade(smoothTarget));
 
         // Per-block pools and peaks in the bog interior. The mask goes first, as MUL skips the second argument where
@@ -120,7 +126,8 @@ public final class LakeBasin {
                 router.ridges(),
                 // Keep the preliminary surface in the basin, otherwise the aquifer won't use sea level water there.
                 // In water and bog it is pushed below sea level so the aquifer floods the basins and shallow pools too
-                DensityFunctions.lerp(surfaceWeight, router.initialDensityWithoutJaggedness(), DensityFunctions.add(surfaceTarget, DensityFunctions.constant(SURFACE_THRESHOLD))),
+                DensityFunctions.lerp(surfaceWeight, router.initialDensityWithoutJaggedness(),
+                        DensityFunctions.add(surfaceTarget, DensityFunctions.constant(SURFACE_THRESHOLD))),
                 DensityFunctions.lerp(finalWeight, router.finalDensity(), DensityFunctions.add(smoothTarget, relief)),
                 router.veinToggle(),
                 router.veinRidged(),
@@ -191,7 +198,8 @@ public final class LakeBasin {
     }
 
     private static DensityFunction fade(DensityFunction target) {
-        return DensityFunctions.add(DensityFunctions.mul(target, DensityFunctions.constant(-0.5)), DensityFunctions.constant(1.5)).clamp(0.0, 1.0);
+        return DensityFunctions.add(DensityFunctions.mul(target, DensityFunctions.constant(-0.5)), DensityFunctions.constant(1.5))
+                .clamp(0.0, 1.0);
     }
 
     /**

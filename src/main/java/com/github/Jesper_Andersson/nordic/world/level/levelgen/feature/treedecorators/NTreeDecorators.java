@@ -8,11 +8,15 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class NTreeDecorators {
-    public static final DeferredRegister<TreeDecoratorType<?>> TREE_DECORATOR_TYPES = DeferredRegister.create(Registries.TREE_DECORATOR_TYPE, Nordic.MODID);
+    public static final DeferredRegister<TreeDecoratorType<?>> TREE_DECORATOR_TYPES =
+            DeferredRegister.create(Registries.TREE_DECORATOR_TYPE, Nordic.MODID);
 
-    public static final DeferredHolder<TreeDecoratorType<?>, TreeDecoratorType<PlaceOnGroundDecorator>> PLACE_ON_GROUND = TREE_DECORATOR_TYPES.register("place_on_ground", () -> new TreeDecoratorType<>(PlaceOnGroundDecorator.CODEC));
-    public static final DeferredHolder<TreeDecoratorType<?>, TreeDecoratorType<PineBarkDecorator>> PINE_BARK = TREE_DECORATOR_TYPES.register("pine_bark", () -> new TreeDecoratorType<>(PineBarkDecorator.CODEC));
-    public static final DeferredHolder<TreeDecoratorType<?>, TreeDecoratorType<BeardLichenDecorator>> BEARD_LICHEN = TREE_DECORATOR_TYPES.register("beard_lichen", () -> new TreeDecoratorType<>(BeardLichenDecorator.CODEC));
+    public static final DeferredHolder<TreeDecoratorType<?>, TreeDecoratorType<PlaceOnGroundDecorator>> PLACE_ON_GROUND =
+            TREE_DECORATOR_TYPES.register("place_on_ground", () -> new TreeDecoratorType<>(PlaceOnGroundDecorator.CODEC));
+    public static final DeferredHolder<TreeDecoratorType<?>, TreeDecoratorType<PineBarkDecorator>> PINE_BARK =
+            TREE_DECORATOR_TYPES.register("pine_bark", () -> new TreeDecoratorType<>(PineBarkDecorator.CODEC));
+    public static final DeferredHolder<TreeDecoratorType<?>, TreeDecoratorType<BeardLichenDecorator>> BEARD_LICHEN =
+            TREE_DECORATOR_TYPES.register("beard_lichen", () -> new TreeDecoratorType<>(BeardLichenDecorator.CODEC));
 
     public static void register(IEventBus modEventBus) {
         TREE_DECORATOR_TYPES.register(modEventBus);

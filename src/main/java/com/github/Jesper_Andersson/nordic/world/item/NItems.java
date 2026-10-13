@@ -20,18 +20,26 @@ import static com.github.Jesper_Andersson.nordic.Nordic.ITEMS;
 
 
 public class NItems {
-    public static final DeferredItem<Item> LINGONBERRIES_ITEM = ITEMS.register("lingonberries", () -> new ItemNameBlockItem(LINGONBERRY_SHRUB.get(), new Item.Properties().food(new FoodProperties.Builder().nutrition(1).build())));
+    public static final DeferredItem<Item> LINGONBERRIES_ITEM = ITEMS.register("lingonberries",
+            () -> new ItemNameBlockItem(LINGONBERRY_SHRUB.get(), new Item.Properties()
+                    .food(new FoodProperties.Builder().nutrition(1).build())));
 
-    public static final DeferredItem<Item> CHANTARELLE_ITEM = ITEMS.register("chantarelle", () -> new ItemNameBlockItem(CHANTARELLE.get(), new Item.Properties().food(new FoodProperties.Builder().nutrition(1).build())));
+    public static final DeferredItem<Item> CHANTARELLE_ITEM = ITEMS.register("chantarelle",
+            () -> new ItemNameBlockItem(CHANTARELLE.get(), new Item.Properties()
+                    .food(new FoodProperties.Builder().nutrition(1).build())));
 
     public static final DeferredItem<Item> LINGONBERRY_SHRUB_ITEM = ITEMS.register("lingonberry_shrub", () -> new BlockItem(LINGONBERRY_SHRUB.get(), new Item.Properties()));
 
-    public static final DeferredItem<Item> BLUEBERRIES_ITEM = ITEMS.register("blueberries", () -> new ItemNameBlockItem(BLUEBERRY_SHRUB.get(), new Item.Properties().food(new FoodProperties.Builder().nutrition(1).build())));
+    public static final DeferredItem<Item> BLUEBERRIES_ITEM = ITEMS.register("blueberries",
+            () -> new ItemNameBlockItem(BLUEBERRY_SHRUB.get(), new Item.Properties()
+                    .food(new FoodProperties.Builder().nutrition(1).build())));
 
     public static final DeferredItem<Item> BLUEBERRY_SHRUB_ITEM = ITEMS.register("blueberry_shrub", () -> new BlockItem(BLUEBERRY_SHRUB.get(), new Item.Properties()));
 
     // Rarer than the other berries, so more filling
-    public static final DeferredItem<Item> CLOUDBERRIES_ITEM = ITEMS.register("cloudberries", () -> new ItemNameBlockItem(CLOUDBERRY_SHRUB.get(), new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6f).build())));
+    public static final DeferredItem<Item> CLOUDBERRIES_ITEM = ITEMS.register("cloudberries",
+            () -> new ItemNameBlockItem(CLOUDBERRY_SHRUB.get(), new Item.Properties()
+                    .food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6f).build())));
 
     public static final DeferredItem<Item> CLOUDBERRY_SHRUB_ITEM = ITEMS.register("cloudberry_shrub", () -> new BlockItem(CLOUDBERRY_SHRUB.get(), new Item.Properties()));
 
@@ -56,16 +64,27 @@ public class NItems {
     public static final DeferredItem<Item> HEATHER_ITEM = ITEMS.register("heather", () -> new BlockItem(HEATHER.get(), new Item.Properties()));
 
     // White colors so the custom egg texture isn't tinted
-    public static final DeferredItem<Item> BARROW_WIGHT_SPAWN_EGG = ITEMS.register("barrow_wight_spawn_egg", () -> new DeferredSpawnEggItem(NEntities.BARROW_WIGHT, 0xFFFFFF, 0xFFFFFF, new Item.Properties()));
+    public static final DeferredItem<Item> BARROW_WIGHT_SPAWN_EGG = ITEMS.register("barrow_wight_spawn_egg",
+            () -> new DeferredSpawnEggItem(NEntities.BARROW_WIGHT, 0xFFFFFF, 0xFFFFFF, new Item.Properties()));
 
     public static final DeferredItem<Item> PIKE = ITEMS.register("pike", () -> new Item(new Item.Properties().food(Foods.SALMON)));
     public static final DeferredItem<Item> COOKED_PIKE = ITEMS.register("cooked_pike", () -> new Item(new Item.Properties().food(Foods.COOKED_SALMON)));
-    public static final DeferredItem<Item> ROACH = ITEMS.register("roach", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.1f).build())));
-    public static final DeferredItem<Item> COOKED_ROACH = ITEMS.register("cooked_roach", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationModifier(0.5f).build())));
+    public static final DeferredItem<Item> ROACH = ITEMS.register("roach",
+            () -> new Item(new Item.Properties()
+                    .food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.1f).build())));
+    public static final DeferredItem<Item> COOKED_ROACH = ITEMS.register("cooked_roach",
+            () -> new Item(new Item.Properties()
+                    .food(new FoodProperties.Builder().nutrition(4).saturationModifier(0.5f).build())));
 
     // Entity types are registered before items, so .get() is safe here
-    public static final DeferredItem<Item> PIKE_BUCKET = ITEMS.register("pike_bucket", () -> new MobBucketItem(NEntities.PIKE.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
-    public static final DeferredItem<Item> ROACH_BUCKET = ITEMS.register("roach_bucket", () -> new MobBucketItem(NEntities.ROACH.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
+    public static final DeferredItem<Item> PIKE_BUCKET = ITEMS.register("pike_bucket",
+            () -> new MobBucketItem(NEntities.PIKE.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties()
+                    .stacksTo(1)
+                    .component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
+    public static final DeferredItem<Item> ROACH_BUCKET = ITEMS.register("roach_bucket",
+            () -> new MobBucketItem(NEntities.ROACH.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties()
+                    .stacksTo(1)
+                    .component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
 
     public static final DeferredItem<Item> PIKE_SPAWN_EGG = ITEMS.register("pike_spawn_egg", () -> new DeferredSpawnEggItem(NEntities.PIKE, 0x4F5F32, 0xC8C27A, new Item.Properties()));
     public static final DeferredItem<Item> ROACH_SPAWN_EGG = ITEMS.register("roach_spawn_egg", () -> new DeferredSpawnEggItem(NEntities.ROACH, 0xB9C0C6, 0xC2402E, new Item.Properties()));
