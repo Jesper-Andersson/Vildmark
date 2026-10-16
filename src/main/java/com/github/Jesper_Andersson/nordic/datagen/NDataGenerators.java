@@ -1,7 +1,6 @@
 package com.github.Jesper_Andersson.nordic.datagen;
 
 import com.github.Jesper_Andersson.nordic.Nordic;
-import io.netty.util.concurrent.CompleteFuture;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -27,7 +26,8 @@ public class NDataGenerators {
 
         generator.addProvider(event.includeClient(), new NBlockStateProvider(output,existingFileHelper));
         generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(),
-                List.of(new LootTableProvider.SubProviderEntry(NBlockLootProvider::new, LootContextParamSets.BLOCK)), lookupProvider));
+                List.of(new LootTableProvider.SubProviderEntry(NBlockLootProvider::new, LootContextParamSets.BLOCK),
+                        new LootTableProvider.SubProviderEntry(NEntityLootProvider::new, LootContextParamSets.ENTITY)), lookupProvider));
 
         generator.addProvider(event.includeServer(), new NRecipeProvider(output, lookupProvider));
     }

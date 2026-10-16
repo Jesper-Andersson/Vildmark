@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "cookingtime": 600,
+  "experience": 0.35,
+  "ingredient": {
+    "item": "nordic:pike"
+  },
+  "result": {
+    "count": 1,
+    "id": "nordic:cooked_pike"
+  }
+}

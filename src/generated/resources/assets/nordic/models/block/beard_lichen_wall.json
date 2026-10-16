@@ -1,0 +1,37 @@
+{
+  "ambientocclusion": false,
+  "elements": [
+    {
+      "faces": {
+        "north": {
+          "texture": "#lichen",
+          "uv": [
+            16.0,
+            0.0,
+            0.0,
+            16.0
+          ]
+        },
+        "south": {
+          "texture": "#lichen"
+        }
+      },
+      "from": [
+        0,
+        0,
+        0.8
+      ],
+      "shade": false,
+      "to": [
+        16,
+        16,
+        0.8
+      ]
+    }
+  ],
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "lichen": "nordic:block/beard_lichen",
+    "particle": "nordic:block/beard_lichen"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "ambientocclusion": false,
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "texture": "#texture",
+          "uv": [
+            0.0,
+            16.0,
+            8.0,
+            8.0
+          ]
+        },
+        "up": {
+          "texture": "#texture"
+        }
+      },
+      "from": [
+        0,
+        0.25,
+        8
+      ],
+      "to": [
+        8,
+        0.25,
+        16
+      ]
+    }
+  ],
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "nordic:block/pine_needles",
+    "texture": "nordic:block/pine_needles"
+  }
+}

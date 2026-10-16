@@ -1,3 +1,30 @@
-// 1.21.1	2026-10-12T01:22:45.3682613	Loot Tables
+// 1.21.1	2026-10-14T20:07:17.9279614	Loot Tables
+400895ff720e2756bd3a8d05c01413b3ac0578f5 data/nordic/loot_table/blocks/beard_lichen.json
+91300196f8f6ec5c2d53cbdef73cc418ee848353 data/nordic/loot_table/blocks/blueberry_shrub.json
+80cbde418efab85d9e9d1fd3fbb847fc78716063 data/nordic/loot_table/blocks/cattail.json
+ccdadecabb90b83b83b44f94827a92f86729249d data/nordic/loot_table/blocks/chantarelle.json
+669fdc6b5edc05acbfb8a3900363fb62c40b2620 data/nordic/loot_table/blocks/cloudberry_shrub.json
+84be58af3a5ebf1ee5d0554681fa205d74a078e5 data/nordic/loot_table/blocks/cotton_grass.json
+b4f535d3d17cddfb78dadf474d62017391a127ad data/nordic/loot_table/blocks/heather.json
+50326bd8f0213b12a84fcd43ec97dadf3024e7d2 data/nordic/loot_table/blocks/lingonberry_shrub.json
+3be7e27f1e5d897cdb940444e897dd8634c5c585 data/nordic/loot_table/blocks/peat.json
+1e51fdb74493abfdcd4b9f8b5cd84fa69c8c1828 data/nordic/loot_table/blocks/peat_iron_ore.json
+ebe7e11a06b0163b830e8a551d06463b913f6d19 data/nordic/loot_table/blocks/peeled_pine_log.json
+d272adc4d20f5b0813719eb8197a9d1de9d07f2e data/nordic/loot_table/blocks/peeling_pine_log.json
+5d452d707264f65bf772ccd3f66f013c89649557 data/nordic/loot_table/blocks/pine_leaves.json
+7ef7600fb827883fa5bb50ffd6dd3a4ee43e5a7c data/nordic/loot_table/blocks/pine_log.json
+cd6a324021e0bb1de3043eee02f6a08e8b266314 data/nordic/loot_table/blocks/pine_needles.json
+f93c0f64c5058d3d5fcfc99642cd59368dd65d1a data/nordic/loot_table/blocks/pine_planks.json
+d9249d45cc79bb1f9cd28de85cb215320db24ab4 data/nordic/loot_table/blocks/pine_sapling.json
 990fda0d3a076552dc9239c474d73853f9352f27 data/nordic/loot_table/blocks/pine_slab.json
 07f5a8a2d9fc5a4f9bd6d15f76366a4f482dfae7 data/nordic/loot_table/blocks/pine_stairs.json
+544dfe7bbd8fd3d6ebc807ab1de29c8cc07d8ee1 data/nordic/loot_table/blocks/reed.json
+952490673e0b0939e35e86004665b5daeebf6793 data/nordic/loot_table/blocks/snakefern.json
+d10bf6e296aa20ffa64a7e7dca356e44849c91d8 data/nordic/loot_table/blocks/stinging_nettle.json
+f259f896876276868fcddb04e6d2f3779cc1557b data/nordic/loot_table/blocks/sundew.json
+ea6c67a706ec1b31ec5f3c301186e2dd7927d02d data/nordic/loot_table/blocks/tall_stinging_nettle.json
+ab36cb1be967e5c46320d065ff8ab3222067ac48 data/nordic/loot_table/entities/barrow_wight.json
+af0b984c7e2587bd631fa670f4615b9ef5e45e27 data/nordic/loot_table/entities/moose.json
+4a771fc7142544fa1395af49d49757e1025f8f57 data/nordic/loot_table/entities/pike.json
+b97c3e9910ae4e29160250fb2694616e1b99ee11 data/nordic/loot_table/entities/roach.json
+ab6af2c3627fe379ba62f1d6c4551bc4dc1338d1 data/nordic/loot_table/entities/tomte.json

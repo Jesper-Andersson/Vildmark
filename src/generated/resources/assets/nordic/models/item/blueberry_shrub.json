@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "nordic:block/blueberry_shrub_stage4"
+  }
+}

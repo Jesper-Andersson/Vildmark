@@ -1,0 +1,13 @@
+{
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "automatic_culling": false,
+  "emissive_ambient": false,
+  "loader": "neoforge:obj",
+  "model": "nordic:models/block/snakefern.obj",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "nordic:block/snakefern",
+    "texture": "nordic:block/snakefern"
+  }
+}

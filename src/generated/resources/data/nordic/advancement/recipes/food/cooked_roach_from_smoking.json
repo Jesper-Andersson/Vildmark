@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_roach": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nordic:roach"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nordic:cooked_roach_from_smoking"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_roach"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nordic:cooked_roach_from_smoking"
+    ]
+  }
+}
