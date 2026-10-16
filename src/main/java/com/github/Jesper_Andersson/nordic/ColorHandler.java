@@ -22,7 +22,7 @@ public class ColorHandler {
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
-        event.getBlockColors().register(
+        event.register(
                 ((blockState, blockAndTintGetter, blockPos, tintIndex) -> {
                     return blockAndTintGetter != null && blockPos != null ?
                             BiomeColors.getAverageFoliageColor(blockAndTintGetter, blockPos) :
@@ -32,7 +32,7 @@ public class ColorHandler {
                 NBlocks.PINE_LEAVES.get()
         );
         // Placeholder plants reuse the grey vanilla grass textures, so they need a grass tint
-        event.getBlockColors().register(
+        event.register(
                 (blockState, blockAndTintGetter, blockPos, tintIndex) ->
                         blockAndTintGetter != null && blockPos != null ?
                                 BiomeColors.getAverageGrassColor(blockAndTintGetter, blockPos) :
@@ -41,24 +41,24 @@ public class ColorHandler {
                 NBlocks.TALL_STINGING_NETTLE.get(),
                 NBlocks.SNAKE_FERN.get()
         );
-        event.getBlockColors().register((blockState, blockAndTintGetter, blockPos, tintIndex) -> HEATHER_COLOR,
+        event.register((blockState, blockAndTintGetter, blockPos, tintIndex) -> HEATHER_COLOR,
                 NBlocks.HEATHER.get());
 
     }
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
-        event.getItemColors().register(
+        event.register(
                 (itemStack, tintIndex) -> {
                     return FoliageColor.getDefaultColor();
                 },
                 NItems.PINE_LEAVES_ITEM.get()
         );
-        event.getItemColors().register(
+        event.register(
                 (itemStack, tintIndex) -> GrassColor.getDefaultColor(),
                 NItems.STINGING_NETTLE_ITEM.get(),
                 NItems.SNAKE_FERN_ITEM.get()
         );
-        event.getItemColors().register((itemStack, tintIndex) -> HEATHER_COLOR, NItems.HEATHER_ITEM.get());
+        event.register((itemStack, tintIndex) -> HEATHER_COLOR, NItems.HEATHER_ITEM.get());
     }
 }
