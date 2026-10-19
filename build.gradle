@@ -182,6 +182,13 @@ dependencies {
     localRuntime "maven.modrinth:sodium:mc1.21.1-0.6.13-neoforge"
     localRuntime "maven.modrinth:iris:1.8.12+1.21.1-neoforge"
 
+    // Dev-only: building and testing structures. Pinned by Modrinth version ID, since these version numbers are shared
+    // with other loaders' files
+    localRuntime "maven.modrinth:worldedit:WTAFvuRx"            // 7.3.8
+    localRuntime "maven.modrinth:effortless-building:YxnBXtLv"  // 4.2
+    localRuntime "maven.modrinth:jei:iv3KiVkE"                  // 19.64.0.455
+    localRuntime "maven.modrinth:jade:eYz2YBGT"                 // 15.10.6
+
     // Dev-only: worldgen compat testing, only on the compatClient run
     compatRuntimeOnly sourceSets.main.output
     compatRuntimeOnly "maven.modrinth:terralith:${terralith_version}"
