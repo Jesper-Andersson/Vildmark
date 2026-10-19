@@ -243,6 +243,57 @@ publishing {
     }
 }
 
+// Tall textures are drawn as one Aseprite file in art/textures, so seams between parts can be edited in one place.
+// Each file is cut into square tiles from the top down, one per listed texture name
+def splitTextures = [
+        'cattail'             : ['cattail_top', 'cattail_bottom'],
+        'reed'                : ['reed_top', 'reed_bottom'],
+        'tall_stinging_nettle': ['tall_stinging_nettle_top', 'tall_stinging_nettle_bottom'],
+        'beard_lichen'        : ['beard_lichen', 'beard_lichen_tip'],
+        'pinelogmaster'       : ['peeled_pine_log', 'peeling_pine_log', 'pine_log'],
+]
+
+// Run manually after editing a file above, since it needs Aseprite installed. Override its location with -Paseprite=<path>
+tasks.register('exportTextures') {
+    group = 'art'
+    description = 'Exports the Aseprite files in art/textures as block textures'
+
+    def aseprite = providers.gradleProperty('aseprite').orElse('C:/Program Files/Aseprite/Aseprite.exe')
+    def sourceDir = file('art/textures')
+    def outputDir = file('src/main/resources/assets/nordic/textures/block')
+    def flatDir = temporaryDir
+    inputs.files(splitTextures.keySet().collect { new File(sourceDir, "${it}.aseprite") })
+    outputs.files(splitTextures.values().flatten().collect { new File(outputDir, "${it}.png") })
+
+    doLast {
+        splitTextures.each { source, names ->
+            // Aseprite flattens the visible layers into one PNG, which is then cut into tiles
+            def flat = new File(flatDir, "${source}.png")
+            def process = new ProcessBuilder(aseprite.get(), '-b', new File(sourceDir, "${source}.aseprite").path, '--save-as', flat.path)
+                    .redirectErrorStream(true).start()
+            def log = process.inputStream.text
+            if (process.waitFor() != 0 || !flat.exists()) {
+                throw new GradleException("Aseprite failed to export ${source}.aseprite: ${log}")
+            }
+
+            def image = javax.imageio.ImageIO.read(flat)
+            def size = image.width
+            if (image.height != size * names.size()) {
+                throw new GradleException("${source}.aseprite is ${image.width}x${image.height}, expected ${size}x${size * names.size()} for ${names}")
+            }
+            // An empty canvas would wipe the existing textures, so it's more likely a mistake than intended
+            def empty = (0..<image.height).every { y -> (0..<image.width).every { x -> (image.getRGB(x, y) >>> 24) == 0 } }
+            if (empty) {
+                throw new GradleException("${source}.aseprite is fully transparent, not exporting it")
+            }
+            names.eachWithIndex { name, i ->
+                javax.imageio.ImageIO.write(image.getSubimage(0, i * size, size, size), 'png', new File(outputDir, "${name}.png"))
+            }
+            logger.lifecycle("${source}.aseprite -> ${names.join(', ')}")
+        }
+    }
+}
+
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
