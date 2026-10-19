@@ -27,6 +27,9 @@ public class NItems {
             () -> new ItemNameBlockItem(CHANTARELLE.get(), new Item.Properties()
                     .food(new FoodProperties.Builder().nutrition(1).build())));
 
+    public static final DeferredItem<BlockItem> PINE_CONK_ITEM = ITEMS.register("pine_conk",
+            () -> new ItemNameBlockItem(PINE_CONK.get(), new Item.Properties()));
+
     public static final DeferredItem<Item> LINGONBERRY_SHRUB_ITEM = ITEMS.register("lingonberry_shrub", () -> new BlockItem(LINGONBERRY_SHRUB.get(), new Item.Properties()));
 
     public static final DeferredItem<Item> BLUEBERRIES_ITEM = ITEMS.register("blueberries",

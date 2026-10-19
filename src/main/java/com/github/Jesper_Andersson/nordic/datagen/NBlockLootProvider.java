@@ -45,6 +45,7 @@ public class NBlockLootProvider extends BlockLootSubProvider {
         add(NBlocks.PINE_LEAVES.get(), block -> createLeavesDrops(block, NBlocks.PINE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
         dropSelf(NBlocks.PINE_SAPLING.get());
         add(NBlocks.PINE_NEEDLES.get(), this::createPetalsDrops);
+
         dropSelf(NBlocks.BEARD_LICHEN.get());
 
         // Bog
@@ -58,6 +59,7 @@ public class NBlockLootProvider extends BlockLootSubProvider {
         add(NBlocks.BLUEBERRY_SHRUB.get(), block -> createBerryShrubDrops(block, NItems.BLUEBERRIES_ITEM.get()));
         add(NBlocks.CLOUDBERRY_SHRUB.get(), block -> createBerryShrubDrops(block, NItems.CLOUDBERRIES_ITEM.get()));
         dropOther(NBlocks.CHANTARELLE.get(), NItems.CHANTARELLE_ITEM.get());
+        dropSelf(NBlocks.PINE_CONK.get());
         add(NBlocks.REED.get(), block -> createLowerHalfDrops(block, block));
         add(NBlocks.CATTAIL.get(), block -> createLowerHalfDrops(block, block));
         add(NBlocks.TALL_STINGING_NETTLE.get(), block -> createLowerHalfDrops(block, NItems.STINGING_NETTLE_ITEM.get()));

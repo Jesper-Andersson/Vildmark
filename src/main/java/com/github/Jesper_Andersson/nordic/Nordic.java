@@ -100,6 +100,7 @@ public class Nordic {
                         output.accept(CLOUDBERRIES_ITEM.get());
                         output.accept(CLOUDBERRY_SHRUB_ITEM.get());
                         output.accept(CHANTARELLE_ITEM.get());
+                        output.accept(PINE_CONK_ITEM.get());
                         output.accept(REED_ITEM.get());
                         output.accept(CATTAIL_ITEM.get());
                         output.accept(COTTON_GRASS_ITEM.get());

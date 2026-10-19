@@ -1,27 +1,15 @@
 package com.github.Jesper_Andersson.nordic.world.level.block;
 
 import com.github.Jesper_Andersson.nordic.world.level.block.plants.tree.grower.PineTreeGrower;
-import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.BeardLichenBlock;
-import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.BlueberryShrubBlock;
-import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.BogPlantBlock;
-import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.CattailBlock;
-import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.ChantarelleBlock;
-import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.CloudberryShrubBlock;
-import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.HeatherBlock;
-import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.LingonberryShrubBlock;
-import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.PineLeavesBlock;
-import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.PineNeedlesBlock;
-import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.ReedBlock;
-import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.SnakeFernBlock;
-import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.StingingNettleBlock;
-import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.SundewBlock;
-import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.TallStingingNettleBlock;
+import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredItem;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import static com.github.Jesper_Andersson.nordic.Nordic.BLOCKS;
 import static com.github.Jesper_Andersson.nordic.Nordic.PATCH_CHANTARELLE_CONFIGURED;
@@ -57,6 +45,13 @@ public class NBlocks {
                             .randomTicks()
                             .sound(SoundType.GRASS),
                     PATCH_CHANTARELLE_CONFIGURED));
+
+    public static final DeferredBlock<Block> PINE_CONK = BLOCKS.register("pine_conk",
+            () -> new PineConkMushroomBlock(
+                    BlockBehaviour.Properties.of()
+                            .randomTicks()
+                            .sound(SoundType.WOOD)
+            ));
 
     // Water plants
     public static final DeferredBlock<Block> REED = BLOCKS.register("reed",

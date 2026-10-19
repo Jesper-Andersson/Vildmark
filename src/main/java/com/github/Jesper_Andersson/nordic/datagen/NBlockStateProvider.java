@@ -4,6 +4,7 @@ import com.github.Jesper_Andersson.nordic.Nordic;
 import com.github.Jesper_Andersson.nordic.world.item.NItems;
 import com.github.Jesper_Andersson.nordic.world.level.block.NBlocks;
 import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.BeardLichenBlock;
+import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.PineConkMushroomBlock;
 import com.github.Jesper_Andersson.nordic.world.level.block.plants.vegetation.PineNeedlesBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
@@ -44,6 +46,7 @@ public class NBlockStateProvider extends BlockStateProvider {
         simpleBlock(NBlocks.PINE_SAPLING.get(), cross(name(NBlocks.PINE_SAPLING.get())));
         pineNeedles();
         beardLichen();
+        pineConk();
 
         // Bog
         simpleBlock(NBlocks.PEAT.get());
@@ -85,6 +88,7 @@ public class NBlockStateProvider extends BlockStateProvider {
         blockItem(NItems.PINE_SAPLING_ITEM.get());
         blockItem(NItems.PEAT_ITEM.get());
         blockItem(NItems.PEAT_IRON_ORE_ITEM.get());
+        blockItem(NItems.PINE_CONK_ITEM.get());
         blockItem(NItems.SNAKE_FERN_ITEM.get());
 
         flatItem(NItems.PINE_NEEDLES_ITEM.get(), modLoc("block/pine_needles"));
@@ -135,6 +139,31 @@ public class NBlockStateProvider extends BlockStateProvider {
         getVariantBuilder(block)
                 .partialState().with(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER).addModels(new ConfiguredModel(bottom))
                 .partialState().with(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER).addModels(new ConfiguredModel(top));
+    }
+
+    // Attaches to log, models oriented to north
+    private void pineConk(){
+        Block block = NBlocks.PINE_CONK.get();
+        ModelFile young = models().getExistingFile(modLoc("block/pine_conk_small"));
+        ModelFile mature = models().getExistingFile(modLoc("block/pine_conk"));
+
+        VariantBlockStateBuilder builder = getVariantBuilder(block);
+        for (Direction facing : PineConkMushroomBlock.FACING.getPossibleValues()) {
+            for (int age : PineConkMushroomBlock.AGE.getPossibleValues()) {
+                ModelFile model;
+                int rotation = yRotation(facing);
+
+                if (age < PineConkMushroomBlock.MAX_AGE){
+                    model = young;
+                }
+                else {
+                    model = mature;
+                }
+
+                builder.partialState().with(PineConkMushroomBlock.FACING, facing).with(PineConkMushroomBlock.AGE , age)
+                        .addModels(new ConfiguredModel(model, 0, rotation, false));
+            }
+        }
     }
 
     // Hangs straight down from a ceiling or lies flat against a wall, with a separate texture for the bottom block

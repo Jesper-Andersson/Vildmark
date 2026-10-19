@@ -11,6 +11,7 @@ b6dbb7d5d9ab7c66b40981eca37429ec52631114 assets/nordic/blockstates/peat.json
 b1347cf3d52e784a56acda9074e7ae18de26f116 assets/nordic/blockstates/peat_iron_ore.json
 ec3b029365e48f4bbf5fe4a1239a10c9f369a7ef assets/nordic/blockstates/peeled_pine_log.json
 63f785fd69e42fb141456b09dfa4e2052cb42d8d assets/nordic/blockstates/peeling_pine_log.json
+72d2805354b449d88fc3bca1fe28b6304739ba25 assets/nordic/blockstates/pine_conk.json
 3df336aba6fc87ce30eca7cf82f815307ec6b4ce assets/nordic/blockstates/pine_leaves.json
 816869a9baf9edd6d8fd7b807c656e273b5e4918 assets/nordic/blockstates/pine_log.json
 d37770d5704061366124d2b4df2f3b5a33875f2e assets/nordic/blockstates/pine_needles.json
@@ -94,6 +95,7 @@ a399049de5e0abfc20db2504e44ddb65b2413b24 assets/nordic/models/item/cotton_grass.
 025a5fb421e3e7a14a3e120ab4529f68477ba95a assets/nordic/models/item/pike.json
 800a03797667d42904488048376e085102c99bd0 assets/nordic/models/item/pike_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/nordic/models/item/pike_spawn_egg.json
+bd04d90f4e40fd76d816bbc50f3e0cdb3ac0944b assets/nordic/models/item/pine_conk.json
 9d395aba9d7fddcdcc2e05797118c68326e5465a assets/nordic/models/item/pine_leaves.json
 680476c3c1e1385a62beb96f751c1eb240fccc77 assets/nordic/models/item/pine_log.json
 6628210abcd2054238a84c11cddd29b593545010 assets/nordic/models/item/pine_needles.json
