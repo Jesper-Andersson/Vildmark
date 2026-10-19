@@ -15,6 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -45,6 +46,14 @@ public class NRecipeProvider extends RecipeProvider {
                 .define('#', NBlocks.PINE_PLANKS)
                 .group("wooden_stairs")
                 .unlockedBy("has_planks", has(NBlocks.PINE_PLANKS))
+                .save(output);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, Blocks.WHITE_WOOL, 1)
+                .pattern("###")
+                .pattern("###")
+                .pattern("###")
+                .define('#', NItems.COTTON_GRASS_ITEM)
+                .unlockedBy("has_cotton_grass", has(NItems.COTTON_GRASS_ITEM))
                 .save(output);
 
         cookFood(output, NItems.PIKE.get(), NItems.COOKED_PIKE.get());

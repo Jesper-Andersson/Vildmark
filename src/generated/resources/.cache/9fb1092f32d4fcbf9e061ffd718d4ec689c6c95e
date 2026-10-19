@@ -1,4 +1,6 @@
-// 1.21.1	2026-10-14T20:07:17.9299715	Recipes
+// 1.21.1	2026-10-16T19:44:24.2043523	Recipes
+9e9ad1dbe9d4b799134de5acbbd3cc4da9afd653 data/minecraft/advancement/recipes/building_blocks/white_wool.json
+ae63fdeba008f9e39442f5024c69318c1fb82d10 data/minecraft/recipe/white_wool.json
 cfaa76c3217ed13e6b9bfcfa0b5adf84a93b453b data/nordic/advancement/recipes/building_blocks/pine_planks.json
 c45fc2b512af8c0aa8021dbe518d0025b34cad12 data/nordic/advancement/recipes/building_blocks/pine_slab.json
 adc0146cd4ad92505a33c82fe299a7ebf7461786 data/nordic/advancement/recipes/building_blocks/pine_stairs.json

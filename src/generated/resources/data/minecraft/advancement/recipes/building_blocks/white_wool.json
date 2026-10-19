@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cotton_grass": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nordic:cotton_grass"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:white_wool"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cotton_grass"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:white_wool"
+    ]
+  }
+}
