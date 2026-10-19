@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-14T20:07:17.9309713	Block States: nordic
+// 1.21.1	2026-10-19T01:57:02.6750086	Block States: nordic
 487d68602c64420d5fc8be3e373c01e8d91a6db7 assets/nordic/blockstates/beard_lichen.json
 6557fb102d22c0f341e0ccf830a89d3560107d8b assets/nordic/blockstates/blueberry_shrub.json
 fc172b0a87ef11270ed0a43a67bb861ede0ce3ec assets/nordic/blockstates/cattail.json
@@ -77,17 +77,17 @@ db43a1e17e9140dab64ab42826f2650d9a7e84a6 assets/nordic/models/block/tall_stingin
 3e7a488224f1f4076a5e9050cc1f78acb59c0d37 assets/nordic/models/item/barrow_wight_spawn_egg.json
 0f292c7e4d4a9d62593441462d46ec4a742f8138 assets/nordic/models/item/beard_lichen.json
 07644b8a62788645c7c3ec1fe36cd10656d0384e assets/nordic/models/item/blueberries.json
-a751ba35bd5e2010b3724064fd54fd181258a343 assets/nordic/models/item/blueberry_shrub.json
+64967fed0b167729d0204fcb4f8f2983afb59477 assets/nordic/models/item/blueberry_shrub.json
 681df02bafb4dd7b5ae1f8288e3b09dca4160660 assets/nordic/models/item/cattail.json
 bf0b67dd0c174cfb509d82fe47508ddc5dc5ce80 assets/nordic/models/item/chantarelle.json
 37255e94fd4a16ea6efa72ac4d4b6d800b6b72b2 assets/nordic/models/item/cloudberries.json
-ebb3a7f15277ef4f3ec7ba094bebb20a7c5def9c assets/nordic/models/item/cloudberry_shrub.json
+7bea236e514856c54ee4a24dcd988a6539b83298 assets/nordic/models/item/cloudberry_shrub.json
 b9fbcb4995024afc027a863aa756c6a3925a1822 assets/nordic/models/item/cooked_pike.json
 e4d4b7c61131cbfe10b70afc8c54437b82317ca5 assets/nordic/models/item/cooked_roach.json
 a399049de5e0abfc20db2504e44ddb65b2413b24 assets/nordic/models/item/cotton_grass.json
 70fbc36fe9f45c3e6971c9e7548eb2c7f209f80b assets/nordic/models/item/heather.json
 32cd7b5f6cfec5c3d2d006077f0d98e73a04c4f0 assets/nordic/models/item/lingonberries.json
-6e7b629358413167f15fdd34f4ea684780840401 assets/nordic/models/item/lingonberry_shrub.json
+586febac19afddd769b052d04034e54ccf098c04 assets/nordic/models/item/lingonberry_shrub.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/nordic/models/item/moose_spawn_egg.json
 858877fc8fab88ea79d61be2a43bafd9a8622038 assets/nordic/models/item/peat.json
 35481d023d4622d783ecb347008d2e83f8443db9 assets/nordic/models/item/peat_iron_ore.json

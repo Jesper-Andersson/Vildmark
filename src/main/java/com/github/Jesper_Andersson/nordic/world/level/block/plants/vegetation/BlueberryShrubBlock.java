@@ -47,7 +47,7 @@ public class BlueberryShrubBlock extends BushBlock implements BonemealableBlock 
     }
 
     public ItemStack getCloneItemStack(LevelReader pLevel, BlockPos pPos, BlockState pState) {
-        return new ItemStack(NItems.BLUEBERRIES_ITEM.get());
+        return new ItemStack(NItems.BLUEBERRY_SHRUB_ITEM.get());
     }
 
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
@@ -114,9 +114,9 @@ public class BlueberryShrubBlock extends BushBlock implements BonemealableBlock 
 
     @Override
     public boolean isBonemealSuccess(Level pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
-        return false;
+        return pState.getValue(AGE) < 4;
     }
-    //TODO - Fix
+
     @Override
     public void performBonemeal(ServerLevel pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
         if (pState.getValue(AGE) < 4) {

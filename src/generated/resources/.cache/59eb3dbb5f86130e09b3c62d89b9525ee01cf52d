@@ -1,12 +1,12 @@
-// 1.21.1	2026-10-14T20:07:17.9279614	Loot Tables
+// 1.21.1	2026-10-19T01:57:02.673001	Loot Tables
 400895ff720e2756bd3a8d05c01413b3ac0578f5 data/nordic/loot_table/blocks/beard_lichen.json
-91300196f8f6ec5c2d53cbdef73cc418ee848353 data/nordic/loot_table/blocks/blueberry_shrub.json
+ee871c6d6d17f33e7f47e076243eb6c40c4545a6 data/nordic/loot_table/blocks/blueberry_shrub.json
 80cbde418efab85d9e9d1fd3fbb847fc78716063 data/nordic/loot_table/blocks/cattail.json
 ccdadecabb90b83b83b44f94827a92f86729249d data/nordic/loot_table/blocks/chantarelle.json
-669fdc6b5edc05acbfb8a3900363fb62c40b2620 data/nordic/loot_table/blocks/cloudberry_shrub.json
+4cbf477aaab7fb3210d6db73a1762c4a422272e8 data/nordic/loot_table/blocks/cloudberry_shrub.json
 84be58af3a5ebf1ee5d0554681fa205d74a078e5 data/nordic/loot_table/blocks/cotton_grass.json
 b4f535d3d17cddfb78dadf474d62017391a127ad data/nordic/loot_table/blocks/heather.json
-50326bd8f0213b12a84fcd43ec97dadf3024e7d2 data/nordic/loot_table/blocks/lingonberry_shrub.json
+662dfdc88eae7586982972c4b5144df2881fcaf3 data/nordic/loot_table/blocks/lingonberry_shrub.json
 3be7e27f1e5d897cdb940444e897dd8634c5c585 data/nordic/loot_table/blocks/peat.json
 1e51fdb74493abfdcd4b9f8b5cd84fa69c8c1828 data/nordic/loot_table/blocks/peat_iron_ore.json
 ebe7e11a06b0163b830e8a551d06463b913f6d19 data/nordic/loot_table/blocks/peeled_pine_log.json

@@ -29,9 +29,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class LingonberryShrubBlock extends BushBlock implements BonemealableBlock {
+public class LingonberryShrubBlock extends BushBlock implements BonemealableBlock  {
     public static final int MAX_AGE = 4;
     public static final IntegerProperty AGE = BlockStateProperties.AGE_4;
+
+
     private static final VoxelShape SAPLING_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 8.0D, 13.0D);
     private static final VoxelShape MID_GROWTH_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
 
@@ -48,7 +50,7 @@ public class LingonberryShrubBlock extends BushBlock implements BonemealableBloc
     }
 
     public ItemStack getCloneItemStack(LevelReader pLevel, BlockPos pPos, BlockState pState) {
-        return new ItemStack(NItems.LINGONBERRIES_ITEM.get());
+        return new ItemStack(NItems.LINGONBERRY_SHRUB_ITEM.get());
     }
 
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
@@ -115,9 +117,9 @@ public class LingonberryShrubBlock extends BushBlock implements BonemealableBloc
 
     @Override
     public boolean isBonemealSuccess(Level pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
-        return false;
+        return pState.getValue(AGE) < 4;
     }
-    //TODO - Fix
+
     @Override
     public void performBonemeal(ServerLevel pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
         if (pState.getValue(AGE) < 4) {

@@ -91,9 +91,9 @@ public class NBlockStateProvider extends BlockStateProvider {
         flatItem(NItems.BEARD_LICHEN_ITEM.get(), modLoc("block/beard_lichen_tip"));
         flatItem(NItems.COTTON_GRASS_ITEM.get(), modLoc("block/cotton_grass"));
         flatItem(NItems.SUNDEW_ITEM.get(), modLoc("block/sundew"));
-        flatItem(NItems.LINGONBERRY_SHRUB_ITEM.get(), modLoc("block/lingonberry_shrub_stage4"));
-        flatItem(NItems.BLUEBERRY_SHRUB_ITEM.get(), modLoc("block/blueberry_shrub_stage4"));
-        flatItem(NItems.CLOUDBERRY_SHRUB_ITEM.get(), modLoc("block/cloudberry_shrub_stage4"));
+        flatItem(NItems.LINGONBERRY_SHRUB_ITEM.get(), modLoc("block/lingonberry_shrub_stage2"));
+        flatItem(NItems.BLUEBERRY_SHRUB_ITEM.get(), modLoc("block/blueberry_shrub_stage2"));
+        flatItem(NItems.CLOUDBERRY_SHRUB_ITEM.get(), modLoc("block/cloudberry_shrub_stage2"));
         flatItem(NItems.CHANTARELLE_ITEM.get(), modLoc("block/chantarelle"));
         flatItem(NItems.REED_ITEM.get(), modLoc("block/reed_top"));
         flatItem(NItems.CATTAIL_ITEM.get(), modLoc("block/cattail_top"));

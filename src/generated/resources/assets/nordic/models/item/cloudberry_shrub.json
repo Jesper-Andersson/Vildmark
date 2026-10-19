@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "nordic:block/cloudberry_shrub_stage4"
+    "layer0": "nordic:block/cloudberry_shrub_stage2"
   }
 }

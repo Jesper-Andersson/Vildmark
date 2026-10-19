@@ -21,8 +21,7 @@ import static com.github.Jesper_Andersson.nordic.Nordic.ITEMS;
 
 public class NItems {
     public static final DeferredItem<Item> LINGONBERRIES_ITEM = ITEMS.register("lingonberries",
-            () -> new ItemNameBlockItem(LINGONBERRY_SHRUB.get(), new Item.Properties()
-                    .food(new FoodProperties.Builder().nutrition(1).build())));
+            () -> new Item(new Item.Properties().food(Foods.SWEET_BERRIES)));
 
     public static final DeferredItem<Item> CHANTARELLE_ITEM = ITEMS.register("chantarelle",
             () -> new ItemNameBlockItem(CHANTARELLE.get(), new Item.Properties()
@@ -31,8 +30,7 @@ public class NItems {
     public static final DeferredItem<Item> LINGONBERRY_SHRUB_ITEM = ITEMS.register("lingonberry_shrub", () -> new BlockItem(LINGONBERRY_SHRUB.get(), new Item.Properties()));
 
     public static final DeferredItem<Item> BLUEBERRIES_ITEM = ITEMS.register("blueberries",
-            () -> new ItemNameBlockItem(BLUEBERRY_SHRUB.get(), new Item.Properties()
-                    .food(new FoodProperties.Builder().nutrition(1).build())));
+            () -> new Item(new Item.Properties().food(Foods.SWEET_BERRIES)));
 
     public static final DeferredItem<Item> BLUEBERRY_SHRUB_ITEM = ITEMS.register("blueberry_shrub", () -> new BlockItem(BLUEBERRY_SHRUB.get(), new Item.Properties()));
 
