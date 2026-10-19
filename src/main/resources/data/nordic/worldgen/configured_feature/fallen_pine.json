@@ -52,6 +52,8 @@
         }
       }
     },
-    "bark_fraction": 0.4
+    "bark_fraction": 0.4,
+    "conk_chance": 0.08,
+    "large_conk_chance": 0.5
   }
 }

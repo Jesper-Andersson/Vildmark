@@ -1,6 +1,7 @@
 package com.github.Jesper_Andersson.nordic.world.level.levelgen.feature;
 
 import com.github.Jesper_Andersson.nordic.world.level.levelgen.feature.treedecorators.PineBarkDecorator;
+import com.github.Jesper_Andersson.nordic.world.level.levelgen.feature.treedecorators.PineConkDecorator;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,7 +14,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
-/** A fallen trunk lying along X or Z, optionally with the stump it broke off from, and moss or mushrooms on top. */
+/** A fallen trunk lying along X or Z, optionally with the stump it broke off from, moss or mushrooms on top and conks on the sides. */
 public class FallenTreeFeature extends Feature<FallenTreeConfiguration> {
     // Gap between the stump and the start of the trunk
     private static final int STUMP_GAP = 2;
@@ -46,6 +47,9 @@ public class FallenTreeFeature extends Feature<FallenTreeConfiguration> {
 
         if (stump) {
             level.setBlock(origin, config.log().getState(random, origin), Block.UPDATE_CLIENTS);
+            for (Direction side : Direction.Plane.HORIZONTAL) {
+                placeConk(level, origin, side, config, random);
+            }
         }
         // Index of the bark transition log, counted from the stump end; -1 when the trunk doesn't blend
         boolean blend = config.transitionLog().isPresent() && config.peeledLog().isPresent() && length >= 3;
@@ -64,8 +68,18 @@ public class FallenTreeFeature extends Feature<FallenTreeConfiguration> {
             if (random.nextFloat() < config.decorationChance() && level.isEmptyBlock(above)) {
                 level.setBlock(above, config.decoration().getState(random, above), Block.UPDATE_CLIENTS);
             }
+            // Only the long sides; the ends are the stump gap and the crown
+            placeConk(level, pos, direction.getClockWise(), config, random);
+            placeConk(level, pos, direction.getCounterClockWise(), config, random);
         }
         return true;
+    }
+
+    private static void placeConk(WorldGenLevel level, BlockPos log, Direction side, FallenTreeConfiguration config, RandomSource random) {
+        BlockPos pos = log.relative(side);
+        if (random.nextFloat() < config.conkChance() && level.isEmptyBlock(pos)) {
+            level.setBlock(pos, PineConkDecorator.conk(side.getOpposite(), config.largeConkChance(), random), Block.UPDATE_CLIENTS);
+        }
     }
 
     /** Whether the whole trunk fits, checked up front so it is never left floating or half placed. */

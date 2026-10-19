@@ -51,6 +51,11 @@
         "variation": 1
       },
       {
+        "type": "nordic:pine_conk",
+        "probability": 0.01,
+        "large_probability": 0.4
+      },
+      {
         "type": "nordic:beard_lichen",
         "leaves_probability": 0.03,
         "logs_probability": 0.04,

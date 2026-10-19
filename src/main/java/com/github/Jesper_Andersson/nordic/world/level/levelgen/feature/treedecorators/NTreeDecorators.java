@@ -17,6 +17,8 @@ public class NTreeDecorators {
             TREE_DECORATOR_TYPES.register("pine_bark", () -> new TreeDecoratorType<>(PineBarkDecorator.CODEC));
     public static final DeferredHolder<TreeDecoratorType<?>, TreeDecoratorType<BeardLichenDecorator>> BEARD_LICHEN =
             TREE_DECORATOR_TYPES.register("beard_lichen", () -> new TreeDecoratorType<>(BeardLichenDecorator.CODEC));
+    public static final DeferredHolder<TreeDecoratorType<?>, TreeDecoratorType<PineConkDecorator>> PINE_CONK =
+            TREE_DECORATOR_TYPES.register("pine_conk", () -> new TreeDecoratorType<>(PineConkDecorator.CODEC));
 
     public static void register(IEventBus modEventBus) {
         TREE_DECORATOR_TYPES.register(modEventBus);
