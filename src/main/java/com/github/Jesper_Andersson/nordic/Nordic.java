@@ -1,6 +1,7 @@
 package com.github.Jesper_Andersson.nordic;
 
 import com.github.Jesper_Andersson.nordic.compat.BiomePickCompat;
+import com.github.Jesper_Andersson.nordic.core.particles.NParticleTypes;
 import com.github.Jesper_Andersson.nordic.world.entity.NEntities;
 import com.github.Jesper_Andersson.nordic.world.item.NItems;
 import com.github.Jesper_Andersson.nordic.world.level.block.NBlocks;
@@ -150,6 +151,7 @@ public class Nordic {
         PLACED_FEATURES.register(modEventBus);
         LakeBasin.register(modEventBus);
         NTreeDecorators.register(modEventBus);
+        NParticleTypes.register(modEventBus);
         NFeatures.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);

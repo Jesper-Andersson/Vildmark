@@ -1,10 +1,14 @@
 package com.github.Jesper_Andersson.nordic.world.entity.animal;
 
+import com.github.Jesper_Andersson.nordic.core.particles.NParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ambient.Bat;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -25,11 +29,22 @@ public class WillOTheWisp extends Bat implements GeoEntity {
         this.setNoGravity(true);
     }
 
+    public static boolean checkWillOTheWispSpawnRules(EntityType<WillOTheWisp> willothewisp, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        if (!level.canSeeSky(pos)) {
+            return false;
+        } else {
+            int i = level.getMaxLocalRawBrightness(pos);
+            int j = 7; //Chance to spawn
+
+            return i <= random.nextInt(j) && level.canSeeSky(pos) && level.isEmptyBlock(pos);
+        }
+    }
+
     @Override
     public void aiStep(){
         if (this.level().isClientSide){
             if (random.nextInt(7) == 0) {
-                this.level().addParticle(ParticleTypes.SMALL_FLAME, this.getRandomX(0.25F), this.getRandomY(), this.getRandomZ(0.25F), 0.0F, 0.0F, 0.0F);
+                this.level().addParticle(NParticleTypes.WISP_FLAME.get(), this.getRandomX(0.25F), this.getRandomY(), this.getRandomZ(0.25F), 0.0F, 0.0F, 0.0F);
             }
             if (random.nextInt(4) == 0) {
                 this.level().addParticle(ParticleTypes.SMOKE, this.getRandomX(0.5F), this.getRandomY(), this.getRandomZ(0.5F), 0.0F, 0.1F, 0.0F);

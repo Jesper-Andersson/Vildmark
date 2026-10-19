@@ -85,7 +85,7 @@ Players can run the same command for other mods' biomes; those pictures stay in 
 
 ---
 
-## Considered APIs
+## APIs
 
 ### Keep
 - **TerraBlender:** still the best way to inject overworld biomes on NeoForge 1.21.1. Fjäll/heath and the skärgård
@@ -99,30 +99,12 @@ Players can run the same command for other mods' biomes; those pictures stay in 
 - **Jigsaw structures:** runestone, ship setting, barrow mound, longhouse ruin and hillfort, all data-driven.
 - **`neoforge:mod_loaded` conditions:** optional compat recipes without hard dependencies.
 
-### Adopted
-- **SmartBrainLib:** brain-based mob AI (sensors, memories with expiry, activities) instead of vanilla goals. The
-  barrow wight runs on it. Next up are the stateful mobs: moose (calm → provoked → charge → cooldown), troll
-  (night/day stone), tomte (porridge/prank mood), skogsrå, lyktgubbe and gloson. Its attack behaviours can delay damage
-  until the GeckoLib animation's hit frame. Fish and simple animals can stay on vanilla goals.
-- **Lithostitched (+ Apollib):** data-driven worldgen modifiers that go beyond NeoForge biome modifiers. Surface rules
-  now live in `data/nordic/lithostitched/worldgen_modifier/surface_rules.json` instead of TerraBlender's
-  `SurfaceRuleManager`. TerraBlender still handles the biome regions. Next: add barrows and runestones to existing
-  structure sets and village template pools, set structure spacing and prevent structure overlap. Tectonic depends on
-  it, so it helps compat.
-  - `LakeBasin` stays on `ChunkMapMixin`/`RandomStateAccessor`. Lithostitched's `wrap_noise_router` only gets
-    `RegistryAccess` and runs before `RandomState` exists, but the shore field needs the level's `BiomeSource`, the
-    climate sampler and the original densities. The mixin runs after Lithostitched's wrapping, so the two coexist.
-
 ### Worth adding
-- **JEI or EMI:** recipe viewing for the cooking chain.
-- **Jade:** tooltips for tomte mood, fish-trap contents and peat fuel.
-- **Farmer's Delight:** cutting board and cooking pot recipes for fish, chantarelle and berries (data-only).
-- **Create:** crushing peat iron ore and milling berries/juniper (data-only).
-- **Serene Seasons:** ice fishing, berry seasons and bear hibernation.
-- **Patchouli:** an in-game folklore book (optional flavour).
-
-### Not needed
-- **Cloth Config:** NeoForge `ModConfigSpec` and its built-in config screen already cover `Config.java`.
+- **JEI or EMI:** recipe viewing
+- **Jade:** tooltips 
+- **Farmer's Delight:** cutting board and cooking pot recipes for fish, chantarelle and berries 
+- **Create:** crushing peat iron ore and milling berries/juniper 
+- **Patchouli:** an in-game folklore book
 
 ---
 
