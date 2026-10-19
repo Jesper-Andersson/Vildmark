@@ -12,13 +12,13 @@ on:
       - '.gitignore'
       - 'art/**'
       - 'blockbench/**'
+      - '.run/**'
   workflow_dispatch:
 
 # Two runs at once on a branch would both bump to the same version. Later pushes wait, and only the newest waiting one
 # runs, since it checks out the latest commit anyway. Different branches don't wait for each other
 concurrency:
   group: publish-${{ github.ref_name }}
-  cancel-in-progress: false
 
 # Modrinth and CurseForge are skipped while their project ID is empty. To publish there, fill these in and add the
 # MODRINTH_TOKEN and CURSEFORGE_TOKEN repository secrets
@@ -49,14 +49,14 @@ jobs:
         run: echo "version=$(grep '^minecraft_version=' gradle.properties | cut -d= -f2)" >> "$GITHUB_OUTPUT"
 
       # Commit messages since the last release for this Minecraft version, leaving out merges, release commits and commits
-      # that only touch the files the push trigger ignores. Falls back to any earlier tag, from before the branches split
+      # that only touch the files the push trigger ignores
       - name: Changelog
         id: changelog
         env:
           MINECRAFT: ${{ steps.minecraft.outputs.version }}
         run: |
-          previous=$(git describe --tags --abbrev=0 --match "v*+$MINECRAFT" 2>/dev/null || git describe --tags --abbrev=0 2>/dev/null || true)
-          changes=$(git log --no-merges --format='- %s' ${previous:+$previous..}HEAD -- . ':!*.md' ':!.github' ':!.gitignore' ':!art' ':!blockbench' | grep -v -E '^- Release [0-9]' || true)
+          previous=$(git describe --tags --abbrev=0 --match "v*+$MINECRAFT" 2>/dev/null || true)
+          changes=$(git log --no-merges --format='- %s' ${previous:+$previous..}HEAD -- . ':!*.md' ':!.github' ':!.gitignore' ':!art' ':!blockbench' ':!.run' | grep -v -E '^- Release [0-9]' || true)
           [ -n "$changes" ] || changes="- Maintenance release"
           {
             echo "text<<CHANGELOG_EOF"
@@ -87,9 +87,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v5
 
       - name: Build
-        run: |
-          chmod +x ./gradlew
-          ./gradlew build
+        run: ./gradlew build
 
       # Only after a successful build, so a broken build doesn't use up a version number
       - name: Commit and tag version
