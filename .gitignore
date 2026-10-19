@@ -103,6 +103,9 @@ $RECYCLE.BIN/
 .gradle
 build/
 
+# Ignore references for art
+Art/Refs/
+
 # Ignore Gradle GUI config
 gradle-app.setting
 
