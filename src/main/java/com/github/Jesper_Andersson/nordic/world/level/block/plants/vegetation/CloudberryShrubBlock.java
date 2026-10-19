@@ -32,4 +32,6 @@ public class CloudberryShrubBlock extends ShrubClass {
     protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
         return pState.is(NBlocks.PEAT.get()) || pState.is(Blocks.MUD) || pState.is(Blocks.MOSS_BLOCK);
     }
+
+    //TODO: Fix bonemealing
 }
