@@ -108,17 +108,18 @@ public class Nordic {
                         output.accept(STINGING_NETTLE_ITEM.get());
                         output.accept(SNAKE_FERN_ITEM.get());
                         output.accept(HEATHER_ITEM.get());
-                        output.accept(BARROW_WIGHT_SPAWN_EGG.get());
                         output.accept(PIKE.get());
                         output.accept(COOKED_PIKE.get());
                         output.accept(PIKE_BUCKET.get());
-                        output.accept(PIKE_SPAWN_EGG.get());
                         output.accept(ROACH.get());
                         output.accept(COOKED_ROACH.get());
                         output.accept(ROACH_BUCKET.get());
+                        output.accept(PIKE_SPAWN_EGG.get());
+                        output.accept(BARROW_WIGHT_SPAWN_EGG.get());
                         output.accept(ROACH_SPAWN_EGG.get());
                         output.accept(MOOSE_SPAWN_EGG.get());
                         output.accept(TOMTE_SPAWN_EGG.get());
+                        output.accept(WILL_O_THE_WISP_SPAWN_EGG.get());
                     })
                     .build());
 

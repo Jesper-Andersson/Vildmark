@@ -16,5 +16,6 @@ public class NEntityRenderers {
         event.registerEntityRenderer(NEntities.ROACH.get(), ctx -> new FishRenderer<>(ctx, "roach"));
         event.registerEntityRenderer(NEntities.MOOSE.get(), MooseRenderer::new);
         event.registerEntityRenderer(NEntities.TOMTE.get(), TomteRenderer::new);
+        event.registerEntityRenderer(NEntities.WILL_O_THE_WISP.get(), WillOTheWispRenderer::new);
     }
 }

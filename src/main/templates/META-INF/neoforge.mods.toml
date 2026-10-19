@@ -101,3 +101,11 @@ type = "optional"
 versionRange = "${biomepicknchoose_version_range}"
 ordering = "NONE"
 side = "BOTH"
+
+# Optional: the will o' the wisp emits light, see assets/nordic/dynamiclights
+[[dependencies."${mod_id}"]]
+modId = "lambdynlights"
+type = "optional"
+versionRange = "${lambdynamiclights_version_range}"
+ordering = "NONE"
+side = "CLIENT"

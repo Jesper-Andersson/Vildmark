@@ -35,11 +35,11 @@ public class NEntityLootProvider extends EntityLootSubProvider {
     @Override
     public void generate() {
         add(NEntities.BARROW_WIGHT.get(), LootTable.lootTable()
-                .withPool(lootingPool(Items.BONE, 0.0F, 2.0F))
-                .withPool(lootingPool(Items.ROTTEN_FLESH, 0.0F, 2.0F)));
+                .withPool(lootingPool(Items.BONE, 0.0F, 2.0F, 0f))
+                .withPool(lootingPool(Items.ROTTEN_FLESH, 0.0F, 2.0F, 0f)));
 
         add(NEntities.MOOSE.get(), LootTable.lootTable()
-                .withPool(lootingPool(Items.LEATHER, 1.0F, 3.0F))
+                .withPool(lootingPool(Items.LEATHER, 1.0F, 3.0F, 0f))
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(Items.BEEF)
@@ -52,9 +52,11 @@ public class NEntityLootProvider extends EntityLootSubProvider {
 
         // The tomte drops nothing
         add(NEntities.TOMTE.get(), LootTable.lootTable());
+
+        add(NEntities.WILL_O_THE_WISP.get(),LootTable.lootTable().withPool(lootingPool(Items.LANTERN, 0.0f, 1,0f)));
     }
 
-    private LootPool.Builder lootingPool(ItemLike item, float min, float max) {
+    private LootPool.Builder lootingPool(ItemLike item, float min, float max, float v) {
         return LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1.0F))
                 .add(LootItem.lootTableItem(item)

@@ -91,6 +91,7 @@ public class NItems {
     public static final DeferredItem<Item> ROACH_SPAWN_EGG = ITEMS.register("roach_spawn_egg", () -> new DeferredSpawnEggItem(NEntities.ROACH, 0xB9C0C6, 0xC2402E, new Item.Properties()));
     public static final DeferredItem<Item> MOOSE_SPAWN_EGG = ITEMS.register("moose_spawn_egg", () -> new DeferredSpawnEggItem(NEntities.MOOSE, 0x4A3526, 0xA08B6E, new Item.Properties()));
     public static final DeferredItem<Item> TOMTE_SPAWN_EGG = ITEMS.register("tomte_spawn_egg", () -> new DeferredSpawnEggItem(NEntities.TOMTE, 0xB02A2A, 0x7A7A7A, new Item.Properties()));
+    public static final DeferredItem<Item> WILL_O_THE_WISP_SPAWN_EGG = ITEMS.register("willothewisp_spawn_egg", () -> new DeferredSpawnEggItem(NEntities.WILL_O_THE_WISP,0xB02A2A, 0x7A7A7A, new Item.Properties()));
 
     public static void register() {}
 }

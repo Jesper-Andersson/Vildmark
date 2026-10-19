@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-19T01:57:02.673001	Loot Tables
+// 1.21.1	2026-10-19T22:15:09.4473537	Loot Tables
 400895ff720e2756bd3a8d05c01413b3ac0578f5 data/nordic/loot_table/blocks/beard_lichen.json
 ee871c6d6d17f33e7f47e076243eb6c40c4545a6 data/nordic/loot_table/blocks/blueberry_shrub.json
 80cbde418efab85d9e9d1fd3fbb847fc78716063 data/nordic/loot_table/blocks/cattail.json
@@ -29,3 +29,4 @@ af0b984c7e2587bd631fa670f4615b9ef5e45e27 data/nordic/loot_table/entities/moose.j
 4a771fc7142544fa1395af49d49757e1025f8f57 data/nordic/loot_table/entities/pike.json
 b97c3e9910ae4e29160250fb2694616e1b99ee11 data/nordic/loot_table/entities/roach.json
 ab6af2c3627fe379ba62f1d6c4551bc4dc1338d1 data/nordic/loot_table/entities/tomte.json
+bd275022555895a4eccb6dddcedec3af741dd92e data/nordic/loot_table/entities/willothewisp.json

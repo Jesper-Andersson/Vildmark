@@ -1,5 +1,6 @@
 package com.github.Jesper_Andersson.nordic.world.entity;
 
+import com.github.Jesper_Andersson.nordic.world.entity.animal.WillOTheWisp;
 import com.github.Jesper_Andersson.nordic.world.entity.animal.Moose;
 import com.github.Jesper_Andersson.nordic.world.entity.animal.Pike;
 import com.github.Jesper_Andersson.nordic.world.entity.animal.Roach;
@@ -17,6 +18,12 @@ public class NEntities {
                     .sized(0.7f, 2.3f)
                     .clientTrackingRange(8)
                     .build("barrow_wight"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<WillOTheWisp>> WILL_O_THE_WISP = ENTITY_TYPES.register("willothewisp",
+            () -> EntityType.Builder.of(WillOTheWisp::new, MobCategory.AMBIENT)
+                    .sized(0.7f, 0.7f)
+                    .clientTrackingRange(12)
+                    .build("willothewisp"));
 
     public static final DeferredHolder<EntityType<?>, EntityType<Pike>> PIKE = ENTITY_TYPES.register("pike",
             () -> EntityType.Builder.of(Pike::new, MobCategory.WATER_AMBIENT)

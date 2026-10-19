@@ -9,7 +9,8 @@
     "RandomStateAccessor"
   ],
   "client": [
-    "IrisBlockMaterialMappingMixin"
+    "IrisBlockMaterialMappingMixin",
+    "IrisIdMapMixin"
   ],
   "injectors": {
     "defaultRequire": 1

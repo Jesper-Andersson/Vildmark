@@ -1,5 +1,6 @@
 {
   "nordic.nordic_tab": "Nordic",
+  "nordic.nordic": "Nordic",
   "block.nordic.pine_log": "Pine Log",
   "block.nordic.peeling_pine_log": "Peeling Pine Log",
   "block.nordic.peeled_pine_log": "Peeled Pine Log",
@@ -31,7 +32,7 @@
   "item.nordic.cooked_roach": "Cooked Roach",
   "item.nordic.roach_bucket": "Bucket of Roach",
   "item.nordic.roach_spawn_egg": "Roach Spawn Egg",
-  "item.nordic.cloudberries": "Cloudberries",
+  "item.nordic.cloudberries": "Cloudberry",
   "block.nordic.cloudberry_shrub": "Cloudberry Shrub",
   "block.nordic.cotton_grass": "Cotton Grass",
   "block.nordic.sundew": "Sundew",
@@ -48,5 +49,8 @@
   "biome.nordic.plains": "Nordic Plains",
   "biome.nordic.tundra": "Tundra",
   "block.nordic.heather": "Heather",
-  "block.nordic.cattail": "Cattail"
+  "block.nordic.cattail": "Cattail",
+  "item.nordic.pine_conk": "Pine Conk",
+  "entity.nordic.willothewisp": "Will o' the Wisp",
+  "item.nordic.willothewisp_spawn_egg": "Will o' the Wisp Spawn Egg"
 }

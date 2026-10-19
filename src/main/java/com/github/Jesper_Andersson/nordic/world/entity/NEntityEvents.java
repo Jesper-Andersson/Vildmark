@@ -1,6 +1,7 @@
 package com.github.Jesper_Andersson.nordic.world.entity;
 
 import com.github.Jesper_Andersson.nordic.Nordic;
+import com.github.Jesper_Andersson.nordic.world.entity.animal.WillOTheWisp;
 import com.github.Jesper_Andersson.nordic.world.entity.animal.Moose;
 import com.github.Jesper_Andersson.nordic.world.entity.animal.Pike;
 import com.github.Jesper_Andersson.nordic.world.entity.monster.BarrowWight;
@@ -21,6 +22,7 @@ public class NEntityEvents {
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(NEntities.BARROW_WIGHT.get(), BarrowWight.createAttributes().build());
+        event.put(NEntities.WILL_O_THE_WISP.get(), WillOTheWisp.createAttributes().build());
         event.put(NEntities.PIKE.get(), Pike.createAttributes().build());
         event.put(NEntities.ROACH.get(), AbstractFish.createAttributes().build());
         event.put(NEntities.MOOSE.get(), Moose.createAttributes().build());
