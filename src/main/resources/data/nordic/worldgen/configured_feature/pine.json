@@ -54,7 +54,7 @@
         "type": "nordic:beard_lichen",
         "leaves_probability": 0.03,
         "logs_probability": 0.04,
-        "max_length": 3
+        "max_length": 2
       }
     ],
     "dirt_provider": {

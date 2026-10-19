@@ -33,7 +33,7 @@ public class BeardLichenBlock extends Block {
     public static final MapCodec<BeardLichenBlock> CODEC = simpleCodec(BeardLichenBlock::new);
     public static final DirectionProperty FACING = DirectionProperty.create("facing", direction -> direction != Direction.DOWN);
     public static final BooleanProperty TIP = BooleanProperty.create("tip");
-    public static final int MAX_LENGTH = 3;
+    public static final int MAX_LENGTH = 2;
     private static final TagKey<Block> PINE_LOGS = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("nordic", "pine_logs"));
     private static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D);
     private static final Map<Direction, VoxelShape> WALL_SHAPES = Map.of(
