@@ -52,6 +52,7 @@ public class NItems {
     public static final DeferredItem<Item> PINE_PLANKS_ITEM = ITEMS.register("pine_planks", () -> new BlockItem(PINE_PLANKS.get(), new Item.Properties()));
     public static final DeferredItem<Item> PINE_STAIRS_ITEM = ITEMS.register("pine_stairs", () -> new BlockItem(PINE_STAIRS.get(), new Item.Properties()));
     public static final DeferredItem<Item> PINE_SLAB_ITEM = ITEMS.register("pine_slab", () -> new BlockItem(PINE_SLAB.get(), new Item.Properties()));
+    public static final DeferredItem<Item> SLANTED_FENCE_ITEM = ITEMS.register("slantedfence", () -> new BlockItem(SLANTED_FENCE.get(), new Item.Properties()));
 
     public static final DeferredItem<Item> PINE_LEAVES_ITEM = ITEMS.register("pine_leaves", () -> new BlockItem(PINE_LEAVES.get(), new Item.Properties()));
     public static final DeferredItem<Item> PEAT_ITEM = ITEMS.register("peat", () -> new BlockItem(PEAT.get(), new Item.Properties()));

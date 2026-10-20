@@ -12,6 +12,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -42,6 +43,7 @@ public class NBlockStateProvider extends BlockStateProvider {
         simpleBlock(NBlocks.PINE_PLANKS.get());
         stairsBlock(NBlocks.PINE_STAIRS.get(), planks);
         slabBlock(NBlocks.PINE_SLAB.get(), planks, planks);
+        slantedFence();
         simpleBlock(NBlocks.PINE_LEAVES.get(), models().leaves(name(NBlocks.PINE_LEAVES.get()), blockTexture(NBlocks.PINE_LEAVES.get())));
         simpleBlock(NBlocks.PINE_SAPLING.get(), cross(name(NBlocks.PINE_SAPLING.get())));
         pineNeedles();
@@ -84,6 +86,7 @@ public class NBlockStateProvider extends BlockStateProvider {
         blockItem(NItems.PINE_PLANKS_ITEM.get());
         blockItem(NItems.PINE_STAIRS_ITEM.get());
         blockItem(NItems.PINE_SLAB_ITEM.get());
+        itemModels().withExistingParent(name(NItems.SLANTED_FENCE_ITEM.get()), modLoc("block/slantedfence_inventory"));
         blockItem(NItems.PINE_LEAVES_ITEM.get());
         blockItem(NItems.PINE_SAPLING_ITEM.get());
         blockItem(NItems.PEAT_ITEM.get());
@@ -139,6 +142,16 @@ public class NBlockStateProvider extends BlockStateProvider {
         getVariantBuilder(block)
                 .partialState().with(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER).addModels(new ConfiguredModel(bottom))
                 .partialState().with(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER).addModels(new ConfiguredModel(top));
+    }
+
+    // Side model reaches the next post to the south, so only south and east are drawn (see SlantedFenceBlock)
+    private void slantedFence() {
+        ModelFile post = models().getExistingFile(modLoc("block/slantedfence_post"));
+        ModelFile side = models().getExistingFile(modLoc("block/slantedfence_side"));
+        getMultipartBuilder(NBlocks.SLANTED_FENCE.get())
+                .part().modelFile(post).addModel().end()
+                .part().modelFile(side).addModel().condition(FenceBlock.SOUTH, true).end()
+                .part().modelFile(side).rotationY(270).addModel().condition(FenceBlock.EAST, true).end();
     }
 
     // Attaches to log, models oriented to north

@@ -87,6 +87,7 @@ public class Nordic {
                         output.accept(PINE_PLANKS_ITEM.get());
                         output.accept(PINE_STAIRS_ITEM.get());
                         output.accept(PINE_SLAB_ITEM.get());
+                        output.accept(SLANTED_FENCE_ITEM.get());
                         output.accept(PINE_LOG_ITEM.get());
                         output.accept(PINE_SAPLING_ITEM.get());
                         output.accept(PINE_LEAVES_ITEM.get());

@@ -115,6 +115,11 @@ public class NBlocks {
     public static final DeferredBlock<SlabBlock> PINE_SLAB = BLOCKS.register("pine_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(PINE_PLANKS.get())));
 
+    public static final DeferredBlock<FenceBlock> SLANTED_FENCE = BLOCKS.register("slantedfence",
+            () -> new SlantedFenceBlock(BlockBehaviour.Properties.ofFullCopy(PINE_PLANKS.get())
+                    .forceSolidOn()
+                    .strength(2f, 3f)));
+
     public static final DeferredBlock<Block> PINE_LEAVES = BLOCKS.register("pine_leaves",
             () -> new PineLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
                     .randomTicks()

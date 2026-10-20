@@ -42,6 +42,7 @@ public class NBlockLootProvider extends BlockLootSubProvider {
         dropSelf(NBlocks.PINE_PLANKS.get());
         dropSelf(NBlocks.PINE_STAIRS.get());
         add(NBlocks.PINE_SLAB.get(), this::createSlabItemTable);
+        dropSelf(NBlocks.SLANTED_FENCE.get());
         add(NBlocks.PINE_LEAVES.get(), block -> createLeavesDrops(block, NBlocks.PINE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
         dropSelf(NBlocks.PINE_SAPLING.get());
         add(NBlocks.PINE_NEEDLES.get(), this::createPetalsDrops);
