@@ -77,29 +77,14 @@ Items marked 🚧 have been started (e.g. a model exists) but are not wired up i
 ### Biome preview pictures
 The biome menu shows a picture of each biome. To (re)take the shipped pictures:
 1. Run `Client`, create a fresh creative world, render distance 12+, shaders off.
-2. Run `/nordic_preview capture nordic` and `/nordic_preview capture minecraft` (or `capture` for everything; `cancel` stops a run). Cave biomes are skipped.
+2. Run `/nordic_preview capture nordic` and `/nordic_preview capture minecraft` (or `capture` for everything; `cancel` stops a run). 
 3. Check the PNGs in `run/config/nordic/biome_previews/<ns>/`, retake or replace bad shots.
 4. Copy them to `src/main/resources/assets/nordic/textures/gui/biome_preview/<ns>/` and delete the config copies.
-
-Players can run the same command for other mods' biomes; those pictures stay in their config folder.
 
 ---
 
 ## APIs
 
-### Keep
-- **TerraBlender:** still the best way to inject overworld biomes on NeoForge 1.21.1. Fjäll/heath and the skärgård
-  become more boxes in `BiomeRegion`. Test alongside Terralith and Tectonic.
-- **GeckoLib:** already integrated, and pairs well with SmartBrainLib.
-
-### Built into NeoForge (no new dependency)
-- **Data maps:** `neoforge:furnace_fuels` for peat, `neoforge:compostables` for berries, chantarelle, reed and cotton grass.
-- **Biome modifiers:** add pike/roach spawns to vanilla rivers, and scatter berries and erratics into vanilla taiga.
-- **Worldgen datagen (`DatapackBuiltinEntriesProvider`):** replace the hand-written feature and biome JSON.
-- **Jigsaw structures:** runestone, ship setting, barrow mound, longhouse ruin and hillfort, all data-driven.
-- **`neoforge:mod_loaded` conditions:** optional compat recipes without hard dependencies.
-
-### Worth adding
 - **JEI or EMI:** recipe viewing
 - **Jade:** tooltips 
 - **Farmer's Delight:** cutting board and cooking pot recipes for fish, chantarelle and berries 
@@ -135,9 +120,6 @@ Players can run the same command for other mods' biomes; those pictures stay in 
   edges.
 - **Skogsrå (forest spirit):** passive at a distance. It trades or curses depending on whether the player has been
   cutting trees.
-- **Tomte / vätte:** a tiny mob that guards a structure and helps if you leave it porridge, otherwise it pranks you.
-- **Lichen and reindeer moss:** ground cover that could be reindeer food.
-- **Stinging nettle:** hurts to walk through, and makes nettle soup.
 - **Slanted rail fence (gärdesgård):** a fence block.
 - **Red squirrel:** eats pine cones. Pine cones could be a new drop from pine leaves.
 - **Black woodpecker:** drums on pine logs.
