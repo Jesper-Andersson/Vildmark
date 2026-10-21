@@ -56,6 +56,18 @@ public class NRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_cotton_grass", has(NItems.COTTON_GRASS_ITEM))
                 .save(output);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, NItems.BLUEBERRY_PIE_ITEM)
+                .pattern("###")
+                .pattern("@%@")
+                .pattern("???")
+                .define('#', NItems.BLUEBERRIES_ITEM)
+                .define('%', Items.EGG)
+                .define('@', Items.SUGAR)
+                .define('?', Items.WHEAT)
+                .unlockedBy("has_blueberries", has(NItems.BLUEBERRIES_ITEM))
+                .save(output);
+
+
         cookFood(output, NItems.PIKE.get(), NItems.COOKED_PIKE.get());
         cookFood(output, NItems.ROACH.get(), NItems.COOKED_ROACH.get());
 

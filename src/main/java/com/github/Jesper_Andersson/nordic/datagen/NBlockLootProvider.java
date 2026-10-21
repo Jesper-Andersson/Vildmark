@@ -54,6 +54,8 @@ public class NBlockLootProvider extends BlockLootSubProvider {
         dropSelf(NBlocks.PEAT_IRON_ORE.get());
         dropSelf(NBlocks.COTTON_GRASS.get());
         dropSelf(NBlocks.SUNDEW.get());
+        // Like cake: drops nothing, so a half-eaten pie can't be picked up whole again
+        add(NBlocks.BLUEBERRY_PIE.get(), noDrop());
 
         // Plants
         add(NBlocks.LINGONBERRY_SHRUB.get(), block -> createBerryShrubDrops(block, NItems.LINGONBERRIES_ITEM.get()));

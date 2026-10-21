@@ -122,6 +122,7 @@ public class Nordic {
                         output.accept(MOOSE_SPAWN_EGG.get());
                         output.accept(TOMTE_SPAWN_EGG.get());
                         output.accept(WILL_O_THE_WISP_SPAWN_EGG.get());
+                        output.accept(BLUEBERRY_PIE_ITEM.get());
                     })
                     .build());
 

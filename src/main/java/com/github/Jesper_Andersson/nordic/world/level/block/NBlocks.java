@@ -214,6 +214,13 @@ public class NBlocks {
                     .replaceable()
                     .sound(SoundType.GRASS)
                     .pushReaction(PushReaction.DESTROY)));
+    public static final DeferredBlock<CakeBlock> BLUEBERRY_PIE = BLOCKS.register("blueberry_pie",
+            () -> new BlueberryPieBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_YELLOW)
+                    .forceSolidOn()
+                    .strength(0.5f)
+                    .sound(SoundType.MUD)
+                    .pushReaction(PushReaction.DESTROY)));
 
     public static void register(){}
 }

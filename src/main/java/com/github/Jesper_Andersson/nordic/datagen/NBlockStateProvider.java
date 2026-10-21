@@ -12,6 +12,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -49,6 +50,7 @@ public class NBlockStateProvider extends BlockStateProvider {
         pineNeedles();
         beardLichen();
         pineConk();
+        blueberryPie();
 
         // Bog
         simpleBlock(NBlocks.PEAT.get());
@@ -106,6 +108,7 @@ public class NBlockStateProvider extends BlockStateProvider {
         flatItem(NItems.CATTAIL_ITEM.get(), modLoc("block/cattail_top"));
         flatItem(NItems.STINGING_NETTLE_ITEM.get(), modLoc("block/stinging_nettle"));
         flatItem(NItems.HEATHER_ITEM.get(), modLoc("block/heather"));
+        flatItem(NItems.BLUEBERRY_PIE_ITEM.get(), modLoc("item/blueberry_pie"));
 
         itemModels().basicItem(NItems.LINGONBERRIES_ITEM.get());
         itemModels().basicItem(NItems.BLUEBERRIES_ITEM.get());
@@ -124,6 +127,22 @@ public class NBlockStateProvider extends BlockStateProvider {
         spawnEgg(NItems.ROACH_SPAWN_EGG.get());
         spawnEgg(NItems.MOOSE_SPAWN_EGG.get());
         spawnEgg(NItems.TOMTE_SPAWN_EGG.get());
+    }
+
+    // Uses the vanilla cake and cake_slice1-6 models with the pie textures, one model per bite
+    private void blueberryPie(){
+        Block block = NBlocks.BLUEBERRY_PIE.get();
+        getVariantBuilder(block).forAllStates(state -> {
+            int bites = state.getValue(CakeBlock.BITES);
+            String suffix = bites == 0 ? "" : "_slice" + bites;
+            ModelFile model = models().withExistingParent(name(block) + suffix, mcLoc("block/cake" + suffix))
+                    .texture("particle", modLoc("block/blueberry_pie_side"))
+                    .texture("bottom", modLoc("block/blueberry_pie_bottom"))
+                    .texture("top", modLoc("block/blueberry_pie_top"))
+                    .texture("side", modLoc("block/blueberry_pie_side"))
+                    .texture("inside", modLoc("block/blueberry_pie_inner"));
+            return ConfiguredModel.builder().modelFile(model).build();
+        });
     }
 
     private void pineLog(Block block, ResourceLocation end) {

@@ -1,0 +1,25 @@
+{
+  "variants": {
+    "bites=0": {
+      "model": "nordic:block/blueberry_pie"
+    },
+    "bites=1": {
+      "model": "nordic:block/blueberry_pie_slice1"
+    },
+    "bites=2": {
+      "model": "nordic:block/blueberry_pie_slice2"
+    },
+    "bites=3": {
+      "model": "nordic:block/blueberry_pie_slice3"
+    },
+    "bites=4": {
+      "model": "nordic:block/blueberry_pie_slice4"
+    },
+    "bites=5": {
+      "model": "nordic:block/blueberry_pie_slice5"
+    },
+    "bites=6": {
+      "model": "nordic:block/blueberry_pie_slice6"
+    }
+  }
+}

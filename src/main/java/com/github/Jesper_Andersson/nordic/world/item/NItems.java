@@ -65,6 +65,8 @@ public class NItems {
     public static final DeferredItem<Item> SNAKE_FERN_ITEM = ITEMS.register("snakefern", () -> new BlockItem(SNAKE_FERN.get(), new Item.Properties()));
     public static final DeferredItem<Item> HEATHER_ITEM = ITEMS.register("heather", () -> new BlockItem(HEATHER.get(), new Item.Properties()));
 
+    public static final DeferredItem<Item> BLUEBERRY_PIE_ITEM = ITEMS.register("blueberry_pie", () -> new BlockItem(BLUEBERRY_PIE.get(), new Item.Properties().stacksTo(1)));
+
     // White colors so the custom egg texture isn't tinted
     public static final DeferredItem<Item> BARROW_WIGHT_SPAWN_EGG = ITEMS.register("barrow_wight_spawn_egg",
             () -> new DeferredSpawnEggItem(NEntities.BARROW_WIGHT, 0xFFFFFF, 0xFFFFFF, new Item.Properties()));
