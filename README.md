@@ -1,12 +1,23 @@
-# Vildmark [![Build](https://github.com/Jesper-Andersson/nordic/actions/workflows/gradle.yml/badge.svg)](https://github.com/Jesper-Andersson/nordic/actions/workflows/gradle.yml)
-### By Jesper-Andersson
+# Vildmark
 
-## A nordic/scandinavian themed mod
+A NeoForge mod that adds Nordic biomes, plants, creatures and folklore to Minecraft 1.21.1.
 
-### Official Downloads
-* Curseforge: 
-* Modrinth: 
+By Jesper-Andersson
 
-### Dependencies
-- TerraBlender
-    - Github: https://github.com/Glitchfiend/TerraBlender/
+## Download
+
+Get the latest version from [Releases](https://github.com/Jesper-Andersson/Vildmark/releases).
+
+## Requirements
+
+- Minecraft 1.21.1 with NeoForge 21.1.x
+- [TerraBlender](https://github.com/Glitchfiend/TerraBlender)
+- [GeckoLib](https://modrinth.com/mod/geckolib)
+- [Lithostitched](https://modrinth.com/mod/lithostitched) and [Apollib](https://modrinth.com/mod/apollib)
+- [SmartBrainLib](https://modrinth.com/mod/smartbrainlib)
+
+Optional: [Biome Pick'n'Choose](https://github.com/Jesper-Andersson/biomepicknchoose), [LambDynamicLights](https://modrinth.com/mod/lambdynamiclights)
+
+## License
+
+[MIT](LICENSE.md)
