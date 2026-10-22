@@ -180,8 +180,8 @@ dependencies {
     implementation "maven.modrinth:apollib:${apollib_version}"
     implementation "net.tslat.smartbrainlib:SmartBrainLib-neoforge-${minecraft_version}:${smartbrainlib_version}"
 
-    // Optional: lists Nordic's biomes and lets lakes respect disabled biomes, see compat/BiomePickCompat
-    // Remove the localRuntime line to test Nordic without it
+    // Optional: lists Vildmark's biomes and lets lakes respect disabled biomes, see compat/BiomePickCompat
+    // Remove the localRuntime line to test Vildmark without it
     compileOnly "com.github.Jesper_Andersson:biomepicknchoose:${biomepicknchoose_version}"
     localRuntime "com.github.Jesper_Andersson:biomepicknchoose:${biomepicknchoose_version}"
 
@@ -191,7 +191,7 @@ dependencies {
     compileOnly "maven.modrinth:iris:1.8.12+1.21.1-neoforge"
     localRuntime "maven.modrinth:iris:1.8.12+1.21.1-neoforge"
 
-    // Optional: the lantern emits light while moving, set up as data in assets/nordic/dynamiclights/, so no API needed.
+    // Optional: the lantern emits light while moving, set up as data in assets/vildmark/dynamiclights/, so no API needed.
     // Pinned by Modrinth version ID, since the jar is shared with other loaders
     localRuntime "maven.modrinth:lambdynamiclights:ksaGCvSu"    // 4.8.11+1.21.1
 
@@ -274,7 +274,7 @@ tasks.register('exportTextures') {
 
     def aseprite = providers.gradleProperty('aseprite').orElse('C:/Program Files/Aseprite/Aseprite.exe')
     def sourceDir = file('art/textures')
-    def outputDir = file('src/main/resources/assets/nordic/textures/block')
+    def outputDir = file('src/main/resources/assets/vildmark/textures/block')
     def flatDir = temporaryDir
     inputs.files(splitTextures.keySet().collect { new File(sourceDir, "${it}.aseprite") })
     outputs.files(splitTextures.values().flatten().collect { new File(outputDir, "${it}.png") })

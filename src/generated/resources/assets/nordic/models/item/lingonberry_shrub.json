@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "nordic:block/lingonberry_shrub_stage2"
-  }
-}

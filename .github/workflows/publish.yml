@@ -105,7 +105,7 @@ jobs:
         uses: Kira-NT/mc-publish@v3.3.1
         with:
           version: ${{ steps.version.outputs.version }}+${{ steps.minecraft.outputs.version }}
-          name: Nordic ${{ steps.version.outputs.version }} for ${{ steps.minecraft.outputs.version }}
+          name: Vildmark ${{ steps.version.outputs.version }} for ${{ steps.minecraft.outputs.version }}
           changelog: ${{ steps.changelog.outputs.text }}
           loaders: neoforge
 
@@ -152,7 +152,7 @@ jobs:
             fi
           } > release-notes.md
           gh release create "$TAG" "${jars[@]}" \
-            --title "Nordic $VERSION for $MINECRAFT" \
+            --title "Vildmark $VERSION for $MINECRAFT" \
             --notes-file release-notes.md \
             --latest="$LATEST" \
             --verify-tag

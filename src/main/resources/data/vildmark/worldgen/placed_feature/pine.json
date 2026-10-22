@@ -1,0 +1,63 @@
+{
+  "feature": "vildmark:pine",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": {
+        "type": "minecraft:weighted_list",
+        "distribution": [
+          {
+            "data": 10,
+            "weight": 9
+          },
+          {
+            "data": 11,
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:surface_water_depth_filter",
+      "max_water_depth": 0
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:all_of",
+        "predicates": [
+          {
+            "type": "minecraft:would_survive",
+            "state": {
+              "Name": "vildmark:pine_sapling",
+              "Properties": {
+                "stage": "0"
+              }
+            }
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "blocks": [
+              "minecraft:grass_block",
+              "minecraft:dirt",
+              "minecraft:podzol",
+              "minecraft:coarse_dirt"
+            ],
+            "offset": [
+              0,
+              -1,
+              0
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

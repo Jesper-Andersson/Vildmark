@@ -1,4 +1,4 @@
-# Nordic [![Build](https://github.com/Jesper-Andersson/nordic/actions/workflows/gradle.yml/badge.svg)](https://github.com/Jesper-Andersson/nordic/actions/workflows/gradle.yml)
+# Vildmark [![Build](https://github.com/Jesper-Andersson/nordic/actions/workflows/gradle.yml/badge.svg)](https://github.com/Jesper-Andersson/nordic/actions/workflows/gradle.yml)
 ### By Jesper-Andersson
 
 ## A nordic/scandinavian themed mod

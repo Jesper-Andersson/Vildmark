@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "vildmark:block/pine_slab"
+    },
+    "type=double": {
+      "model": "vildmark:block/pine_planks"
+    },
+    "type=top": {
+      "model": "vildmark:block/pine_slab_top"
+    }
+  }
+}

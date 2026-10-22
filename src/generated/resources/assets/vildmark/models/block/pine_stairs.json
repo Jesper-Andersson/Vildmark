@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "vildmark:block/pine_planks",
+    "side": "vildmark:block/pine_planks",
+    "top": "vildmark:block/pine_planks"
+  }
+}

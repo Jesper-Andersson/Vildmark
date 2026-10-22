@@ -1,0 +1,52 @@
+{
+  "feature": "minecraft:birch_bees_0002",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 5
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:surface_water_depth_filter",
+      "max_water_depth": 0
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:all_of",
+        "predicates": [
+          {
+            "type": "minecraft:would_survive",
+            "state": {
+              "Name": "vildmark:pine_sapling",
+              "Properties": {
+                "stage": "0"
+              }
+            }
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "blocks": [
+              "minecraft:grass_block",
+              "minecraft:dirt",
+              "minecraft:podzol",
+              "minecraft:coarse_dirt",
+              "minecraft:moss_block"
+            ],
+            "offset": [
+              0,
+              -1,
+              0
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -2,8 +2,8 @@
 	"format_version": "26.3",
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "nordic:block/snakefern",
-		"particle": "nordic:block/snakefern"
+		"0": "vildmark:block/snakefern",
+		"particle": "vildmark:block/snakefern"
 	},
 	"elements": [
 		{

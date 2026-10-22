@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_blueberries": {
+      "conditions": {
+        "items": [
+          {
+            "items": "vildmark:blueberries"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "vildmark:blueberry_pie"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_blueberries"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "vildmark:blueberry_pie"
+    ]
+  }
+}

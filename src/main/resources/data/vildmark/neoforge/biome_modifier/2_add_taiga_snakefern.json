@@ -1,0 +1,9 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_taiga",
+  "features": [
+    "vildmark:patch_grass_taiga",
+    "vildmark:patch_grass_taiga_2"
+  ],
+  "step": "vegetal_decoration"
+}

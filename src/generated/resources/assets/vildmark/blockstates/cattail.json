@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "vildmark:block/cattail_bottom"
+    },
+    "half=upper": {
+      "model": "vildmark:block/cattail_top"
+    }
+  }
+}

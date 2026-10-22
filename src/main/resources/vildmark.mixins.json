@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.github.Jesper_Andersson.vildmark.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ChunkMapMixin",
+    "NoiseBasedChunkGeneratorMixin",
+    "RandomStateAccessor"
+  ],
+  "client": [
+    "IrisBlockMaterialMappingMixin",
+    "IrisIdMapMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

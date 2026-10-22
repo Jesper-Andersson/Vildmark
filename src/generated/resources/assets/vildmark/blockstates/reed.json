@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "vildmark:block/reed_bottom"
+    },
+    "half=upper": {
+      "model": "vildmark:block/reed_top"
+    }
+  }
+}

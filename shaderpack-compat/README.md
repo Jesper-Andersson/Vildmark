@@ -1,8 +1,8 @@
 # Shader pack compatibility
 
 Shader packs decide which blocks wave from their own `shaders/block.properties`, which maps
-registry IDs to numeric `mc_Entity` IDs. Nordic blocks aren't listed, so
-`nordic:lingonberry_shrub`, `nordic:blueberry_shrub` and `nordic:pine_leaves` don't wave.
+registry IDs to numeric `mc_Entity` IDs. Vildmark blocks aren't listed, so
+`vildmark:lingonberry_shrub`, `vildmark:blueberry_shrub` and `vildmark:pine_leaves` don't wave.
 The mod cannot add IDs to a pack; patch the pack instead.
 
 1. Copy the pack (zip or folder) in `shaderpacks/` under a new name -- don't edit the original download.

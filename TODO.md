@@ -1,4 +1,4 @@
-# Nordic
+# Vildmark
 
 A NeoForge mod that adds Nordic biomes, plants, creatures and folklore.
 
@@ -25,7 +25,7 @@ Items marked 🚧 have been started (e.g. a model exists) but are not wired up i
 - [x] Birch/pine forest
 - [x] Nordic plains (vanilla plains vegetation with rare fallen birches)
 - [x] Tundra (sparse small pines, heather, berries)
-- [x] Fallen trees (pine and birch, with stumps, moss and mushrooms) in all Nordic land biomes
+- [x] Fallen trees (pine and birch, with stumps, moss and mushrooms) in all Vildmark land biomes
 - [x] Snake fern replaces ferns in vanilla taigas; lingonberries, blueberries and chantarelle in non-snowy taigas
 
 ### Trees
@@ -77,9 +77,9 @@ Items marked 🚧 have been started (e.g. a model exists) but are not wired up i
 ### Biome preview pictures
 The biome menu shows a picture of each biome. To (re)take the shipped pictures:
 1. Run `Client`, create a fresh creative world, render distance 12+, shaders off.
-2. Run `/nordic_preview capture nordic` and `/nordic_preview capture minecraft` (or `capture` for everything; `cancel` stops a run). 
-3. Check the PNGs in `run/config/nordic/biome_previews/<ns>/`, retake or replace bad shots.
-4. Copy them to `src/main/resources/assets/nordic/textures/gui/biome_preview/<ns>/` and delete the config copies.
+2. Run `/vildmark_preview capture vildmark` and `/vildmark_preview capture minecraft` (or `capture` for everything; `cancel` stops a run). 
+3. Check the PNGs in `run/config/vildmark/biome_previews/<ns>/`, retake or replace bad shots.
+4. Copy them to `src/main/resources/assets/vildmark/textures/gui/biome_preview/<ns>/` and delete the config copies.
 
 ---
 
@@ -124,17 +124,15 @@ The biome menu shows a picture of each biome. To (re)take the shipped pictures:
 - **Red squirrel:** eats pine cones. Pine cones could be a new drop from pine leaves.
 - **Black woodpecker:** drums on pine logs.
 - **Gloson:** a glowing-eyed sow that charges between your legs at crossroads at night (model and texture exist).
-- **Lingonberry jam, blueberry soup (blåbärssoppa), mushroom stew with chantarelle:** a cooking chain that reuses
+- **Lingonberry jam, blueberry soup (blåbärssoppa), blueberry pie, mushroom stew with chantarelle:** a cooking chain that reuses
   existing items.
 
 ### Lakes and rivers
 - **Perch (abborre):** wire up the bass model as a perch.
-- **Zander (gös), brown trout and Arctic char:** more fish. Char could be lake-only in cold areas.
 - **Freshwater crayfish (kräftor):** a bottom crawler you catch with traps, which ties into a crayfish party
   (kräftskiva) feast item.
 - **Fish trap / fyke net:** a placeable block that slowly collects fish from lake water.
-- **Ice fishing:** fishing through an ice hole in frozen lakes.
-- **Otter and beaver:** beavers could build dams across narrow river stretches.
+- **Otter / beaver:** beavers could build dams across narrow river stretches.
 - **White-tailed eagle:** dives for fish in lakes.
 - **Herring:** a fish for the archipelago, used for pickled herring.
 - **Lindworm (lindorm):** a wingless serpent boss living in deep lakes or bogs.

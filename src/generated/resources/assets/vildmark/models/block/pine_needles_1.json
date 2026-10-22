@@ -1,0 +1,36 @@
+{
+  "ambientocclusion": false,
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "texture": "#texture",
+          "uv": [
+            0.0,
+            8.0,
+            8.0,
+            0.0
+          ]
+        },
+        "up": {
+          "texture": "#texture"
+        }
+      },
+      "from": [
+        0,
+        0.25,
+        0
+      ],
+      "to": [
+        8,
+        0.25,
+        8
+      ]
+    }
+  ],
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "vildmark:block/pine_needles",
+    "texture": "vildmark:block/pine_needles"
+  }
+}

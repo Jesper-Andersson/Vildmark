@@ -1,0 +1,59 @@
+{
+  "type": "vildmark:fallen_tree",
+  "config": {
+    "log": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "vildmark:pine_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    },
+    "length": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 4,
+      "max_inclusive": 8
+    },
+    "stump_chance": 0.5,
+    "decoration": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "minecraft:moss_carpet"
+          },
+          "weight": 3
+        },
+        {
+          "data": {
+            "Name": "minecraft:brown_mushroom"
+          },
+          "weight": 1
+        }
+      ]
+    },
+    "decoration_chance": 0.3,
+    "transition_log": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "vildmark:peeling_pine_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    },
+    "peeled_log": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "vildmark:peeled_pine_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    },
+    "bark_fraction": 0.4,
+    "conk_chance": 0.08,
+    "large_conk_chance": 0.5
+  }
+}

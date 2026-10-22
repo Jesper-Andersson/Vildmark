@@ -1,0 +1,38 @@
+{
+  "type": "vildmark:fallen_tree",
+  "config": {
+    "log": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:birch_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    },
+    "length": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 3,
+      "max_inclusive": 6
+    },
+    "stump_chance": 0.3,
+    "decoration": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "minecraft:moss_carpet"
+          },
+          "weight": 3
+        },
+        {
+          "data": {
+            "Name": "minecraft:brown_mushroom"
+          },
+          "weight": 1
+        }
+      ]
+    },
+    "decoration_chance": 0.15
+  }
+}

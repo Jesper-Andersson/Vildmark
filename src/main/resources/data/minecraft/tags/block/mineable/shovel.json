@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "nordic:peat",
-    "nordic:peat_iron_ore"
+    "vildmark:peat",
+    "vildmark:peat_iron_ore"
   ]
 }
