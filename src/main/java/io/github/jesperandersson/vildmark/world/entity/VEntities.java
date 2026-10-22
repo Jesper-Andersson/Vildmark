@@ -1,0 +1,53 @@
+package io.github.jesperandersson.vildmark.world.entity;
+
+import io.github.jesperandersson.vildmark.world.entity.animal.WillOTheWisp;
+import io.github.jesperandersson.vildmark.world.entity.animal.Moose;
+import io.github.jesperandersson.vildmark.world.entity.animal.Pike;
+import io.github.jesperandersson.vildmark.world.entity.animal.Roach;
+import io.github.jesperandersson.vildmark.world.entity.monster.BarrowWight;
+import io.github.jesperandersson.vildmark.world.entity.npc.Tomte;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.neoforged.neoforge.registries.DeferredHolder;
+
+import static io.github.jesperandersson.vildmark.Vildmark.ENTITY_TYPES;
+
+public class VEntities {
+    public static final DeferredHolder<EntityType<?>, EntityType<BarrowWight>> BARROW_WIGHT = ENTITY_TYPES.register("barrow_wight",
+            () -> EntityType.Builder.of(BarrowWight::new, MobCategory.MONSTER)
+                    .sized(0.7f, 2.3f)
+                    .clientTrackingRange(8)
+                    .build("barrow_wight"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<WillOTheWisp>> WILL_O_THE_WISP = ENTITY_TYPES.register("willothewisp",
+            () -> EntityType.Builder.of(WillOTheWisp::new, MobCategory.AMBIENT)
+                    .sized(0.7f, 0.7f)
+                    .clientTrackingRange(12)
+                    .build("willothewisp"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<Pike>> PIKE = ENTITY_TYPES.register("pike",
+            () -> EntityType.Builder.of(Pike::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.9f, 0.4f)
+                    .clientTrackingRange(4)
+                    .build("pike"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<Roach>> ROACH = ENTITY_TYPES.register("roach",
+            () -> EntityType.Builder.of(Roach::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.5f, 0.3f)
+                    .clientTrackingRange(4)
+                    .build("roach"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<Moose>> MOOSE = ENTITY_TYPES.register("moose",
+            () -> EntityType.Builder.of(Moose::new, MobCategory.CREATURE)
+                    .sized(1.5f, 3.3f)
+                    .clientTrackingRange(10)
+                    .build("moose"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<Tomte>> TOMTE = ENTITY_TYPES.register("tomte",
+            () -> EntityType.Builder.of(Tomte::new, MobCategory.CREATURE)
+                    .sized(0.4f, 0.75f)
+                    .clientTrackingRange(10)
+                    .build("tomte"));
+
+    public static void register() {}
+}

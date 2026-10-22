@@ -6,7 +6,7 @@
   "block.vildmark.peeled_pine_log": "Peeled Pine Log",
   "block.vildmark.pine_planks": "Pine Planks",
   "block.vildmark.pine_sapling": "Pine Sapling",
-  "block.vildmark.leave_leaves": "Pine Leaves",
+  "block.vildmark.pine_leaves": "Pine Leaves",
   "block.vildmark.lingonberry_shrub": "Lingonberry Shrub",
   "block.vildmark.blueberry_shrub": "Blueberry Shrub",
   "item.vildmark.lingonberries": "Lingonberries",
@@ -53,7 +53,7 @@
   "item.vildmark.pine_conk": "Pine Conk",
   "entity.vildmark.willothewisp": "Will o' the Wisp",
   "item.vildmark.willothewisp_spawn_egg": "Will o' the Wisp Spawn Egg",
-  "block.vildmark.slantedfence": "Slanted Fence",
+  "block.vildmark.slanted_fence": "Slanted Fence",
   "block.vildmark.blueberry_pie": "Blueberry Pie",
   "Vildmark": "Vildmark"
 }

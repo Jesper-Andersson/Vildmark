@@ -1,0 +1,62 @@
+package io.github.jesperandersson.vildmark;
+
+import io.github.jesperandersson.vildmark.world.item.VItems;
+import io.github.jesperandersson.vildmark.world.level.block.VBlocks;
+import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.GrassColor;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.minecraft.client.renderer.BiomeColors;
+
+
+@EventBusSubscriber(modid = io.github.jesperandersson.vildmark.Vildmark.MODID, value = Dist.CLIENT)
+public class ColorHandler {
+    // Placeholder heather is the grey short grass texture with a fixed purple tint, so it stands out from grass
+    private static final int HEATHER_COLOR = 0xA0669E;
+
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+    public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
+        event.register(
+                ((blockState, blockAndTintGetter, blockPos, tintIndex) -> {
+                    return blockAndTintGetter != null && blockPos != null ?
+                            BiomeColors.getAverageFoliageColor(blockAndTintGetter, blockPos) :
+                            FoliageColor.getDefaultColor();
+
+                }),
+                VBlocks.PINE_LEAVES.get()
+        );
+        // Placeholder plants reuse the grey vanilla grass textures, so they need a grass tint
+        event.register(
+                (blockState, blockAndTintGetter, blockPos, tintIndex) ->
+                        blockAndTintGetter != null && blockPos != null ?
+                                BiomeColors.getAverageGrassColor(blockAndTintGetter, blockPos) :
+                                GrassColor.getDefaultColor(),
+                VBlocks.STINGING_NETTLE.get(),
+                VBlocks.TALL_STINGING_NETTLE.get(),
+                VBlocks.SNAKE_FERN.get()
+        );
+        event.register((blockState, blockAndTintGetter, blockPos, tintIndex) -> HEATHER_COLOR,
+                VBlocks.HEATHER.get());
+
+    }
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+    public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
+        event.register(
+                (itemStack, tintIndex) -> {
+                    return FoliageColor.getDefaultColor();
+                },
+                VItems.PINE_LEAVES_ITEM.get()
+        );
+        event.register(
+                (itemStack, tintIndex) -> GrassColor.getDefaultColor(),
+                VItems.STINGING_NETTLE_ITEM.get(),
+                VItems.SNAKE_FERN_ITEM.get()
+        );
+        event.register((itemStack, tintIndex) -> HEATHER_COLOR, VItems.HEATHER_ITEM.get());
+    }
+}

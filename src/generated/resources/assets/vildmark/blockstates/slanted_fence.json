@@ -1,0 +1,26 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "vildmark:block/slanted_fence_post"
+      }
+    },
+    {
+      "apply": {
+        "model": "vildmark:block/slanted_fence_side"
+      },
+      "when": {
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "vildmark:block/slanted_fence_side",
+        "y": 270
+      },
+      "when": {
+        "east": "true"
+      }
+    }
+  ]
+}
