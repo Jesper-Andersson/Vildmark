@@ -6,12 +6,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
-import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 
 // Procedural player-style animation, ported from vanilla HumanoidModel.setupAnim.
 // GeckoLib bones use (-x, -y, z) relative to vanilla ModelPart rotations (see RenderUtil.matchModelPartRot),
 // so vanilla's X and Y values are negated here.
-public class TomteModel extends DefaultedEntityGeoModel<Tomte> {
+public class TomteModel extends HeadTurningGeoModel<Tomte> {
     public TomteModel() {
         // The model's head bone is "Head", not GeckoLib's default lowercase "head"
         super(ResourceLocation.fromNamespaceAndPath(Vildmark.MODID, "tomte"), "Head");

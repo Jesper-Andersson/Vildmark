@@ -82,7 +82,7 @@ public class BoulderFeature extends Feature<BoulderConfiguration> {
                     if (level.isOutsideBuildHeight(above) || !level.isEmptyBlock(above)) continue;
                     BlockState cover = top.getState(random, pos);
                     if (cover.isAir()) continue;
-                    if (cover.isSolidRender(level, pos)) {
+                    if (cover.isSolidRender()) {
                         setBlock(level, pos, cover);
                     } else if (cover.canSurvive(level, above)) {
                         setBlock(level, above, cover);

@@ -3,9 +3,7 @@
   "category": "building",
   "group": "wooden_stairs",
   "key": {
-    "#": {
-      "item": "vildmark:pine_planks"
-    }
+    "#": "vildmark:pine_planks"
   },
   "pattern": [
     "#  ",

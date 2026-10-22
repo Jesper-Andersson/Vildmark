@@ -3,9 +3,7 @@
   "category": "food",
   "cookingtime": 600,
   "experience": 0.35,
-  "ingredient": {
-    "item": "vildmark:pike"
-  },
+  "ingredient": "vildmark:pike",
   "result": {
     "count": 1,
     "id": "vildmark:cooked_pike"

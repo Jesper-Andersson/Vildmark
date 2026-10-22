@@ -70,7 +70,7 @@ public class ChantarelleBlock extends MushroomBlock implements BonemealableBlock
     }
 
     protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        return pState.isSolidRender(pLevel, pPos);
+        return pState.isSolidRender();
     }
 
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
@@ -80,7 +80,7 @@ public class ChantarelleBlock extends MushroomBlock implements BonemealableBlock
     }
 
     public boolean growMushroom(ServerLevel pLevel, BlockPos pPos, BlockState pState, RandomSource pRandom) {
-        Optional<? extends Holder<ConfiguredFeature<?, ?>>> optional = pLevel.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE).getHolder(this.feature);
+        Optional<? extends Holder<ConfiguredFeature<?, ?>>> optional = pLevel.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE).get(this.feature);
         var event = net.neoforged.neoforge.event.EventHooks.fireBlockGrowFeature(pLevel, pRandom, pPos, optional.orElse(null));
         if (event.isCanceled()) return false;
         optional = Optional.ofNullable(event.getFeature());

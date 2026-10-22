@@ -1,20 +1,36 @@
 package io.github.jesperandersson.vildmark.world.entity.animal;
 
+import net.minecraft.world.entity.EntitySpawnReason;
 import io.github.jesperandersson.vildmark.world.entity.VEntities;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.entity.EntitySpawnReason;
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.entity.EntitySpawnReason;
 import software.bernie.geckolib.animatable.GeoEntity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import net.minecraft.world.entity.EntitySpawnReason;
 import software.bernie.geckolib.animation.AnimatableManager;
+import net.minecraft.world.entity.EntitySpawnReason;
 import software.bernie.geckolib.animation.AnimationController;
+import net.minecraft.world.entity.EntitySpawnReason;
 import software.bernie.geckolib.animation.PlayState;
+import net.minecraft.world.entity.EntitySpawnReason;
 import software.bernie.geckolib.animation.RawAnimation;
+import net.minecraft.world.entity.EntitySpawnReason;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 // Placeholder: uses vanilla cow behaviour (goals, breeding, milking, sounds) until custom AI is written
@@ -36,7 +52,7 @@ public class Moose extends Cow implements GeoEntity {
     @Nullable
     @Override
     public Moose getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        return VEntities.MOOSE.get().create(level);
+        return VEntities.MOOSE.get().create(level, EntitySpawnReason.BREEDING);
     }
 
     @Override

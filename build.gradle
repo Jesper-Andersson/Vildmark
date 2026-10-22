@@ -178,7 +178,6 @@ dependencies {
     implementation "com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}"
     implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
     implementation "maven.modrinth:lithostitched:${lithostitched_version}"
-    implementation "maven.modrinth:apollib:${apollib_version}"
     implementation "net.tslat.smartbrainlib:SmartBrainLib-neoforge-${minecraft_version}:${smartbrainlib_version}"
 
     // Optional: lists Vildmark's biomes and lets lakes respect disabled biomes, see compat/BiomePickCompat
@@ -227,7 +226,6 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             terrablender_version_range : terrablender_version_range,
             geckolib_version_range : geckolib_version_range,
             lithostitched_version_range : lithostitched_version_range,
-            apollib_version_range : apollib_version_range,
             smartbrainlib_version_range : smartbrainlib_version_range,
             //biomepicknchoose_version_range : biomepicknchoose_version_range,
             //lambdynamiclights_version_range : lambdynamiclights_version_range,

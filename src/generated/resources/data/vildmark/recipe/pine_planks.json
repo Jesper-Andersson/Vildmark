@@ -3,9 +3,7 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-    {
-      "item": "vildmark:pine_log"
-    }
+    "vildmark:pine_log"
   ],
   "result": {
     "count": 4,

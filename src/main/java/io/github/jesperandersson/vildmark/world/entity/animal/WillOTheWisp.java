@@ -3,6 +3,7 @@ package io.github.jesperandersson.vildmark.world.entity.animal;
 import io.github.jesperandersson.vildmark.core.particles.VParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -54,7 +55,7 @@ public class WillOTheWisp extends Bat implements GeoEntity {
     }
 
     @Override
-    protected void customServerAiStep() {
+    protected void customServerAiStep(ServerLevel level) {
         // Replaces Bat's flight
         if (target == null || !level().isEmptyBlock(target) || random.nextInt(200) == 0 || target.closerToCenterThan(position(), 1.0)) {
             target = BlockPos.containing(getX() + random.nextInt(9) - 4, getY() + random.nextInt(3) - 1, getZ() + random.nextInt(9) - 4);

@@ -1,5 +1,7 @@
 package io.github.jesperandersson.vildmark.world.level.block.plants.vegetation;
 
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
 import io.github.jesperandersson.vildmark.world.level.block.VBlocks;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -18,7 +20,7 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -31,7 +33,7 @@ import java.util.Map;
  */
 public class BeardLichenBlock extends Block {
     public static final MapCodec<BeardLichenBlock> CODEC = simpleCodec(BeardLichenBlock::new);
-    public static final DirectionProperty FACING = DirectionProperty.create("facing", direction -> direction != Direction.DOWN);
+    public static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class, direction -> direction != Direction.DOWN);
     public static final BooleanProperty TIP = BooleanProperty.create("tip");
     public static final int MAX_LENGTH = 2;
     private static final TagKey<Block> PINE_LOGS = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("vildmark", "pine_logs"));
@@ -107,7 +109,7 @@ public class BeardLichenBlock extends Block {
     }
 
     @Override
-    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess tickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
         if (!state.canSurvive(level, pos)) return Blocks.AIR.defaultBlockState();
         if (direction == Direction.DOWN) return state.setValue(TIP, !neighborState.is(this));
         return state;
@@ -124,7 +126,7 @@ public class BeardLichenBlock extends Block {
     }
 
     @Override
-    protected boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
+    protected boolean propagatesSkylightDown(BlockState state) {
         return true;
     }
 }

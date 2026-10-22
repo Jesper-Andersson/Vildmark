@@ -1,5 +1,8 @@
 package io.github.jesperandersson.vildmark.world.level.block.plants.vegetation;
 
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.LevelReader;
 import io.github.jesperandersson.vildmark.world.level.block.VBlocks;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -64,11 +67,11 @@ public class ReedBlock extends DoublePlantBlock implements SimpleWaterloggedBloc
     }
 
     @Override
-    protected BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos) {
+    protected BlockState updateShape(BlockState pState, LevelReader pLevel, ScheduledTickAccess tickAccess, BlockPos pPos, Direction pDirection, BlockPos pNeighborPos, BlockState pNeighborState, RandomSource random) {
         if (pState.getValue(WATERLOGGED)) {
-            pLevel.scheduleTick(pPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
+            tickAccess.scheduleTick(pPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
         }
-        BlockState result = super.updateShape(pState, pDirection, pNeighborState, pLevel, pPos, pNeighborPos);
+        BlockState result = super.updateShape(pState, pLevel, tickAccess, pPos, pDirection, pNeighborPos, pNeighborState, random);
         if (result.isAir() && pState.getValue(WATERLOGGED)) {
             return Fluids.WATER.defaultFluidState().createLegacyBlock();
         }

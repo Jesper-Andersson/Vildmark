@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "vildmark:item/heather",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -6265186
+      }
+    ]
+  }
+}

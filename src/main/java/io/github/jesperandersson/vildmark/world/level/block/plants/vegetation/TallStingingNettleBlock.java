@@ -30,7 +30,7 @@ public class TallStingingNettleBlock extends DoublePlantBlock {
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader pLevel, BlockPos pPos, BlockState pState) {
+    public ItemStack getCloneItemStack(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean includeData) {
         return new ItemStack(VItems.STINGING_NETTLE_ITEM.get());
     }
 }

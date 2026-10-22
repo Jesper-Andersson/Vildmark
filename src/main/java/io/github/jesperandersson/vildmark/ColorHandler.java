@@ -1,6 +1,5 @@
 package io.github.jesperandersson.vildmark;
 
-import io.github.jesperandersson.vildmark.world.item.VItems;
 import io.github.jesperandersson.vildmark.world.level.block.VBlocks;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.GrassColor;
@@ -15,7 +14,7 @@ import net.minecraft.client.renderer.BiomeColors;
 @EventBusSubscriber(modid = io.github.jesperandersson.vildmark.Vildmark.MODID, value = Dist.CLIENT)
 public class ColorHandler {
     // Placeholder heather is the grey short grass texture with a fixed purple tint, so it stands out from grass
-    private static final int HEATHER_COLOR = 0xA0669E;
+    public static final int HEATHER_COLOR = 0xA0669E;
 
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
@@ -43,22 +42,5 @@ public class ColorHandler {
                 VBlocks.HEATHER.get());
 
     }
-    /*
-    @SubscribeEvent
-    @OnlyIn(Dist.CLIENT)
-    public static void registerItemColors(RegisterColorHandlersEvent.ItemTintSources tintSources) {
-        tintSources.register(
-                (itemStack, tintIndex) -> {
-                    return FoliageColor.FOLIAGE_DEFAULT;
-                },
-                VItems.PINE_LEAVES_ITEM.get()
-        );
-        event.register(
-                (itemStack, tintIndex) -> GrassColor.getDefaultColor(),
-                VItems.STINGING_NETTLE_ITEM.get(),
-                VItems.SNAKE_FERN_ITEM.get()
-        );
-        event.register((itemStack, tintIndex) -> HEATHER_COLOR, VItems.HEATHER_ITEM.get());
-    }
-     */
+    // Item tints are part of the item models since 1.21.4, see VModelProvider
 }

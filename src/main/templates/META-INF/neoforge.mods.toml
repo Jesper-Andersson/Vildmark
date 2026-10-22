@@ -81,13 +81,6 @@ ordering = "NONE"
 side = "BOTH"
 
 [[dependencies."${mod_id}"]]
-modId = "apollib"
-type = "required"
-versionRange = "${apollib_version_range}"
-ordering = "NONE"
-side = "BOTH"
-
-[[dependencies."${mod_id}"]]
 modId = "smartbrainlib"
 type = "required"
 versionRange = "${smartbrainlib_version_range}"

@@ -6,13 +6,13 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
-import software.bernie.geckolib.model.DefaultedEntityGeoModel;
+import io.github.jesperandersson.vildmark.client.model.HeadTurningGeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class MooseRenderer extends GeoEntityRenderer<Moose> {
     public MooseRenderer(EntityRendererProvider.Context context) {
         // The model's head bone is "Head", not GeckoLib's default lowercase "head"
-        super(context, new DefaultedEntityGeoModel<>(ResourceLocation.fromNamespaceAndPath(Vildmark.MODID, "moose"), "Head"));
+        super(context, new HeadTurningGeoModel<>(ResourceLocation.fromNamespaceAndPath(Vildmark.MODID, "moose"), "Head"));
         this.shadowRadius = 0.9f;
     }
 

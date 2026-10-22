@@ -7,11 +7,10 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.MobBucketItem;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.material.Fluids;
-import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 import static io.github.jesperandersson.vildmark.world.level.block.VBlocks.*;
@@ -19,81 +18,79 @@ import static io.github.jesperandersson.vildmark.Vildmark.ITEMS;
 
 
 public class VItems {
-    public static final DeferredItem<Item> LINGONBERRIES_ITEM = ITEMS.register("lingonberries",
-            () -> new Item(new Item.Properties().food(Foods.SWEET_BERRIES)));
+    public static final DeferredItem<Item> LINGONBERRIES_ITEM = ITEMS.registerSimpleItem("lingonberries", new Item.Properties().food(Foods.SWEET_BERRIES));
 
-    public static final DeferredItem<Item> CHANTARELLE_ITEM = ITEMS.register("chantarelle",
-            () -> new ItemNameBlockItem(CHANTARELLE.get(), new Item.Properties()
-                    .food(new FoodProperties.Builder().nutrition(1).build())));
+    public static final DeferredItem<Item> CHANTARELLE_ITEM = ITEMS.registerItem("chantarelle",
+            properties -> new BlockItem(CHANTARELLE.get(), properties.useItemDescriptionPrefix()),
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(1).build()));
 
-    public static final DeferredItem<BlockItem> PINE_CONK_ITEM = ITEMS.register("pine_conk",
-            () -> new ItemNameBlockItem(PINE_CONK.get(), new Item.Properties()));
+    public static final DeferredItem<BlockItem> PINE_CONK_ITEM = ITEMS.registerItem("pine_conk",
+            properties -> new BlockItem(PINE_CONK.get(), properties.useItemDescriptionPrefix()));
 
-    public static final DeferredItem<Item> LINGONBERRY_SHRUB_ITEM = ITEMS.register("lingonberry_shrub", () -> new BlockItem(LINGONBERRY_SHRUB.get(), new Item.Properties()));
+    public static final DeferredItem<BlockItem> LINGONBERRY_SHRUB_ITEM = ITEMS.registerSimpleBlockItem("lingonberry_shrub", LINGONBERRY_SHRUB);
 
-    public static final DeferredItem<Item> BLUEBERRIES_ITEM = ITEMS.register("blueberries",
-            () -> new Item(new Item.Properties().food(Foods.SWEET_BERRIES)));
+    public static final DeferredItem<Item> BLUEBERRIES_ITEM = ITEMS.registerSimpleItem("blueberries", new Item.Properties().food(Foods.SWEET_BERRIES));
 
-    public static final DeferredItem<Item> BLUEBERRY_SHRUB_ITEM = ITEMS.register("blueberry_shrub", () -> new BlockItem(BLUEBERRY_SHRUB.get(), new Item.Properties()));
+    public static final DeferredItem<BlockItem> BLUEBERRY_SHRUB_ITEM = ITEMS.registerSimpleBlockItem("blueberry_shrub", BLUEBERRY_SHRUB);
 
     // Rarer than the other berries, so more filling
-    public static final DeferredItem<Item> CLOUDBERRIES_ITEM = ITEMS.register("cloudberries",
-            () -> new ItemNameBlockItem(CLOUDBERRY_SHRUB.get(), new Item.Properties()
-                    .food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6f).build())));
+    public static final DeferredItem<Item> CLOUDBERRIES_ITEM = ITEMS.registerItem("cloudberries",
+            properties -> new BlockItem(CLOUDBERRY_SHRUB.get(), properties.useItemDescriptionPrefix()),
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6f).build()));
 
-    public static final DeferredItem<Item> CLOUDBERRY_SHRUB_ITEM = ITEMS.register("cloudberry_shrub", () -> new BlockItem(CLOUDBERRY_SHRUB.get(), new Item.Properties()));
+    public static final DeferredItem<BlockItem> CLOUDBERRY_SHRUB_ITEM = ITEMS.registerSimpleBlockItem("cloudberry_shrub", CLOUDBERRY_SHRUB);
 
-    public static final DeferredItem<Item> REED_ITEM = ITEMS.register("reed", () -> new BlockItem(REED.get(), new Item.Properties()));
-    public static final DeferredItem<Item> CATTAIL_ITEM = ITEMS.register("cattail", () -> new BlockItem(CATTAIL.get(), new Item.Properties()));
+    public static final DeferredItem<BlockItem> REED_ITEM = ITEMS.registerSimpleBlockItem("reed", REED);
+    public static final DeferredItem<BlockItem> CATTAIL_ITEM = ITEMS.registerSimpleBlockItem("cattail", CATTAIL);
 
-    public static final DeferredItem<Item> PINE_SAPLING_ITEM = ITEMS.register("pine_sapling", () -> new BlockItem(PINE_SAPLING.get(), new Item.Properties()));
-    public static final DeferredItem<Item> PINE_LOG_ITEM = ITEMS.register("pine_log", () -> new BlockItem(PINE_LOG.get(), new Item.Properties()));
-    public static final DeferredItem<Item> PINE_PLANKS_ITEM = ITEMS.register("pine_planks", () -> new BlockItem(PINE_PLANKS.get(), new Item.Properties()));
-    public static final DeferredItem<Item> PINE_STAIRS_ITEM = ITEMS.register("pine_stairs", () -> new BlockItem(PINE_STAIRS.get(), new Item.Properties()));
-    public static final DeferredItem<Item> PINE_SLAB_ITEM = ITEMS.register("pine_slab", () -> new BlockItem(PINE_SLAB.get(), new Item.Properties()));
-    public static final DeferredItem<Item> SLANTED_FENCE_ITEM = ITEMS.register("slanted_fence", () -> new BlockItem(SLANTED_FENCE.get(), new Item.Properties()));
+    public static final DeferredItem<BlockItem> PINE_SAPLING_ITEM = ITEMS.registerSimpleBlockItem("pine_sapling", PINE_SAPLING);
+    public static final DeferredItem<BlockItem> PINE_LOG_ITEM = ITEMS.registerSimpleBlockItem("pine_log", PINE_LOG);
+    public static final DeferredItem<BlockItem> PINE_PLANKS_ITEM = ITEMS.registerSimpleBlockItem("pine_planks", PINE_PLANKS);
+    public static final DeferredItem<BlockItem> PINE_STAIRS_ITEM = ITEMS.registerSimpleBlockItem("pine_stairs", PINE_STAIRS);
+    public static final DeferredItem<BlockItem> PINE_SLAB_ITEM = ITEMS.registerSimpleBlockItem("pine_slab", PINE_SLAB);
+    public static final DeferredItem<BlockItem> SLANTED_FENCE_ITEM = ITEMS.registerSimpleBlockItem("slanted_fence", SLANTED_FENCE);
 
-    public static final DeferredItem<Item> PINE_LEAVES_ITEM = ITEMS.register("pine_leaves", () -> new BlockItem(PINE_LEAVES.get(), new Item.Properties()));
-    public static final DeferredItem<Item> PEAT_ITEM = ITEMS.register("peat", () -> new BlockItem(PEAT.get(), new Item.Properties()));
-    public static final DeferredItem<Item> PINE_NEEDLES_ITEM = ITEMS.register("pine_needles", () -> new BlockItem(PINE_NEEDLES.get(), new Item.Properties()));
-    public static final DeferredItem<Item> PEAT_IRON_ORE_ITEM = ITEMS.register("peat_iron_ore", () -> new BlockItem(PEAT_IRON_ORE.get(), new Item.Properties()));
-    public static final DeferredItem<Item> COTTON_GRASS_ITEM = ITEMS.register("cotton_grass", () -> new BlockItem(COTTON_GRASS.get(), new Item.Properties()));
-    public static final DeferredItem<Item> SUNDEW_ITEM = ITEMS.register("sundew", () -> new BlockItem(SUNDEW.get(), new Item.Properties()));
-    public static final DeferredItem<Item> BEARD_LICHEN_ITEM = ITEMS.register("beard_lichen", () -> new BlockItem(BEARD_LICHEN.get(), new Item.Properties()));
-    public static final DeferredItem<Item> STINGING_NETTLE_ITEM = ITEMS.register("stinging_nettle", () -> new BlockItem(STINGING_NETTLE.get(), new Item.Properties()));
-    public static final DeferredItem<Item> SNAKE_FERN_ITEM = ITEMS.register("snakefern", () -> new BlockItem(SNAKE_FERN.get(), new Item.Properties()));
-    public static final DeferredItem<Item> HEATHER_ITEM = ITEMS.register("heather", () -> new BlockItem(HEATHER.get(), new Item.Properties()));
+    public static final DeferredItem<BlockItem> PINE_LEAVES_ITEM = ITEMS.registerSimpleBlockItem("pine_leaves", PINE_LEAVES);
+    public static final DeferredItem<BlockItem> PEAT_ITEM = ITEMS.registerSimpleBlockItem("peat", PEAT);
+    public static final DeferredItem<BlockItem> PINE_NEEDLES_ITEM = ITEMS.registerSimpleBlockItem("pine_needles", PINE_NEEDLES);
+    public static final DeferredItem<BlockItem> PEAT_IRON_ORE_ITEM = ITEMS.registerSimpleBlockItem("peat_iron_ore", PEAT_IRON_ORE);
+    public static final DeferredItem<BlockItem> COTTON_GRASS_ITEM = ITEMS.registerSimpleBlockItem("cotton_grass", COTTON_GRASS);
+    public static final DeferredItem<BlockItem> SUNDEW_ITEM = ITEMS.registerSimpleBlockItem("sundew", SUNDEW);
+    public static final DeferredItem<BlockItem> BEARD_LICHEN_ITEM = ITEMS.registerSimpleBlockItem("beard_lichen", BEARD_LICHEN);
+    public static final DeferredItem<BlockItem> STINGING_NETTLE_ITEM = ITEMS.registerSimpleBlockItem("stinging_nettle", STINGING_NETTLE);
+    public static final DeferredItem<BlockItem> SNAKE_FERN_ITEM = ITEMS.registerSimpleBlockItem("snakefern", SNAKE_FERN);
+    public static final DeferredItem<BlockItem> HEATHER_ITEM = ITEMS.registerSimpleBlockItem("heather", HEATHER);
 
-    public static final DeferredItem<Item> BLUEBERRY_PIE_ITEM = ITEMS.register("blueberry_pie", () -> new BlockItem(BLUEBERRY_PIE.get(), new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<BlockItem> BLUEBERRY_PIE_ITEM = ITEMS.registerSimpleBlockItem("blueberry_pie", BLUEBERRY_PIE, new Item.Properties().stacksTo(1));
 
-    // White colors so the custom egg texture isn't tinted
-    public static final DeferredItem<Item> BARROW_WIGHT_SPAWN_EGG = ITEMS.register("barrow_wight_spawn_egg",
-            () -> new DeferredSpawnEggItem(VEntities.BARROW_WIGHT, 0xFFFFFF, 0xFFFFFF, new Item.Properties()));
+    // Has its own texture instead of the tinted template egg
+    public static final DeferredItem<Item> BARROW_WIGHT_SPAWN_EGG = ITEMS.registerItem("barrow_wight_spawn_egg",
+            properties -> new SpawnEggItem(VEntities.BARROW_WIGHT.get(), properties));
 
-    public static final DeferredItem<Item> PIKE = ITEMS.register("pike", () -> new Item(new Item.Properties().food(Foods.SALMON)));
-    public static final DeferredItem<Item> COOKED_PIKE = ITEMS.register("cooked_pike", () -> new Item(new Item.Properties().food(Foods.COOKED_SALMON)));
-    public static final DeferredItem<Item> ROACH = ITEMS.register("roach",
-            () -> new Item(new Item.Properties()
-                    .food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.1f).build())));
-    public static final DeferredItem<Item> COOKED_ROACH = ITEMS.register("cooked_roach",
-            () -> new Item(new Item.Properties()
-                    .food(new FoodProperties.Builder().nutrition(4).saturationModifier(0.5f).build())));
+    public static final DeferredItem<Item> PIKE = ITEMS.registerSimpleItem("pike", new Item.Properties().food(Foods.SALMON));
+    public static final DeferredItem<Item> COOKED_PIKE = ITEMS.registerSimpleItem("cooked_pike", new Item.Properties().food(Foods.COOKED_SALMON));
+    public static final DeferredItem<Item> ROACH = ITEMS.registerSimpleItem("roach", new Item.Properties()
+                    .food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.1f).build()));
+    public static final DeferredItem<Item> COOKED_ROACH = ITEMS.registerSimpleItem("cooked_roach", new Item.Properties()
+                    .food(new FoodProperties.Builder().nutrition(4).saturationModifier(0.5f).build()));
 
     // Entity types are registered before items, so .get() is safe here
-    public static final DeferredItem<Item> PIKE_BUCKET = ITEMS.register("pike_bucket",
-            () -> new MobBucketItem(VEntities.PIKE.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties()
+    public static final DeferredItem<Item> PIKE_BUCKET = ITEMS.registerItem("pike_bucket",
+            properties -> new MobBucketItem(VEntities.PIKE.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, properties),
+            new Item.Properties()
                     .stacksTo(1)
-                    .component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
-    public static final DeferredItem<Item> ROACH_BUCKET = ITEMS.register("roach_bucket",
-            () -> new MobBucketItem(VEntities.ROACH.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties()
+                    .component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY));
+    public static final DeferredItem<Item> ROACH_BUCKET = ITEMS.registerItem("roach_bucket",
+            properties -> new MobBucketItem(VEntities.ROACH.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, properties),
+            new Item.Properties()
                     .stacksTo(1)
-                    .component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
+                    .component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY));
 
-    public static final DeferredItem<Item> PIKE_SPAWN_EGG = ITEMS.register("pike_spawn_egg", () -> new DeferredSpawnEggItem(VEntities.PIKE, 0x4F5F32, 0xC8C27A, new Item.Properties()));
-    public static final DeferredItem<Item> ROACH_SPAWN_EGG = ITEMS.register("roach_spawn_egg", () -> new DeferredSpawnEggItem(VEntities.ROACH, 0xB9C0C6, 0xC2402E, new Item.Properties()));
-    public static final DeferredItem<Item> MOOSE_SPAWN_EGG = ITEMS.register("moose_spawn_egg", () -> new DeferredSpawnEggItem(VEntities.MOOSE, 0x4A3526, 0xA08B6E, new Item.Properties()));
-    public static final DeferredItem<Item> TOMTE_SPAWN_EGG = ITEMS.register("tomte_spawn_egg", () -> new DeferredSpawnEggItem(VEntities.TOMTE, 0xB02A2A, 0x7A7A7A, new Item.Properties()));
-    public static final DeferredItem<Item> WILL_O_THE_WISP_SPAWN_EGG = ITEMS.register("willothewisp_spawn_egg", () -> new DeferredSpawnEggItem(VEntities.WILL_O_THE_WISP,0xB02A2A, 0x7A7A7A, new Item.Properties()));
+    public static final DeferredItem<Item> PIKE_SPAWN_EGG = ITEMS.registerItem("pike_spawn_egg", properties -> new SpawnEggItem(VEntities.PIKE.get(), properties));
+    public static final DeferredItem<Item> ROACH_SPAWN_EGG = ITEMS.registerItem("roach_spawn_egg", properties -> new SpawnEggItem(VEntities.ROACH.get(), properties));
+    public static final DeferredItem<Item> MOOSE_SPAWN_EGG = ITEMS.registerItem("moose_spawn_egg", properties -> new SpawnEggItem(VEntities.MOOSE.get(), properties));
+    public static final DeferredItem<Item> TOMTE_SPAWN_EGG = ITEMS.registerItem("tomte_spawn_egg", properties -> new SpawnEggItem(VEntities.TOMTE.get(), properties));
+    public static final DeferredItem<Item> WILL_O_THE_WISP_SPAWN_EGG = ITEMS.registerItem("willothewisp_spawn_egg", properties -> new SpawnEggItem(VEntities.WILL_O_THE_WISP.get(), properties));
 
     public static void register() {}
 }

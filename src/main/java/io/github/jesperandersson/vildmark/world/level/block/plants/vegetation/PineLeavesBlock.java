@@ -1,5 +1,7 @@
 package io.github.jesperandersson.vildmark.world.level.block.plants.vegetation;
 
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -87,14 +89,15 @@ public class PineLeavesBlock extends LeavesBlock implements SimpleWaterloggedBlo
      * returns its solidified counterpart.
      * Note that this method should ideally consider only the specific direction passed in.
      */
-    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
+    @Override
+    protected BlockState updateShape(BlockState pState, LevelReader pLevel, ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pFacing, BlockPos pFacingPos, BlockState pFacingState, RandomSource random) {
         if (pState.getValue(WATERLOGGED)) {
-            pLevel.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
+            tickAccess.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
         }
 
         int i = getDistanceAt(pFacingState) + 1;
         if (i != 1 || pState.getValue(DISTANCE) != i) {
-            pLevel.scheduleTick(pCurrentPos, this, 1);
+            tickAccess.scheduleTick(pCurrentPos, this, 1);
         }
 
         return pState;
