@@ -128,3 +128,6 @@ runs/
 bin/
 .eclipse/
 .vscode/
+/blockbench/
+/.run/
+/src/generated/resources/.cache/
