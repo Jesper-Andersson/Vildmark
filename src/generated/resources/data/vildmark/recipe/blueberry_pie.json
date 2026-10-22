@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "#": "vildmark:blueberries",
     "%": "minecraft:egg",
@@ -13,7 +12,6 @@
     "???"
   ],
   "result": {
-    "count": 1,
     "id": "vildmark:blueberry_pie"
   }
 }

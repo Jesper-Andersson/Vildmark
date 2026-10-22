@@ -18,7 +18,9 @@ public class BlueberryPieBlock extends CakeBlock {
 
     // Skip the cake's candle handling, which would turn the pie into a vanilla candle cake
     @Override
-    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected InteractionResult useItemOn(
+            ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
+            InteractionHand hand, BlockHitResult hitResult) {
         return InteractionResult.TRY_WITH_EMPTY_HAND;
     }
 }

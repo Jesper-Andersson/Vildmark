@@ -3,7 +3,7 @@ package io.github.jesperandersson.vildmark.world.level.levelgen.biome;
 import io.github.jesperandersson.vildmark.Vildmark;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.biome.Biome;
 
 public class Biomes {
@@ -16,8 +16,10 @@ public class Biomes {
     public static final ResourceKey<Biome> PLAINS = register("plains");
     public static final ResourceKey<Biome> TUNDRA = register("tundra");
 
-    private static ResourceKey<Biome> register(String name)
-    {
-        return ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(Vildmark.MODID, name));
+    // Only creates the key. The biomes themselves are defined in the data pack
+    // (data/vildmark/worldgen/biome)
+    private static ResourceKey<Biome> register(String name) {
+        Identifier id = Identifier.fromNamespaceAndPath(Vildmark.MODID, name);
+        return ResourceKey.create(Registries.BIOME, id);
     }
 }

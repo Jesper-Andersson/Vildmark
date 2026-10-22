@@ -9,15 +9,15 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.entity.animal.fish.AbstractFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.RawAnimation;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.util.GeckoLibUtil;
 
 // Solitary predator (not a schooling fish) that hunts roach
 public class Pike extends AbstractFish implements GeoEntity {
@@ -32,16 +32,21 @@ public class Pike extends AbstractFish implements GeoEntity {
 
     public static AttributeSupplier.Builder createAttributes() {
         return AbstractFish.createAttributes()
-                .add(Attributes.MAX_HEALTH, 6.0D)
-                .add(Attributes.ATTACK_DAMAGE, 2.0D);
+                .add(Attributes.MAX_HEALTH, 6.0)
+                .add(Attributes.ATTACK_DAMAGE, 2.0);
     }
 
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2D, true));
-        // randomInterval so it doesn't wipe out groups of prey fish instantly
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Roach.class, 150, true, false, null));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(
+                this, /* speedModifier= */ 1.2, /* followingTargetEvenIfNotSeen= */ true));
+        // On average only one in this many ticks looks for prey, so a pike doesn't wipe out a
+        // whole school of roach at once
+        int preySearchInterval = 150;
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Roach.class,
+                preySearchInterval, /* mustSee= */ true, /* mustReach= */ false,
+                /* selector= */ null));
     }
 
     @Override
@@ -71,7 +76,8 @@ public class Pike extends AbstractFish implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "swim", 5, state -> state.setAndContinue(isInWater() ? SWIM : FLOP)));
+        controllers.add(new AnimationController<>("swim", /* transitionTicks= */ 5,
+                state -> state.setAndContinue(isInWater() ? SWIM : FLOP)));
     }
 
     @Override

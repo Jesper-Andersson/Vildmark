@@ -3,7 +3,7 @@
   "config": {
     "decorators": [
       {
-        "type": "vildmark:place_on_ground",
+        "type": "minecraft:place_on_ground",
         "tries": 240,
         "radius": 5,
         "height": 2,
@@ -16,24 +16,53 @@
             "max_inclusive": 4
           },
           "source": {
-            "type": "minecraft:simple_state_provider",
-            "state": {
-              "Name": "vildmark:pine_needles",
-              "Properties": {
-                "facing": "north",
-                "flower_amount": "1"
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "data": {
+                  "Name": "vildmark:pine_needles",
+                  "Properties": {
+                    "facing": "north",
+                    "flower_amount": "1"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "vildmark:pine_needles",
+                  "Properties": {
+                    "facing": "east",
+                    "flower_amount": "1"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "vildmark:pine_needles",
+                  "Properties": {
+                    "facing": "south",
+                    "flower_amount": "1"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "vildmark:pine_needles",
+                  "Properties": {
+                    "facing": "west",
+                    "flower_amount": "1"
+                  }
+                },
+                "weight": 1
               }
-            }
+            ]
           }
         }
       }
     ],
-    "dirt_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:dirt"
-      }
-    },
     "foliage_placer": {
       "type": "minecraft:spruce_foliage_placer",
       "offset": {
@@ -63,7 +92,6 @@
         }
       }
     },
-    "force_dirt": false,
     "ignore_vines": true,
     "minimum_size": {
       "type": "minecraft:two_layers_feature_size",
@@ -85,6 +113,26 @@
           "axis": "y"
         }
       }
+    },
+    "below_trunk_provider": {
+      "type": "minecraft:rule_based_state_provider",
+      "rules": [
+        {
+          "if_true": {
+            "type": "minecraft:not",
+            "predicate": {
+              "type": "minecraft:matching_block_tag",
+              "tag": "minecraft:cannot_replace_below_tree_trunk"
+            }
+          },
+          "then": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "minecraft:dirt"
+            }
+          }
+        }
+      ]
     }
   }
 }

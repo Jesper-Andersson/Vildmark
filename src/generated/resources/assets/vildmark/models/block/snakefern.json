@@ -5,7 +5,6 @@
   "emissive_ambient": false,
   "loader": "neoforge:obj",
   "model": "vildmark:models/block/snakefern.obj",
-  "render_type": "minecraft:cutout",
   "textures": {
     "particle": "vildmark:block/snakefern",
     "texture": "vildmark:block/snakefern"

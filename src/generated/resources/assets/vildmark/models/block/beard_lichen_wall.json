@@ -29,7 +29,6 @@
       ]
     }
   ],
-  "render_type": "minecraft:cutout",
   "textures": {
     "lichen": "vildmark:block/beard_lichen",
     "particle": "vildmark:block/beard_lichen"

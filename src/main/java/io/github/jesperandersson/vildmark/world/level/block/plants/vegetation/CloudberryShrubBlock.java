@@ -7,18 +7,19 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class CloudberryShrubBlock extends ShrubClass {
-    public static final MapCodec<CloudberryShrubBlock> CODEC = simpleCodec(CloudberryShrubBlock::new);
+    public static final MapCodec<CloudberryShrubBlock> CODEC =
+            simpleCodec(CloudberryShrubBlock::new);
 
     public CloudberryShrubBlock(Properties properties) {
         super(properties);
     }
 
     @Override
-    protected MapCodec<? extends BushBlock> codec() {
+    protected MapCodec<? extends VegetationBlock> codec() {
         return CODEC;
     }
 
@@ -29,9 +30,11 @@ public class CloudberryShrubBlock extends ShrubClass {
 
     // Only grows on wet bog ground
     @Override
-    protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        return pState.is(VBlocks.PEAT.get()) || pState.is(Blocks.MUD) || pState.is(Blocks.MOSS_BLOCK);
+    protected boolean mayPlaceOn(BlockState ground, BlockGetter level, BlockPos groundPos) {
+        return ground.is(VBlocks.PEAT.get())
+                || ground.is(Blocks.MUD)
+                || ground.is(Blocks.MOSS_BLOCK);
     }
 
-    //TODO: Fix bonemealing
+    // TODO: Bone meal doesn't grow cloudberries yet, see ShrubClass.performBonemeal
 }

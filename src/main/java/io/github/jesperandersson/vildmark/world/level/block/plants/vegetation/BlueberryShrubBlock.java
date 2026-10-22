@@ -17,7 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -26,101 +26,136 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.common.CommonHooks;
 
-public class BlueberryShrubBlock extends BushBlock implements BonemealableBlock {
+/**
+ * Blueberry shrub: grows through ages 0-4 and can be picked from age 3, like a vanilla sweet berry
+ * bush. Unlike {@link ShrubClass}, bone meal grows it.
+ */
+public class BlueberryShrubBlock extends VegetationBlock implements BonemealableBlock {
+    public static final MapCodec<BlueberryShrubBlock> CODEC = simpleCodec(BlueberryShrubBlock::new);
     public static final int MAX_AGE = 4;
     public static final IntegerProperty AGE = BlockStateProperties.AGE_4;
-    private static final VoxelShape SAPLING_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 8.0D, 13.0D);
-    private static final VoxelShape MID_GROWTH_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
-
-
-    public static final MapCodec<BlueberryShrubBlock> CODEC = simpleCodec(BlueberryShrubBlock::new);
+    // Berries can be picked from this age on
+    private static final int MIN_PICKABLE_AGE = 3;
+    // Picking resets the shrub to this age, so it doesn't have to regrow from a sapling
+    private static final int AGE_AFTER_PICKING = 1;
+    // Same light level vanilla crops need to grow
+    private static final int MIN_LIGHT_TO_GROW = 9;
+    private static final VoxelShape SAPLING_SHAPE = Block.box(3.0, 0.0, 3.0, 13.0, 8.0, 13.0);
+    private static final VoxelShape MID_GROWTH_SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 16.0, 15.0);
 
     public BlueberryShrubBlock(Properties properties) {
         super(properties);
     }
 
     @Override
-    protected MapCodec<? extends BushBlock> codec() {
+    protected MapCodec<? extends VegetationBlock> codec() {
         return CODEC;
     }
 
-    public ItemStack getCloneItemStack(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean includeData) {
+    @Override
+    public ItemStack getCloneItemStack(
+            LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
         return new ItemStack(VItems.BLUEBERRY_SHRUB_ITEM.get());
     }
 
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        if (pState.getValue(AGE) == 0) {
+    @Override
+    public VoxelShape getShape(
+            BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        int age = state.getValue(AGE);
+        if (age == 0) {
             return SAPLING_SHAPE;
-        } else {
-            return pState.getValue(AGE) < 4 ? MID_GROWTH_SHAPE : super.getShape(pState, pLevel, pPos, pContext);
         }
-    }
-
-    /**
-     * @return whether this block needs random ticking.
-     */
-    public boolean isRandomlyTicking(BlockState pState) {
-        return pState.getValue(AGE) < 4;
-    }
-
-    /**
-     * Performs a random tick on a block.
-     */
-    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        int i = pState.getValue(AGE);
-        if (i < 4 && pLevel.getRawBrightness(pPos.above(), 0) >= 9 && net.neoforged.neoforge.common.CommonHooks.canCropGrow(pLevel, pPos, pState, pRandom.nextInt(5) == 0)) {
-            BlockState blockstate = pState.setValue(AGE, Integer.valueOf(i + 1));
-            pLevel.setBlock(pPos, blockstate, 2);
-            pLevel.gameEvent(GameEvent.BLOCK_CHANGE, pPos, GameEvent.Context.of(blockstate));
-            net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(pLevel, pPos, pState);
+        if (age < MAX_AGE) {
+            return MID_GROWTH_SHAPE;
         }
+        return super.getShape(state, level, pos, context);
     }
 
+    // Only growing shrubs need random ticks
     @Override
-    public InteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        boolean flag = pState.getValue(AGE) == 4;
-        return !flag && pStack.is(Items.BONE_MEAL)
-                ? InteractionResult.PASS
-                : super.useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHit);
+    public boolean isRandomlyTicking(BlockState state) {
+        return state.getValue(AGE) < MAX_AGE;
     }
 
+    // Grows one age at a time in enough light, on average every fifth random tick
     @Override
-    public InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHit) {
-        int i = pState.getValue(AGE);
-        boolean flag = i == 4;
-        if (i > 2) {
-            int j = 1 + pLevel.random.nextInt(2);
-            popResource(pLevel, pPos, new ItemStack(VItems.BLUEBERRIES_ITEM.get(), j + (flag ? 1 : 0)));
-            pLevel.playSound((Player)null, pPos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + pLevel.random.nextFloat() * 0.4F);
-            BlockState blockstate = pState.setValue(AGE, Integer.valueOf(1));
-            pLevel.setBlock(pPos, blockstate, 2);
-            pLevel.gameEvent(GameEvent.BLOCK_CHANGE, pPos, GameEvent.Context.of(pPlayer, blockstate));
-            return InteractionResult.SUCCESS;
-        } else {
-            return super.useWithoutItem(pState, pLevel, pPos, pPlayer, pHit);
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        int age = state.getValue(AGE);
+        boolean hasEnoughLight = level.getRawBrightness(pos.above(), 0) >= MIN_LIGHT_TO_GROW;
+        if (age >= MAX_AGE || !hasEnoughLight) {
+            return;
         }
-    }
+        // NeoForge hook that lets other mods speed up, slow down or block crop growth
+        boolean defaultGrowChance = random.nextInt(5) == 0;
+        if (!CommonHooks.canCropGrow(level, pos, state, defaultGrowChance)) {
+            return;
+        }
 
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(AGE);
-    }
-
-    @Override
-    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState) {
-        return pState.getValue(AGE) < 4;
-    }
-
-    @Override
-    public boolean isBonemealSuccess(Level pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
-        return pState.getValue(AGE) < 4;
+        BlockState grownState = state.setValue(AGE, age + 1);
+        level.setBlock(pos, grownState, Block.UPDATE_CLIENTS);
+        level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(grownState));
+        CommonHooks.fireCropGrowPost(level, pos, state);
     }
 
     @Override
-    public void performBonemeal(ServerLevel pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
-        if (pState.getValue(AGE) < 4) {
-            int i = pState.getValue(AGE) + 1;
-            pLevel.setBlock(pPos, pState.setValue(AGE, Integer.valueOf(i)), 2);
+    public InteractionResult useItemOn(
+            ItemStack heldItem, BlockState state, Level level, BlockPos pos, Player player,
+            InteractionHand hand, BlockHitResult hit) {
+        // Let bone meal fall through to performBonemeal while the shrub can still grow
+        boolean isFullyGrown = state.getValue(AGE) == MAX_AGE;
+        if (!isFullyGrown && heldItem.is(Items.BONE_MEAL)) {
+            return InteractionResult.PASS;
+        }
+        return super.useItemOn(heldItem, state, level, pos, player, hand, hit);
+    }
+
+    @Override
+    public InteractionResult useWithoutItem(
+            BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        int age = state.getValue(AGE);
+        if (age < MIN_PICKABLE_AGE) {
+            return super.useWithoutItem(state, level, pos, player, hit);
+        }
+
+        // 1-2 berries, plus one more from a fully grown shrub
+        boolean isFullyGrown = age == MAX_AGE;
+        int berryCount = 1 + level.getRandom().nextInt(2) + (isFullyGrown ? 1 : 0);
+        popResource(level, pos, new ItemStack(VItems.BLUEBERRIES_ITEM.get(), berryCount));
+        float pitch = 0.8F + level.getRandom().nextFloat() * 0.4F;
+        // A null player means everyone nearby hears it, including the player who picked
+        level.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS,
+                /* volume= */ 1.0F, pitch);
+
+        BlockState pickedState = state.setValue(AGE, AGE_AFTER_PICKING);
+        level.setBlock(pos, pickedState, Block.UPDATE_CLIENTS);
+        level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, pickedState));
+        return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(AGE);
+    }
+
+    @Override
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+        return state.getValue(AGE) < MAX_AGE;
+    }
+
+    @Override
+    public boolean isBonemealSuccess(
+            Level level, RandomSource random, BlockPos pos, BlockState state) {
+        return state.getValue(AGE) < MAX_AGE;
+    }
+
+    @Override
+    public void performBonemeal(
+            ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+        int age = state.getValue(AGE);
+        if (age < MAX_AGE) {
+            level.setBlock(pos, state.setValue(AGE, age + 1), Block.UPDATE_CLIENTS);
         }
     }
 }

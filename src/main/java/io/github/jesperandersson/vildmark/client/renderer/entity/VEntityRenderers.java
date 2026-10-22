@@ -12,8 +12,10 @@ public class VEntityRenderers {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(VEntities.BARROW_WIGHT.get(), BarrowWightRenderer::new);
-        event.registerEntityRenderer(VEntities.PIKE.get(), ctx -> new FishRenderer<>(ctx, "pike"));
-        event.registerEntityRenderer(VEntities.ROACH.get(), ctx -> new FishRenderer<>(ctx, "roach"));
+        event.registerEntityRenderer(VEntities.PIKE.get(),
+                context -> new FishRenderer<>(context, VEntities.PIKE.get()));
+        event.registerEntityRenderer(VEntities.ROACH.get(),
+                context -> new FishRenderer<>(context, VEntities.ROACH.get()));
         event.registerEntityRenderer(VEntities.MOOSE.get(), MooseRenderer::new);
         event.registerEntityRenderer(VEntities.TOMTE.get(), TomteRenderer::new);
         event.registerEntityRenderer(VEntities.WILL_O_THE_WISP.get(), WillOTheWispRenderer::new);

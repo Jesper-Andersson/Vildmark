@@ -69,16 +69,14 @@
     [
       "minecraft:glow_lichen",
       "minecraft:patch_waterlily",
+      "minecraft:brown_mushroom_taiga",
+      "minecraft:red_mushroom_taiga",
       "minecraft:patch_sugar_cane",
-      "vildmark:patch_grass_taiga_2",
       "vildmark:patch_reed",
       "vildmark:patch_cattail",
-      "minecraft:seagrass_river"
-    ],
-    [
-      "vildmark:patch_chantarelle",
-      "minecraft:brown_mushroom_taiga",
-      "minecraft:red_mushroom_taiga"
+      "minecraft:seagrass_river",
+      "vildmark:patch_grass_taiga_2",
+      "vildmark:patch_chantarelle"
     ],
     [
       "minecraft:freeze_top_layer"

@@ -14,13 +14,18 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(NoiseBasedChunkGenerator.class)
 public abstract class NoiseBasedChunkGeneratorMixin {
-    // Fix biomes that don't match the final terrain: raised bog and dry lake or river become forest, land biomes in
-    // open water become ocean
-    // Wraps the chunk's resolver rather than the biome source, since the lake basin reads the biome source
+    // Fixes biomes that don't match the final terrain: raised bog and dry lake or river become
+    // forest, and land biomes in open water become ocean. Wraps the chunk's resolver rather than
+    // the biome source, since the lake basin reads the biome source.
+    // The target is the JVM descriptor of ChunkAccess.fillBiomesFromNoise(BiomeResolver, Sampler):
+    // owner class, method name, parameter types, and V for a void return
     @WrapOperation(method = "doCreateBiomes", at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/world/level/chunk/ChunkAccess;fillBiomesFromNoise(Lnet/minecraft/world/level/biome/BiomeResolver;Lnet/minecraft/world/level/biome/Climate$Sampler;)V"))
-    private void vildmark$fixBiomes(ChunkAccess chunk, BiomeResolver resolver, Climate.Sampler sampler,
-                                  Operation<Void> original, @Local(argsOnly = true) RandomState random) {
-        original.call(chunk, LakeBasin.wrapBiomes(random, resolver), sampler);
+            target = "Lnet/minecraft/world/level/chunk/ChunkAccess;fillBiomesFromNoise("
+                    + "Lnet/minecraft/world/level/biome/BiomeResolver;"
+                    + "Lnet/minecraft/world/level/biome/Climate$Sampler;)V"))
+    private void vildmark$fixBiomes(
+            ChunkAccess chunk, BiomeResolver resolver, Climate.Sampler sampler,
+            Operation<Void> original, @Local(argsOnly = true) RandomState randomState) {
+        original.call(chunk, LakeBasin.wrapBiomes(randomState, resolver), sampler);
     }
 }

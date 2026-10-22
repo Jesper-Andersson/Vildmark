@@ -1,29 +1,38 @@
 package io.github.jesperandersson.vildmark.client.renderer.entity;
 
-import io.github.jesperandersson.vildmark.Vildmark;
+import com.geckolib.constant.DefaultAnimations;
+import com.geckolib.renderer.GeoEntityRenderer;
+import com.geckolib.renderer.base.BoneSnapshots;
+import com.geckolib.renderer.base.GeoRenderState;
+import com.geckolib.renderer.base.RenderPassInfo;
+import io.github.jesperandersson.vildmark.world.entity.VEntities;
 import io.github.jesperandersson.vildmark.world.entity.animal.Moose;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.cache.object.BakedGeoModel;
-import io.github.jesperandersson.vildmark.client.model.HeadTurningGeoModel;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 
-public class MooseRenderer extends GeoEntityRenderer<Moose> {
+public class MooseRenderer<R extends LivingEntityRenderState & GeoRenderState>
+        extends GeoEntityRenderer<Moose, R> {
     public MooseRenderer(EntityRendererProvider.Context context) {
-        // The model's head bone is "Head", not GeckoLib's default lowercase "head"
-        super(context, new HeadTurningGeoModel<>(ResourceLocation.fromNamespaceAndPath(Vildmark.MODID, "moose"), "Head"));
+        super(context, VEntities.MOOSE.get());
         this.shadowRadius = 0.9f;
     }
 
     @Override
-    public void scaleModelForRender(float widthScale, float heightScale, PoseStack poseStack, Moose animatable, BakedGeoModel model, boolean isReRender, float partialTick, int packedLight, int packedOverlay) {
+    public void scaleModelForRender(
+            RenderPassInfo<R> renderPassInfo, float widthScale, float heightScale) {
         // GeckoLib doesn't shrink babies on its own
-        if (animatable.isBaby()) {
+        if (renderPassInfo.renderState().isBaby) {
             widthScale *= 0.5f;
             heightScale *= 0.5f;
         }
 
-        super.scaleModelForRender(widthScale, heightScale, poseStack, animatable, model, isReRender, partialTick, packedLight, packedOverlay);
+        super.scaleModelForRender(renderPassInfo, widthScale, heightScale);
+    }
+
+    @Override
+    public void adjustModelBonesForRender(
+            RenderPassInfo<R> renderPassInfo, BoneSnapshots snapshots) {
+        // The model's head bone is "Head", not GeckoLib's usual lowercase "head"
+        DefaultAnimations.hardcodedHeadRotation(renderPassInfo, snapshots, "Head");
     }
 }

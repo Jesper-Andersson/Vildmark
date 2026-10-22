@@ -12,16 +12,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Properties;
 
 /**
- * Lets shader packs light Vildmark entities by giving them the entity IDs of matching vanilla entities.
- * Skipped when Iris isn't installed, and does nothing if Iris changes the method.
+ * Lets shader packs light Vildmark entities by giving them the entity IDs of matching vanilla
+ * entities. Skipped when Iris isn't installed, and does nothing if Iris changes the method.
  */
 /*
 @Pseudo
 @Mixin(targets = "net.irisshaders.iris.shaderpack.IdMap", remap = false)
 public abstract class IrisIdMapMixin {
     @Inject(method = "parseEntityIdMap", at = @At("RETURN"), cancellable = true, require = 0)
-    private static void vildmark$aliasEntities(Properties properties, CallbackInfoReturnable<Object2IntMap<NamespacedId>> cir) {
-        cir.setReturnValue(ShaderEntityAliases.alias(cir.getReturnValue()));
+    private static void vildmark$aliasEntities(
+            Properties properties,
+            CallbackInfoReturnable<Object2IntMap<NamespacedId>> callbackInfo) {
+        callbackInfo.setReturnValue(ShaderEntityAliases.alias(callbackInfo.getReturnValue()));
     }
 }
 

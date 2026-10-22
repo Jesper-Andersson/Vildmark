@@ -17,10 +17,14 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
  * Grows pine conks on the sides of the tree's trunk, some of them already fully grown.
  */
 public class PineConkDecorator extends TreeDecorator {
-    public static final MapCodec<PineConkDecorator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Codec.floatRange(0.0f, 1.0f).fieldOf("probability").forGetter(decorator -> decorator.probability),
-            Codec.floatRange(0.0f, 1.0f).fieldOf("large_probability").orElse(0.5f).forGetter(decorator -> decorator.largeProbability)
-    ).apply(instance, PineConkDecorator::new));
+    // Reads the decorator's settings from the tree's configured feature JSON
+    public static final MapCodec<PineConkDecorator> CODEC =
+            RecordCodecBuilder.mapCodec(instance -> instance.group(
+                    Codec.floatRange(0.0f, 1.0f).fieldOf("probability")
+                            .forGetter(decorator -> decorator.probability),
+                    Codec.floatRange(0.0f, 1.0f).fieldOf("large_probability").orElse(0.5f)
+                            .forGetter(decorator -> decorator.largeProbability)
+            ).apply(instance, PineConkDecorator::new));
 
     private final float probability;
     private final float largeProbability;
@@ -30,11 +34,13 @@ public class PineConkDecorator extends TreeDecorator {
         this.largeProbability = largeProbability;
     }
 
-    /** A conk stuck to the log on its {@code log} side, large with the given chance. */
-    public static BlockState conk(Direction log, float largeProbability, RandomSource random) {
+    /** A conk stuck to the log in direction {@code towardLog}, large with the given chance. */
+    public static BlockState conk(
+            Direction towardLog, float largeProbability, RandomSource random) {
+        int age = random.nextFloat() < largeProbability ? PineConkMushroomBlock.MAX_AGE : 0;
         return VBlocks.PINE_CONK.get().defaultBlockState()
-                .setValue(PineConkMushroomBlock.FACING, log)
-                .setValue(PineConkMushroomBlock.AGE, random.nextFloat() < largeProbability ? PineConkMushroomBlock.MAX_AGE : 0);
+                .setValue(PineConkMushroomBlock.FACING, towardLog)
+                .setValue(PineConkMushroomBlock.AGE, age);
     }
 
     @Override
@@ -47,7 +53,9 @@ public class PineConkDecorator extends TreeDecorator {
         RandomSource random = context.random();
         for (BlockPos log : context.logs()) {
             // logs() also holds the dirt under the trunk
-            if (!context.level().isStateAtPosition(log, state -> state.is(BlockTags.LOGS))) continue;
+            if (!context.level().isStateAtPosition(log, state -> state.is(BlockTags.LOGS))) {
+                continue;
+            }
             for (Direction direction : Direction.Plane.HORIZONTAL) {
                 BlockPos side = log.relative(direction);
                 if (random.nextFloat() < probability && context.isAir(side)) {

@@ -12,13 +12,18 @@ import java.util.Set;
 
 @EventBusSubscriber(modid = Vildmark.MODID)
 public class VDataGenerators {
-    // The clientData run only fires the Client event, so server data (loot tables, recipes) is added here too
+    // The clientData run only fires the Client event, so server data (loot tables, recipes) is
+    // added here too
     @SubscribeEvent
     public static void gatherData(GatherDataEvent.Client event) {
         event.createProvider(VModelProvider::new);
-        event.createProvider((output, lookupProvider) -> new LootTableProvider(output, Set.of(),
-                List.of(new LootTableProvider.SubProviderEntry(VBlockLootProvider::new, LootContextParamSets.BLOCK),
-                        new LootTableProvider.SubProviderEntry(VEntityLootProvider::new, LootContextParamSets.ENTITY)), lookupProvider));
+        List<LootTableProvider.SubProviderEntry> lootSubProviders = List.of(
+                new LootTableProvider.SubProviderEntry(
+                        VBlockLootProvider::new, LootContextParamSets.BLOCK),
+                new LootTableProvider.SubProviderEntry(
+                        VEntityLootProvider::new, LootContextParamSets.ENTITY));
+        event.createProvider((output, lookupProvider) ->
+                new LootTableProvider(output, Set.of(), lootSubProviders, lookupProvider));
         event.createProvider(VRecipeProvider.Runner::new);
     }
 }

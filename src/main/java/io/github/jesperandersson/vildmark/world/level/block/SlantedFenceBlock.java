@@ -10,6 +10,7 @@ public class SlantedFenceBlock extends FenceBlock {
         super(properties);
     }
 
+    // Unlike a normal fence, only connects to other slanted fences, not to solid blocks or gates
     @Override
     public boolean connectsTo(BlockState state, boolean isSideSolid, Direction direction) {
         return state.is(this);

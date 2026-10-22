@@ -17,11 +17,17 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
  * Hangs strands of beard lichen under the tree's leaves and down the sides of its trunk.
  */
 public class BeardLichenDecorator extends TreeDecorator {
-    public static final MapCodec<BeardLichenDecorator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Codec.floatRange(0.0f, 1.0f).fieldOf("leaves_probability").forGetter(decorator -> decorator.leavesProbability),
-            Codec.floatRange(0.0f, 1.0f).fieldOf("logs_probability").forGetter(decorator -> decorator.logsProbability),
-            Codec.intRange(1, BeardLichenBlock.MAX_LENGTH).fieldOf("max_length").orElse(BeardLichenBlock.MAX_LENGTH).forGetter(decorator -> decorator.maxLength)
-    ).apply(instance, BeardLichenDecorator::new));
+    // Reads the decorator's settings from the tree's configured feature JSON
+    public static final MapCodec<BeardLichenDecorator> CODEC =
+            RecordCodecBuilder.mapCodec(instance -> instance.group(
+                    Codec.floatRange(0.0f, 1.0f).fieldOf("leaves_probability")
+                            .forGetter(decorator -> decorator.leavesProbability),
+                    Codec.floatRange(0.0f, 1.0f).fieldOf("logs_probability")
+                            .forGetter(decorator -> decorator.logsProbability),
+                    Codec.intRange(1, BeardLichenBlock.MAX_LENGTH).fieldOf("max_length")
+                            .orElse(BeardLichenBlock.MAX_LENGTH)
+                            .forGetter(decorator -> decorator.maxLength)
+            ).apply(instance, BeardLichenDecorator::new));
 
     private final float leavesProbability;
     private final float logsProbability;
@@ -49,7 +55,9 @@ public class BeardLichenDecorator extends TreeDecorator {
         }
         for (BlockPos log : context.logs()) {
             // logs() also holds the dirt under the trunk
-            if (!context.level().isStateAtPosition(log, state -> state.is(BlockTags.LOGS))) continue;
+            if (!context.level().isStateAtPosition(log, state -> state.is(BlockTags.LOGS))) {
+                continue;
+            }
             for (Direction direction : Direction.Plane.HORIZONTAL) {
                 BlockPos side = log.relative(direction);
                 if (random.nextFloat() < logsProbability && context.isAir(side)) {
@@ -60,18 +68,22 @@ public class BeardLichenDecorator extends TreeDecorator {
         }
     }
 
+    // Hangs a strand of random length down from top, cut short where it would hit a block
     private void hangStrand(Context context, BlockPos top, Direction facing) {
-        int length = 1 + context.random().nextInt(maxLength);
+        int wantedLength = 1 + context.random().nextInt(maxLength);
         BlockPos.MutableBlockPos pos = top.mutable();
-        int placed = 0;
-        while (placed < length && context.isAir(pos)) {
-            placed++;
+        int length = 0;
+        while (length < wantedLength && context.isAir(pos)) {
+            length++;
             pos.move(Direction.DOWN);
         }
+
         pos.set(top);
-        BlockState lichen = VBlocks.BEARD_LICHEN.get().defaultBlockState().setValue(BeardLichenBlock.FACING, facing);
-        for (int i = 0; i < placed; i++) {
-            context.setBlock(pos.immutable(), lichen.setValue(BeardLichenBlock.TIP, i == placed - 1));
+        BlockState lichen = VBlocks.BEARD_LICHEN.get().defaultBlockState()
+                .setValue(BeardLichenBlock.FACING, facing);
+        for (int blockIdx = 0; blockIdx < length; blockIdx++) {
+            boolean isTip = blockIdx == length - 1;
+            context.setBlock(pos.immutable(), lichen.setValue(BeardLichenBlock.TIP, isTip));
             pos.move(Direction.DOWN);
         }
     }

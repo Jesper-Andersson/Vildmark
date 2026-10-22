@@ -1,39 +1,25 @@
 package io.github.jesperandersson.vildmark.world.entity.animal;
 
-import net.minecraft.world.entity.EntitySpawnReason;
 import io.github.jesperandersson.vildmark.world.entity.VEntities;
-import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.animal.Cow;
-import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.animal.cow.Cow;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.entity.EntitySpawnReason;
 import org.jetbrains.annotations.Nullable;
-import net.minecraft.world.entity.EntitySpawnReason;
-import software.bernie.geckolib.animatable.GeoEntity;
-import net.minecraft.world.entity.EntitySpawnReason;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import net.minecraft.world.entity.EntitySpawnReason;
-import software.bernie.geckolib.animation.AnimatableManager;
-import net.minecraft.world.entity.EntitySpawnReason;
-import software.bernie.geckolib.animation.AnimationController;
-import net.minecraft.world.entity.EntitySpawnReason;
-import software.bernie.geckolib.animation.PlayState;
-import net.minecraft.world.entity.EntitySpawnReason;
-import software.bernie.geckolib.animation.RawAnimation;
-import net.minecraft.world.entity.EntitySpawnReason;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.object.PlayState;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.util.GeckoLibUtil;
 
-// Placeholder: uses vanilla cow behaviour (goals, breeding, milking, sounds) until custom AI is written
+// Placeholder: uses vanilla cow behaviour (goals, breeding, milking, sounds) until custom AI is
+// written
 public class Moose extends Cow implements GeoEntity {
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
 
@@ -45,8 +31,8 @@ public class Moose extends Cow implements GeoEntity {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Cow.createAttributes()
-                .add(Attributes.MAX_HEALTH, 30.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.2D);
+                .add(Attributes.MAX_HEALTH, 30.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.2);
     }
 
     @Nullable
@@ -57,8 +43,9 @@ public class Moose extends Cow implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        // The model only has a "walk" animation, so GeckoLib's default walk/idle controller can't be used
-        controllers.add(new AnimationController<>(this, "movement", 0,
+        // The model only has a "walk" animation, so GeckoLib's default walk/idle controller can't
+        // be used
+        controllers.add(new AnimationController<>("movement", /* transitionTicks= */ 0,
                 state -> state.isMoving() ? state.setAndContinue(WALK) : PlayState.STOP));
     }
 

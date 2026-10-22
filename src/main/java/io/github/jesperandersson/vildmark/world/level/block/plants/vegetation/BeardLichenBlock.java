@@ -7,7 +7,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -27,26 +27,31 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.Map;
 
 /**
- * Beard lichen (Usnea) hanging from pine branches: hangs below pine leaves or logs, or beside a pine trunk, in strands
- * of at most {@link #MAX_LENGTH} blocks. The lowest block of a strand is the tip. {@link #FACING} points toward the
- * support: {@code up} hangs as a cross under leaves or a log, a horizontal facing lies flat against a pine trunk.
+ * Beard lichen (Usnea) hanging from pine branches: hangs below pine leaves or logs, or beside a
+ * pine trunk, in strands of at most {@link #MAX_LENGTH} blocks. The lowest block of a strand is the
+ * tip. {@link #FACING} points toward the support: {@code up} hangs as a cross under leaves or a
+ * log, a horizontal facing lies flat against a pine trunk.
  */
 public class BeardLichenBlock extends Block {
     public static final MapCodec<BeardLichenBlock> CODEC = simpleCodec(BeardLichenBlock::new);
-    public static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class, direction -> direction != Direction.DOWN);
+    public static final EnumProperty<Direction> FACING = EnumProperty.create(
+            "facing", Direction.class, direction -> direction != Direction.DOWN);
     public static final BooleanProperty TIP = BooleanProperty.create("tip");
     public static final int MAX_LENGTH = 2;
-    private static final TagKey<Block> PINE_LOGS = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("vildmark", "pine_logs"));
-    private static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D);
+    private static final TagKey<Block> PINE_LOGS = TagKey.create(
+            Registries.BLOCK, Identifier.fromNamespaceAndPath("vildmark", "pine_logs"));
+    private static final VoxelShape HANGING_SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 16.0, 14.0);
     private static final Map<Direction, VoxelShape> WALL_SHAPES = Map.of(
-            Direction.NORTH, Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 1.0D),
-            Direction.SOUTH, Block.box(0.0D, 0.0D, 15.0D, 16.0D, 16.0D, 16.0D),
-            Direction.WEST, Block.box(0.0D, 0.0D, 0.0D, 1.0D, 16.0D, 16.0D),
-            Direction.EAST, Block.box(15.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D));
+            Direction.NORTH, Block.box(0.0, 0.0, 0.0, 16.0, 16.0, 1.0),
+            Direction.SOUTH, Block.box(0.0, 0.0, 15.0, 16.0, 16.0, 16.0),
+            Direction.WEST, Block.box(0.0, 0.0, 0.0, 1.0, 16.0, 16.0),
+            Direction.EAST, Block.box(15.0, 0.0, 0.0, 16.0, 16.0, 16.0));
 
     public BeardLichenBlock(Properties properties) {
         super(properties);
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.UP).setValue(TIP, true));
+        registerDefaultState(stateDefinition.any()
+                .setValue(FACING, Direction.UP)
+                .setValue(TIP, true));
     }
 
     @Override
@@ -60,26 +65,35 @@ public class BeardLichenBlock extends Block {
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    protected VoxelShape getShape(
+            BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         Direction facing = state.getValue(FACING);
-        return facing == Direction.UP ? SHAPE : WALL_SHAPES.get(facing);
+        return facing == Direction.UP ? HANGING_SHAPE : WALL_SHAPES.get(facing);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         LevelReader level = context.getLevel();
         BlockPos pos = context.getClickedPos();
-        BlockState base = defaultBlockState().setValue(TIP, !level.getBlockState(pos.below()).is(this));
+        boolean isLowest = !level.getBlockState(pos.below()).is(this);
+        BlockState base = defaultBlockState().setValue(TIP, isLowest);
+
         // Continue an existing strand with its facing
         BlockState above = level.getBlockState(pos.above());
         if (above.is(this)) {
-            BlockState state = base.setValue(FACING, above.getValue(FACING));
-            return state.canSurvive(level, pos) ? state : null;
+            BlockState continuedState = base.setValue(FACING, above.getValue(FACING));
+            return continuedState.canSurvive(level, pos) ? continuedState : null;
         }
+
+        // Otherwise attach toward the first support in the direction the player looks
         for (Direction direction : context.getNearestLookingDirections()) {
-            if (direction == Direction.DOWN) continue;
-            BlockState state = base.setValue(FACING, direction);
-            if (state.canSurvive(level, pos)) return state;
+            if (direction == Direction.DOWN) {
+                continue;
+            }
+            BlockState facingState = base.setValue(FACING, direction);
+            if (facingState.canSurvive(level, pos)) {
+                return facingState;
+            }
         }
         return null;
     }
@@ -89,29 +103,45 @@ public class BeardLichenBlock extends Block {
         // Walk up the strand to its anchor; a strand longer than MAX_LENGTH has none
         Direction facing = state.getValue(FACING);
         BlockPos.MutableBlockPos cursor = pos.mutable();
-        for (int i = 0; i < MAX_LENGTH; i++) {
-            if (isAnchored(level, cursor, facing)) return true;
+        for (int blocksChecked = 0; blocksChecked < MAX_LENGTH; blocksChecked++) {
+            if (isAnchored(level, cursor, facing)) {
+                return true;
+            }
             cursor.move(Direction.UP);
             BlockState above = level.getBlockState(cursor);
-            if (!above.is(this) || above.getValue(FACING) != facing) return false;
+            if (!above.is(this) || above.getValue(FACING) != facing) {
+                return false;
+            }
         }
         return false;
     }
 
-    /** Whether a lichen block at {@code pos} facing {@code facing} hangs from pine leaves or a pine log above, or clings to a pine trunk on that side. */
+    /**
+     * Whether a lichen block at {@code pos} facing {@code facing} hangs from pine leaves or a pine
+     * log above, or clings to a pine trunk on that side.
+     */
     public static boolean isAnchored(LevelReader level, BlockPos pos, Direction facing) {
         BlockState support = level.getBlockState(pos.relative(facing));
         return facing == Direction.UP ? isSupport(support) : support.is(PINE_LOGS);
     }
 
+    /** Whether lichen can hang below this block: pine leaves or a pine log. */
     public static boolean isSupport(BlockState state) {
         return state.is(VBlocks.PINE_LEAVES.get()) || state.is(PINE_LOGS);
     }
 
     @Override
-    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess tickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
-        if (!state.canSurvive(level, pos)) return Blocks.AIR.defaultBlockState();
-        if (direction == Direction.DOWN) return state.setValue(TIP, !neighborState.is(this));
+    protected BlockState updateShape(
+            BlockState state, LevelReader level, ScheduledTickAccess tickAccess, BlockPos pos,
+            Direction directionToNeighbor, BlockPos neighborPos, BlockState neighborState,
+            RandomSource random) {
+        if (!state.canSurvive(level, pos)) {
+            return Blocks.AIR.defaultBlockState();
+        }
+        // The block below changed, so this block may have become or stopped being the tip
+        if (directionToNeighbor == Direction.DOWN) {
+            return state.setValue(TIP, !neighborState.is(this));
+        }
         return state;
     }
 

@@ -14,7 +14,8 @@ public class VParticleTypes  {
             DeferredRegister.create(Registries.PARTICLE_TYPE, Vildmark.MODID);
 
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> WISP_FLAME =
-            PARTICLE_TYPES.register("wisp_flame", () -> new SimpleParticleType(false));
+            PARTICLE_TYPES.register("wisp_flame",
+                    () -> new SimpleParticleType(/* overrideLimiter= */ false));
 
     public static void register(IEventBus modEventBus) {
         PARTICLE_TYPES.register(modEventBus);

@@ -5,11 +5,11 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 /** A small plant that grows on bog ground (peat, mud, moss) and the dirt blocks around it. */
-public class BogPlantBlock extends BushBlock {
+public class BogPlantBlock extends VegetationBlock {
     public static final MapCodec<BogPlantBlock> CODEC = simpleCodec(BogPlantBlock::new);
 
     public BogPlantBlock(Properties properties) {
@@ -17,13 +17,18 @@ public class BogPlantBlock extends BushBlock {
     }
 
     @Override
-    protected MapCodec<? extends BushBlock> codec() {
+    protected MapCodec<? extends VegetationBlock> codec() {
         return CODEC;
     }
 
     @Override
-    protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        return pState.is(VBlocks.PEAT.get()) || pState.is(Blocks.MUD) || pState.is(Blocks.MOSS_BLOCK)
-                || pState.is(Blocks.GRASS_BLOCK) || pState.is(Blocks.DIRT) || pState.is(Blocks.PODZOL);
+    protected boolean mayPlaceOn(BlockState ground, BlockGetter level, BlockPos groundPos) {
+        boolean isBogGround = ground.is(VBlocks.PEAT.get())
+                || ground.is(Blocks.MUD)
+                || ground.is(Blocks.MOSS_BLOCK);
+        boolean isDirtGround = ground.is(Blocks.GRASS_BLOCK)
+                || ground.is(Blocks.DIRT)
+                || ground.is(Blocks.PODZOL);
+        return isBogGround || isDirtGround;
     }
 }

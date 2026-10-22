@@ -22,10 +22,13 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
+/**
+ * Reed (vass): a two block tall plant that grows in shallow water or on wet ground at the shore.
+ * Both halves can be waterlogged.
+ */
 public class ReedBlock extends DoublePlantBlock implements SimpleWaterloggedBlock {
-    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-
     public static final MapCodec<ReedBlock> CODEC = simpleCodec(ReedBlock::new);
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public ReedBlock(Properties properties) {
         super(properties);
@@ -38,43 +41,59 @@ public class ReedBlock extends DoublePlantBlock implements SimpleWaterloggedBloc
     }
 
     @Override
-    protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        return pState.is(Blocks.DIRT) || pState.is(Blocks.GRASS_BLOCK) || pState.is(Blocks.PODZOL)
-                || pState.is(Blocks.COARSE_DIRT) || pState.is(Blocks.MUD) || pState.is(Blocks.SAND)
-                || pState.is(VBlocks.PEAT.get()) || pState.is(Blocks.MOSS_BLOCK);
+    protected boolean mayPlaceOn(BlockState ground, BlockGetter level, BlockPos groundPos) {
+        boolean isDirtGround = ground.is(Blocks.DIRT)
+                || ground.is(Blocks.GRASS_BLOCK)
+                || ground.is(Blocks.PODZOL)
+                || ground.is(Blocks.COARSE_DIRT);
+        boolean isShoreGround = ground.is(Blocks.MUD)
+                || ground.is(Blocks.SAND)
+                || ground.is(VBlocks.PEAT.get())
+                || ground.is(Blocks.MOSS_BLOCK);
+        return isDirtGround || isShoreGround;
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        super.createBlockStateDefinition(pBuilder);
-        pBuilder.add(WATERLOGGED);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(WATERLOGGED);
     }
 
     @Override
-    protected FluidState getFluidState(BlockState pState) {
-        return pState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
+    protected FluidState getFluidState(BlockState state) {
+        if (state.getValue(WATERLOGGED)) {
+            return Fluids.WATER.getSource(false);
+        }
+        return super.getFluidState(state);
     }
 
     @Override
     @javax.annotation.Nullable
-    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        BlockState state = super.getStateForPlacement(pContext);
-        if (state == null) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        // Null when the upper half has no room
+        BlockState placedState = super.getStateForPlacement(context);
+        if (placedState == null) {
             return null;
         }
-        FluidState fluid = pContext.getLevel().getFluidState(pContext.getClickedPos());
-        return state.setValue(WATERLOGGED, fluid.is(FluidTags.WATER) && fluid.isSource());
+        FluidState fluid = context.getLevel().getFluidState(context.getClickedPos());
+        return placedState.setValue(WATERLOGGED, fluid.is(FluidTags.WATER) && fluid.isSource());
     }
 
     @Override
-    protected BlockState updateShape(BlockState pState, LevelReader pLevel, ScheduledTickAccess tickAccess, BlockPos pPos, Direction pDirection, BlockPos pNeighborPos, BlockState pNeighborState, RandomSource random) {
-        if (pState.getValue(WATERLOGGED)) {
-            tickAccess.scheduleTick(pPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
+    protected BlockState updateShape(
+            BlockState state, LevelReader level, ScheduledTickAccess tickAccess, BlockPos pos,
+            Direction directionToNeighbor, BlockPos neighborPos, BlockState neighborState,
+            RandomSource random) {
+        boolean isWaterlogged = state.getValue(WATERLOGGED);
+        if (isWaterlogged) {
+            tickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        BlockState result = super.updateShape(pState, pLevel, tickAccess, pPos, pDirection, pNeighborPos, pNeighborState, random);
-        if (result.isAir() && pState.getValue(WATERLOGGED)) {
+        BlockState updatedState = super.updateShape(state, level, tickAccess, pos,
+                directionToNeighbor, neighborPos, neighborState, random);
+        // When the other half breaks, leave water behind instead of air
+        if (updatedState.isAir() && isWaterlogged) {
             return Fluids.WATER.defaultFluidState().createLegacyBlock();
         }
-        return result;
+        return updatedState;
     }
 }

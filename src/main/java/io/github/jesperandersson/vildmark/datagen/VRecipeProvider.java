@@ -9,27 +9,31 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.concurrent.CompletableFuture;
 
+/** Crafting, smelting and cooking recipes. */
 public class VRecipeProvider extends RecipeProvider {
     protected VRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
         super(registries, output);
     }
 
-    // The data provider that datagen runs; it creates a VRecipeProvider once the registries are available
+    // The data provider that datagen runs; it creates a VRecipeProvider once the registries are
+    // available
     public static class Runner extends RecipeProvider.Runner {
         public Runner(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
             super(output, lookupProvider);
         }
 
         @Override
-        protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
+        protected RecipeProvider createRecipeProvider(
+                HolderLookup.Provider registries, RecipeOutput output) {
             return new VRecipeProvider(registries, output);
         }
 
@@ -63,7 +67,7 @@ public class VRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_planks", has(VBlocks.PINE_PLANKS))
                 .save(output);
 
-        shaped(RecipeCategory.BUILDING_BLOCKS, Blocks.WHITE_WOOL, 1)
+        shaped(RecipeCategory.BUILDING_BLOCKS, Blocks.WOOL.white(), 1)
                 .pattern("###")
                 .pattern("###")
                 .pattern("###")
@@ -86,10 +90,16 @@ public class VRecipeProvider extends RecipeProvider {
         cookFood(VItems.PIKE.get(), VItems.COOKED_PIKE.get());
         cookFood(VItems.ROACH.get(), VItems.COOKED_ROACH.get());
 
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(VBlocks.PEAT_IRON_ORE), RecipeCategory.MISC, Items.RAW_IRON, 0.7F, 200)
+        // Same experience and times as vanilla iron ore. The blast furnace takes half as long
+        Ingredient peatIronOre = Ingredient.of(VBlocks.PEAT_IRON_ORE);
+        SimpleCookingRecipeBuilder.smelting(peatIronOre, RecipeCategory.MISC,
+                        CookingBookCategory.MISC, Items.RAW_IRON,
+                        /* experience= */ 0.7F, /* cookingTimeTicks= */ 200)
                 .unlockedBy("has_peat_iron_ore", has(VBlocks.PEAT_IRON_ORE))
                 .save(output, modId("raw_iron_from_smelting_peat_iron_ore"));
-        SimpleCookingRecipeBuilder.blasting(Ingredient.of(VBlocks.PEAT_IRON_ORE), RecipeCategory.MISC, Items.RAW_IRON, 0.7F, 100)
+        SimpleCookingRecipeBuilder.blasting(peatIronOre, RecipeCategory.MISC,
+                        CookingBookCategory.MISC, Items.RAW_IRON,
+                        /* experience= */ 0.7F, /* cookingTimeTicks= */ 100)
                 .unlockedBy("has_peat_iron_ore", has(VBlocks.PEAT_IRON_ORE))
                 .save(output, modId("raw_iron_from_blasting_peat_iron_ore"));
     }
@@ -97,18 +107,22 @@ public class VRecipeProvider extends RecipeProvider {
     // Furnace, smoker and campfire recipes with vanilla's cooking times for raw fish and meat
     private void cookFood(ItemLike raw, ItemLike cooked) {
         String cookedName = getItemName(cooked);
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(raw), RecipeCategory.FOOD, cooked, 0.35F, 200)
+        float experience = 0.35F;
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(raw), RecipeCategory.FOOD,
+                        CookingBookCategory.FOOD, cooked, experience, /* cookingTimeTicks= */ 200)
                 .unlockedBy(getHasName(raw), has(raw))
                 .save(output);
-        SimpleCookingRecipeBuilder.smoking(Ingredient.of(raw), RecipeCategory.FOOD, cooked, 0.35F, 100)
+        SimpleCookingRecipeBuilder.smoking(Ingredient.of(raw), RecipeCategory.FOOD, cooked,
+                        experience, /* cookingTimeTicks= */ 100)
                 .unlockedBy(getHasName(raw), has(raw))
                 .save(output, modId(cookedName + "_from_smoking"));
-        SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(raw), RecipeCategory.FOOD, cooked, 0.35F, 600)
+        SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(raw), RecipeCategory.FOOD, cooked,
+                        experience, /* cookingTimeTicks= */ 600)
                 .unlockedBy(getHasName(raw), has(raw))
                 .save(output, modId(cookedName + "_from_campfire_cooking"));
     }
 
     private static String modId(String path) {
-        return ResourceLocation.fromNamespaceAndPath(Vildmark.MODID, path).toString();
+        return Identifier.fromNamespaceAndPath(Vildmark.MODID, path).toString();
     }
 }

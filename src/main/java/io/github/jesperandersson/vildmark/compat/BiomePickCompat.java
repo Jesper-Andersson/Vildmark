@@ -11,11 +11,14 @@ public final class BiomePickCompat {
 
     private BiomePickCompat() {}
 
-    /** Whether the biome is turned off in Biome Pick'n'Choose. Always false when it isn't installed. */
+    /**
+     * Whether the biome is turned off in Biome Pick'n'Choose. Always false when it isn't installed.
+     */
     public static boolean isDisabled(Holder<Biome> biome) {
         return Loaded.LOADED && Toggles.isDisabled(biome);
     }
 
+    // Holder class, so ModList is only asked once, the first time isDisabled runs
     private static final class Loaded {
         static final boolean LOADED = ModList.get().isLoaded(MODID);
     }
@@ -23,7 +26,8 @@ public final class BiomePickCompat {
     // Separate class, so BiomeToggles is only resolved when the mod is installed
     private static final class Toggles {
         static boolean isDisabled(Holder<Biome> biome) {
-            // TODO: restore once Biome Pick'n'Choose has a 1.21.4 build (re-enable it in build.gradle too)
+            // TODO: restore once Biome Pick'n'Choose has a 1.21.4 build (re-enable it in
+            // build.gradle too)
             //return BiomeToggles.isDisabled(biome);
             return false;
         }

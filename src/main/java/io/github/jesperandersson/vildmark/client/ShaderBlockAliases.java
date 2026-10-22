@@ -11,8 +11,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 /**
- * Gives Vildmark plants the shader block IDs of matching vanilla plants, so shader packs that only list vanilla
- * blocks in their block.properties still animate them (leaves sway, foliage waves).
+ * Gives Vildmark plants the shader block IDs of matching vanilla plants, so shader packs that only
+ * list vanilla blocks in their block.properties still animate them (leaves sway, foliage waves).
  */
 public final class ShaderBlockAliases {
     // Vildmark block -> vanilla block whose shader ID it borrows
@@ -35,32 +35,53 @@ public final class ShaderBlockAliases {
 
     private ShaderBlockAliases() {}
 
-    /** Adds IDs for Vildmark states the pack didn't assign itself, copied from the vanilla template states. */
-    public static void alias(Object2IntMap<BlockState> map) {
+    /**
+     * Adds IDs for Vildmark states the pack didn't assign itself, copied from the matching vanilla
+     * template states.
+     */
+    public static void alias(Object2IntMap<BlockState> shaderIds) {
         ALIASES.forEach((block, template) -> {
             for (BlockState state : block.get().getStateDefinition().getPossibleStates()) {
-                if (map.containsKey(state)) continue;
-                int id = map.getInt(templateState(state, template));
-                if (id != -1) map.put(state, id);
+                if (shaderIds.containsKey(state)) {
+                    continue;
+                }
+                // The map returns -1 for states the pack doesn't list
+                int templateId = shaderIds.getInt(templateState(state, template));
+                if (templateId != -1) {
+                    shaderIds.put(state, templateId);
+                }
             }
         });
     }
 
-    /** Template's default state with every property both blocks share (by name and value) copied over. */
+    /**
+     * Returns the template's default state, with every property the two blocks share (same name
+     * and value) copied from the given state. A waterlogged pine leaf maps to a waterlogged oak
+     * leaf, for example.
+     */
     private static BlockState templateState(BlockState state, Block template) {
-        BlockState result = template.defaultBlockState();
+        BlockState templateState = template.defaultBlockState();
         for (Property<?> property : state.getProperties()) {
-            Property<?> target = template.getStateDefinition().getProperty(property.getName());
-            if (target != null) result = copy(result, target, valueName(state, property));
+            Property<?> templateProperty =
+                    template.getStateDefinition().getProperty(property.getName());
+            if (templateProperty != null) {
+                String valueName = valueName(state, property);
+                templateState = withValueNamed(templateState, templateProperty, valueName);
+            }
         }
-        return result;
+        return templateState;
     }
 
-    private static <T extends Comparable<T>> String valueName(BlockState state, Property<T> property) {
+    private static <T extends Comparable<T>> String valueName(
+            BlockState state, Property<T> property) {
         return property.getName(state.getValue(property));
     }
 
-    private static <T extends Comparable<T>> BlockState copy(BlockState result, Property<T> target, String value) {
-        return target.getValue(value).map(v -> result.setValue(target, v)).orElse(result);
+    // Unchanged if the property has no value with that name
+    private static <T extends Comparable<T>> BlockState withValueNamed(
+            BlockState state, Property<T> property, String valueName) {
+        return property.getValue(valueName)
+                .map(value -> state.setValue(property, value))
+                .orElse(state);
     }
 }

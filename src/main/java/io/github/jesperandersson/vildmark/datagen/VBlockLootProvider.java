@@ -3,7 +3,7 @@ package io.github.jesperandersson.vildmark.datagen;
 import io.github.jesperandersson.vildmark.Vildmark;
 import io.github.jesperandersson.vildmark.world.item.VItems;
 import io.github.jesperandersson.vildmark.world.level.block.VBlocks;
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.advancements.predicates.StatePropertiesPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -28,6 +28,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.Set;
 
+/** Block loot tables: what each block drops when broken. */
 public class VBlockLootProvider extends BlockLootSubProvider {
     public VBlockLootProvider(HolderLookup.Provider registries) {
         super(Set.of(), FeatureFlags.REGISTRY.allFlags(), registries);
@@ -43,9 +44,10 @@ public class VBlockLootProvider extends BlockLootSubProvider {
         dropSelf(VBlocks.PINE_STAIRS.get());
         add(VBlocks.PINE_SLAB.get(), this::createSlabItemTable);
         dropSelf(VBlocks.SLANTED_FENCE.get());
-        add(VBlocks.PINE_LEAVES.get(), block -> createLeavesDrops(block, VBlocks.PINE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        add(VBlocks.PINE_LEAVES.get(), block -> createLeavesDrops(
+                block, VBlocks.PINE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
         dropSelf(VBlocks.PINE_SAPLING.get());
-        add(VBlocks.PINE_NEEDLES.get(), this::createPetalsDrops);
+        add(VBlocks.PINE_NEEDLES.get(), this::createSegmentedBlockDrops);
 
         dropSelf(VBlocks.BEARD_LICHEN.get());
 
@@ -58,44 +60,55 @@ public class VBlockLootProvider extends BlockLootSubProvider {
         add(VBlocks.BLUEBERRY_PIE.get(), noDrop());
 
         // Plants
-        add(VBlocks.LINGONBERRY_SHRUB.get(), block -> createBerryShrubDrops(block, VItems.LINGONBERRIES_ITEM.get()));
-        add(VBlocks.BLUEBERRY_SHRUB.get(), block -> createBerryShrubDrops(block, VItems.BLUEBERRIES_ITEM.get()));
-        add(VBlocks.CLOUDBERRY_SHRUB.get(), block -> createBerryShrubDrops(block, VItems.CLOUDBERRIES_ITEM.get()));
+        add(VBlocks.LINGONBERRY_SHRUB.get(),
+                block -> createBerryShrubDrops(block, VItems.LINGONBERRIES_ITEM.get()));
+        add(VBlocks.BLUEBERRY_SHRUB.get(),
+                block -> createBerryShrubDrops(block, VItems.BLUEBERRIES_ITEM.get()));
+        add(VBlocks.CLOUDBERRY_SHRUB.get(),
+                block -> createBerryShrubDrops(block, VItems.CLOUDBERRIES_ITEM.get()));
         dropOther(VBlocks.CHANTARELLE.get(), VItems.CHANTARELLE_ITEM.get());
         dropSelf(VBlocks.PINE_CONK.get());
         add(VBlocks.REED.get(), block -> createLowerHalfDrops(block, block));
         add(VBlocks.CATTAIL.get(), block -> createLowerHalfDrops(block, block));
-        add(VBlocks.TALL_STINGING_NETTLE.get(), block -> createLowerHalfDrops(block, VItems.STINGING_NETTLE_ITEM.get()));
+        add(VBlocks.TALL_STINGING_NETTLE.get(),
+                block -> createLowerHalfDrops(block, VItems.STINGING_NETTLE_ITEM.get()));
         dropSelf(VBlocks.STINGING_NETTLE.get());
         dropSelf(VBlocks.SNAKE_FERN.get());
         dropSelf(VBlocks.HEATHER.get());
     }
 
-    // Same as the sweet berry bush, but the shrubs fruit at age 4 instead of 3
+    // Same as the sweet berry bush, but the shrubs fruit at age 4 instead of 3. Silk touch or
+    // shears drop the shrub itself, otherwise only the berries drop: 2-3 when fully grown, 1-2 at
+    // age 3, plus extra with Fortune
     private LootTable.Builder createBerryShrubDrops(Block block, ItemLike berries) {
-        HolderLookup.RegistryLookup<Enchantment> enchantments = registries.lookupOrThrow(Registries.ENCHANTMENT);
-        // Silk touch or shears drop the shrub itself, otherwise only the berries drop
+        HolderLookup.RegistryLookup<Enchantment> enchantments =
+                registries.lookupOrThrow(Registries.ENCHANTMENT);
+        Holder<Enchantment> fortune = enchantments.getOrThrow(Enchantments.FORTUNE);
         return createSilkTouchOrShearsDispatchTable(block, AlternativesEntry.alternatives(
                 applyExplosionDecay(block, LootItem.lootTableItem(berries)
-                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_4, 4)))
+                        .when(hasAge(block, 4))
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F)))
-                        .apply(ApplyBonusCount.addUniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))),
+                        .apply(ApplyBonusCount.addUniformBonusCount(fortune))),
                 applyExplosionDecay(block, LootItem.lootTableItem(berries)
-                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_4, 3)))
+                        .when(hasAge(block, 3))
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
-                        .apply(ApplyBonusCount.addUniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE))))));
+                        .apply(ApplyBonusCount.addUniformBonusCount(fortune)))));
     }
 
+    private static LootItemBlockStatePropertyCondition.Builder hasAge(Block block, int age) {
+        return LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                .setProperties(StatePropertiesPredicate.Builder.properties()
+                        .hasProperty(BlockStateProperties.AGE_4, age));
+    }
 
     // Two-tall plants only drop from the lower half so breaking them never gives two items
     private LootTable.Builder createLowerHalfDrops(Block block, ItemLike drop) {
+        StatePropertiesPredicate.Builder isLowerHalf = StatePropertiesPredicate.Builder.properties()
+                .hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER);
         return LootTable.lootTable().withPool(applyExplosionCondition(drop, LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1.0F))
                 .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                        .setProperties(StatePropertiesPredicate.Builder.properties()
-                                .hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER)))
+                        .setProperties(isLowerHalf))
                 .add(LootItem.lootTableItem(drop))));
     }
 

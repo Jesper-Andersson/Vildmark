@@ -28,7 +28,6 @@
       ]
     }
   ],
-  "render_type": "minecraft:cutout",
   "textures": {
     "particle": "vildmark:block/pine_needles",
     "texture": "vildmark:block/pine_needles"
