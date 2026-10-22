@@ -34,7 +34,7 @@ import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.api.core.sensor.vanilla.HurtBySensor;
 import net.tslat.smartbrainlib.api.core.sensor.vanilla.NearbyLivingEntitySensor;
 import net.tslat.smartbrainlib.api.core.sensor.vanilla.NearbyPlayersSensor;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
@@ -68,10 +68,12 @@ public class BarrowWight extends Monster implements GeoEntity, SmartBrainOwner<B
         return new SmartBrainProvider<>(this);
     }
 
+    /*
     @Override
     protected void customServerAiStep() {
         tickBrain(this);
     }
+    */
 
     @Override
     public List<? extends ExtendedSensor<? extends BarrowWight>> getSensors() {
@@ -101,8 +103,8 @@ public class BarrowWight extends Monster implements GeoEntity, SmartBrainOwner<B
                                 .lookPredicate((self, player) -> self.getSensing().hasLineOfSight(player) && self.distanceToSqr(player) <= 8 * 8),
                         new SetRandomLookTarget<>()),
                 new OneRandomBehaviour<BarrowWight>(
-                        new SetRandomWalkTarget<>(),
-                        new Idle<>().runForBetween(30, 60)));
+                        new SetRandomWalkTarget<>()));
+                        //new Idle<>().runForBetween(30, 60)));
     }
 
     @Override
@@ -118,7 +120,7 @@ public class BarrowWight extends Monster implements GeoEntity, SmartBrainOwner<B
         if (!entity.isAlive() || entity instanceof Player player && player.getAbilities().invulnerable)
             return false;
 
-        return entity instanceof Player || entity == BrainUtils.getMemory(this, MemoryModuleType.HURT_BY_ENTITY);
+        return entity instanceof Player || entity == BrainUtil.getMemory(this, MemoryModuleType.HURT_BY_ENTITY);
     }
 
     @Override

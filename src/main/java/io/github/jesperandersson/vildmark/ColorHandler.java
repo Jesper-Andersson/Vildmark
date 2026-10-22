@@ -24,7 +24,7 @@ public class ColorHandler {
                 ((blockState, blockAndTintGetter, blockPos, tintIndex) -> {
                     return blockAndTintGetter != null && blockPos != null ?
                             BiomeColors.getAverageFoliageColor(blockAndTintGetter, blockPos) :
-                            FoliageColor.getDefaultColor();
+                            FoliageColor.FOLIAGE_DEFAULT;
 
                 }),
                 VBlocks.PINE_LEAVES.get()
@@ -43,12 +43,13 @@ public class ColorHandler {
                 VBlocks.HEATHER.get());
 
     }
+    /*
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
-    public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
-        event.register(
+    public static void registerItemColors(RegisterColorHandlersEvent.ItemTintSources tintSources) {
+        tintSources.register(
                 (itemStack, tintIndex) -> {
-                    return FoliageColor.getDefaultColor();
+                    return FoliageColor.FOLIAGE_DEFAULT;
                 },
                 VItems.PINE_LEAVES_ITEM.get()
         );
@@ -59,4 +60,5 @@ public class ColorHandler {
         );
         event.register((itemStack, tintIndex) -> HEATHER_COLOR, VItems.HEATHER_ITEM.get());
     }
+     */
 }

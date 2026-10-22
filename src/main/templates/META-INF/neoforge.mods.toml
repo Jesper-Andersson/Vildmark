@@ -95,17 +95,17 @@ ordering = "NONE"
 side = "BOTH"
 
 # Optional: lists Vildmark's biomes in its menu, lakes respect biomes turned off in it
-[[dependencies."${mod_id}"]]
-modId = "biomepicknchoose"
-type = "optional"
-versionRange = "${biomepicknchoose_version_range}"
-ordering = "NONE"
-side = "BOTH"
+# [[dependencies."mod_id"]]
+# modId = "biomepicknchoose"
+# type = "optional"
+# versionRange = "biomepicknchoose_version_range"
+# ordering = "NONE"
+# side = "BOTH"
 
 # Optional: the will o' the wisp emits light, see assets/vildmark/dynamiclights
-[[dependencies."${mod_id}"]]
-modId = "lambdynlights"
-type = "optional"
-versionRange = "${lambdynamiclights_version_range}"
-ordering = "NONE"
-side = "CLIENT"
+# [[dependencies."mod_id"]]
+# modId = "lambdynlights"
+# type = "optional"
+# versionRange = "lambdynamiclights_version_range"
+# ordering = "NONE"
+# side = "CLIENT"

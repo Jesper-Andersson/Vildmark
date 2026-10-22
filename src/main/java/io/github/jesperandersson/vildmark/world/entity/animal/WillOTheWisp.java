@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.ambient.Bat;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -29,7 +29,7 @@ public class WillOTheWisp extends Bat implements GeoEntity {
         this.setNoGravity(true);
     }
 
-    public static boolean checkWillOTheWispSpawnRules(EntityType<WillOTheWisp> willothewisp, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+    public static boolean checkWillOTheWispSpawnRules(EntityType<WillOTheWisp> willothewisp, LevelAccessor level, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
         if (!level.canSeeSky(pos)) {
             return false;
         } else {

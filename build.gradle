@@ -45,7 +45,7 @@ repositories {
         filter { includeGroup 'net.tslat.smartbrainlib' }
     }
     // Biome Pick'n'Choose, the NeoForge jar attached to its GitHub release for this Minecraft version
-    exclusiveContent {
+    /*exclusiveContent {
         forRepository {
             ivy {
                 name = "Biome Pick'n'Choose releases"
@@ -55,7 +55,7 @@ repositories {
             }
         }
         filter { includeModule 'com.github.Jesper_Andersson', 'biomepicknchoose' }
-    }
+    }*/
 }
 
 base {
@@ -109,7 +109,8 @@ neoForge {
         }
 
         data {
-            data()
+            clientData() // Update run type from `data` to `clientData`
+
             // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
             // gameDirectory = project.file('run-data')
 
@@ -182,31 +183,31 @@ dependencies {
 
     // Optional: lists Vildmark's biomes and lets lakes respect disabled biomes, see compat/BiomePickCompat
     // Remove the localRuntime line to test Vildmark without it
-    compileOnly "com.github.Jesper_Andersson:biomepicknchoose:${biomepicknchoose_version}"
-    localRuntime "com.github.Jesper_Andersson:biomepicknchoose:${biomepicknchoose_version}"
+    //compileOnly "com.github.Jesper_Andersson:biomepicknchoose:${biomepicknchoose_version}"
+    //localRuntime "com.github.Jesper_Andersson:biomepicknchoose:${biomepicknchoose_version}"
 
     // Dev-only: shader testing (Iris requires this exact Sodium version)
     // Iris is also compileOnly for the entity ID types used by mixin/IrisIdMapMixin
-    localRuntime "maven.modrinth:sodium:mc1.21.1-0.6.13-neoforge"
-    compileOnly "maven.modrinth:iris:1.8.12+1.21.1-neoforge"
-    localRuntime "maven.modrinth:iris:1.8.12+1.21.1-neoforge"
+    //localRuntime "maven.modrinth:sodium:mc1.21.1-0.6.13-neoforge"
+    //compileOnly "maven.modrinth:iris:1.8.12+1.21.1-neoforge"
+    //localRuntime "maven.modrinth:iris:1.8.12+1.21.1-neoforge"
 
     // Optional: the lantern emits light while moving, set up as data in assets/vildmark/dynamiclights/, so no API needed.
     // Pinned by Modrinth version ID, since the jar is shared with other loaders
-    localRuntime "maven.modrinth:lambdynamiclights:ksaGCvSu"    // 4.8.11+1.21.1
+    //localRuntime "maven.modrinth:lambdynamiclights:ksaGCvSu"    // 4.8.11+1.21.1
 
     // Dev-only: building and testing structures. Pinned by Modrinth version ID, since these version numbers are shared
     // with other loaders' files
-    localRuntime "maven.modrinth:worldedit:WTAFvuRx"            // 7.3.8
-    localRuntime "maven.modrinth:effortless-building:YxnBXtLv"  // 4.2
-    localRuntime "maven.modrinth:jei:iv3KiVkE"                  // 19.64.0.455
-    localRuntime "maven.modrinth:jade:eYz2YBGT"                 // 15.10.6
+    //localRuntime "maven.modrinth:worldedit:WTAFvuRx"            // 7.3.8
+    //localRuntime "maven.modrinth:effortless-building:YxnBXtLv"  // 4.2
+    //localRuntime "maven.modrinth:jei:iv3KiVkE"                  // 19.64.0.455
+    //localRuntime "maven.modrinth:jade:eYz2YBGT"                 // 15.10.6
 
     // Dev-only: worldgen compat testing, only on the compatClient run
-    compatRuntimeOnly sourceSets.main.output
-    compatRuntimeOnly "maven.modrinth:terralith:${terralith_version}"
-    compatRuntimeOnly "maven.modrinth:tectonic:${tectonic_version}"
-    compatRuntimeOnly "maven.modrinth:c2me-neoforge:${c2me_version}"
+    //compatRuntimeOnly sourceSets.main.output
+    //compatRuntimeOnly "maven.modrinth:terralith:${terralith_version}"
+    //compatRuntimeOnly "maven.modrinth:tectonic:${tectonic_version}"
+    //compatRuntimeOnly "maven.modrinth:c2me-neoforge:${c2me_version}"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -228,8 +229,8 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             lithostitched_version_range : lithostitched_version_range,
             apollib_version_range : apollib_version_range,
             smartbrainlib_version_range : smartbrainlib_version_range,
-            biomepicknchoose_version_range : biomepicknchoose_version_range,
-            lambdynamiclights_version_range : lambdynamiclights_version_range,
+            //biomepicknchoose_version_range : biomepicknchoose_version_range,
+            //lambdynamiclights_version_range : lambdynamiclights_version_range,
             neo_version_range : neo_version_range
     ]
     inputs.properties replaceProperties

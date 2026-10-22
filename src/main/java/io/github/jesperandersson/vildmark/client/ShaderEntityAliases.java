@@ -3,7 +3,7 @@ package io.github.jesperandersson.vildmark.client;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMaps;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import net.irisshaders.iris.shaderpack.materialmap.NamespacedId;
+//import net.irisshaders.iris.shaderpack.materialmap.NamespacedId;
 
 import java.util.Map;
 
@@ -24,6 +24,7 @@ public final class ShaderEntityAliases {
      * Returns the pack's map plus IDs for Vildmark entities it didn't assign itself, copied from the vanilla template
      * entities. Iris hands out an unmodifiable map, so this builds a new one.
      */
+    /*
     public static Object2IntMap<NamespacedId> alias(Object2IntMap<NamespacedId> map) {
         Object2IntMap<NamespacedId> result = new Object2IntOpenHashMap<>(map);
         result.defaultReturnValue(map.defaultReturnValue());
@@ -34,4 +35,5 @@ public final class ShaderEntityAliases {
         });
         return Object2IntMaps.unmodifiable(result);
     }
+     */
 }
