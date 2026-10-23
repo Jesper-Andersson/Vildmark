@@ -90,6 +90,7 @@ public class Vildmark {
             configuredFeatureKey("pine");
     public static final ResourceKey<PlacedFeature> PINE_PLACED = placedFeatureKey("pine");
 
+    //TODO: Move to separate class
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> VILDMARK_TAB =
             CREATIVE_MODE_TABS.register("vildmark_tab", () -> CreativeModeTab.builder()
                     .withTabsBefore(CreativeModeTabs.COMBAT)
